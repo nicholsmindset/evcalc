@@ -2,26 +2,245 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ============================================
+   EV Range Calculator — Design Tokens
+   Dark-first design system
+   ============================================ */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Base backgrounds */
+  --bg-primary: #0a0a0f;
+  --bg-secondary: #12121a;
+  --bg-tertiary: #1a1a2e;
+  --border: #2a2a3e;
+
+  /* Text */
+  --text-primary: #f0f0f5;
+  --text-secondary: #8888a0;
+  --text-tertiary: #5a5a70;
+
+  /* Accent — Electric Green */
+  --accent: #00e676;
+  --accent-dim: #00c853;
+  --accent-glow: rgba(0, 230, 118, 0.15);
+
+  /* Range indicator colors */
+  --range-full: #00e676;
+  --range-good: #66bb6a;
+  --range-caution: #ffc107;
+  --range-low: #ff5252;
+
+  /* Semantic */
+  --success: #00e676;
+  --warning: #ffc107;
+  --error: #ff5252;
+  --info: #448aff;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* Light mode overrides */
+.light {
+  --bg-primary: #f8f9fa;
+  --bg-secondary: #ffffff;
+  --bg-tertiary: #f0f1f3;
+  --border: #e0e0e8;
+
+  --text-primary: #1a1a2e;
+  --text-secondary: #5a5a70;
+  --text-tertiary: #8888a0;
+
+  --accent: #00c853;
+  --accent-dim: #00a844;
+  --accent-glow: rgba(0, 200, 83, 0.1);
+}
+
+/* ============================================
+   Base Styles
+   ============================================ */
+
+@layer base {
+  body {
+    @apply bg-bg-primary text-text-primary font-body antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--bg-primary);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 4px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--text-tertiary);
+  }
+
+  /* Selection */
+  ::selection {
+    background: var(--accent-glow);
+    color: var(--accent);
+  }
+
+  /* Focus ring */
+  *:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: 4px;
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-}
+/* ============================================
+   Utility Classes
+   ============================================ */
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, var(--accent), var(--info));
+  }
+
+  .glass {
+    background: rgba(18, 18, 26, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+  }
+
+  .glow-accent {
+    box-shadow: 0 0 20px var(--accent-glow), 0 0 60px rgba(0, 230, 118, 0.05);
+  }
+}
+
+/* ============================================
+   Custom Range Slider
+   ============================================ */
+
+.slider-input {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  border-radius: 3px;
+  outline: none;
+  cursor: pointer;
+}
+
+.slider-input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 3px solid var(--bg-primary);
+  box-shadow: 0 0 8px var(--accent-glow), 0 1px 3px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.slider-input::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+  box-shadow: 0 0 16px var(--accent-glow), 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+.slider-input::-webkit-slider-thumb:active {
+  transform: scale(1.05);
+}
+
+.slider-input::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 3px solid var(--bg-primary);
+  box-shadow: 0 0 8px var(--accent-glow), 0 1px 3px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+}
+
+/* ============================================
+   Range Gauge Animation
+   ============================================ */
+
+@keyframes gauge-fill {
+  from {
+    stroke-dashoffset: var(--gauge-circumference);
+  }
+  to {
+    stroke-dashoffset: var(--gauge-offset);
+  }
+}
+
+.gauge-circle {
+  animation: gauge-fill 1s ease-out forwards;
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.4s ease-out forwards;
+}
+
+@keyframes count-up {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-count-up {
+  animation: count-up 0.3s ease-out;
+}
+
+/* ============================================
+   Mapbox Popup Overrides
+   ============================================ */
+
+.mapboxgl-popup-content {
+  background: transparent !important;
+  padding: 0 !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
+
+.mapboxgl-popup-tip {
+  border-top-color: var(--bg-secondary) !important;
+}
+
+.mapboxgl-popup-close-button {
+  display: none;
+}
+
+.mapboxgl-ctrl-attrib {
+  font-size: 10px !important;
+  opacity: 0.5;
+}
+
+.mapboxgl-ctrl-attrib a {
+  color: var(--text-tertiary) !important;
 }
