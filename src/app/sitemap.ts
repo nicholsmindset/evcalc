@@ -67,23 +67,28 @@ const BRAND_SLUGS = [
 ];
 
 /**
- * Generates 4 sub-sitemaps submitted individually to Google Search Console:
- *   /sitemap/0.xml — Core & Tools
- *   /sitemap/1.xml — Vehicles & Comparisons
- *   /sitemap/2.xml — Content (use cases, states, blog)
- *   /sitemap/3.xml — Locations & Categories
+ * Generates 4 named sub-sitemaps submitted individually to Google Search Console:
+ *   /sitemap/core-tools.xml — Core & Tools
+ *   /sitemap/vehicles.xml   — Vehicles & Comparisons
+ *   /sitemap/content.xml    — Content (use cases, states, blog)
+ *   /sitemap/locations.xml  — Locations & Categories
  *
  * Next.js auto-generates a sitemap index at /sitemap.xml pointing to all 4.
  */
 export async function generateSitemaps() {
-  return [{ id: 0 }, { id: 1 }, { id: 2 }, { id: 3 }];
+  return [
+    { id: 'core-tools' },
+    { id: 'vehicles' },
+    { id: 'content' },
+    { id: 'locations' },
+  ];
 }
 
-export default function sitemap({ id }: { id: number }): MetadataRoute.Sitemap {
+export default function sitemap({ id }: { id: string }): MetadataRoute.Sitemap {
   const now = new Date().toISOString();
 
   switch (id) {
-    case 0: {
+    case 'core-tools': {
       // Core pages + Tool pages
       const corePages: MetadataRoute.Sitemap = [
         { url: SITE_URL, lastModified: now, changeFrequency: 'weekly', priority: 1.0 },
@@ -120,7 +125,7 @@ export default function sitemap({ id }: { id: number }): MetadataRoute.Sitemap {
       return [...corePages, ...toolPages];
     }
 
-    case 1: {
+    case 'vehicles': {
       // Vehicle pages + Comparison pages
       const vehiclePages: MetadataRoute.Sitemap = VEHICLE_SLUGS.map((slug) => ({
         url: `${SITE_URL}/vehicles/${slug}`,
@@ -139,7 +144,7 @@ export default function sitemap({ id }: { id: number }): MetadataRoute.Sitemap {
       return [...vehiclePages, ...comparisonPages];
     }
 
-    case 2: {
+    case 'content': {
       // Content: use cases, state pages, blog posts
       const useCasePages: MetadataRoute.Sitemap = USE_CASES.map((usecase) => ({
         url: `${SITE_URL}/best-ev-for/${usecase}`,
@@ -172,7 +177,7 @@ export default function sitemap({ id }: { id: number }): MetadataRoute.Sitemap {
       return [...useCasePages, ...statePages, ...blogPages];
     }
 
-    case 3: {
+    case 'locations': {
       // Locations & Categories
       const stationPages: MetadataRoute.Sitemap = STATION_REGIONS.map((region) => ({
         url: `${SITE_URL}/charging-stations/${region}`,

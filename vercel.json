@@ -13,6 +13,12 @@
   "redirects": [
     {
       "source": "/(.*)",
+      "has": [{ "type": "host", "value": "evrangetools.com" }],
+      "destination": "https://www.evrangetools.com/$1",
+      "permanent": true
+    },
+    {
+      "source": "/(.*)",
       "has": [{ "type": "host", "value": "evrangecalculator.com" }],
       "destination": "https://www.evrangetools.com/$1",
       "permanent": true
