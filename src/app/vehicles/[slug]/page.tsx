@@ -1,7 +1,7 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { getVehicleBySlug, getAllVehicleSlugs, getVehicles } from '@/lib/supabase/queries/vehicles';
+import { getVehicleBySlug, getVehicles } from '@/lib/supabase/queries/vehicles';
 import { calculateRange, calculateRangeBySpeed } from '@/lib/calculations/range';
 import { generateMetadata as genMeta, generateVehicleSchema, generateBreadcrumbSchema } from '@/lib/utils/seo';
 import { SchemaMarkup } from '@/components/seo/SchemaMarkup';
@@ -9,16 +9,7 @@ import { FAQSection } from '@/components/seo/FAQSection';
 
 import type { Vehicle } from '@/lib/supabase/types';
 
-export const revalidate = 604800; // 7 days
-
-export async function generateStaticParams() {
-  try {
-    const slugs = await getAllVehicleSlugs();
-    return slugs.map((slug) => ({ slug }));
-  } catch {
-    return [];
-  }
-}
+export const dynamic = 'force-dynamic';
 
 export async function generateMetadata({
   params,

@@ -1,23 +1,14 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { getComparisonBySlug, getAllComparisonSlugs } from '@/lib/supabase/queries/comparisons';
+import { getComparisonBySlug } from '@/lib/supabase/queries/comparisons';
 import { calculateRange } from '@/lib/calculations/range';
 import { generateMetadata as genMeta, generateBreadcrumbSchema } from '@/lib/utils/seo';
 import { SchemaMarkup } from '@/components/seo/SchemaMarkup';
 import { FAQSection } from '@/components/seo/FAQSection';
 import type { Vehicle } from '@/lib/supabase/types';
 
-export const revalidate = 604800;
-
-export async function generateStaticParams() {
-  try {
-    const slugs = await getAllComparisonSlugs();
-    return slugs.map((slug) => ({ slug }));
-  } catch {
-    return [];
-  }
-}
+export const dynamic = 'force-dynamic';
 
 function vName(v: Vehicle): string {
   return `${v.year} ${v.make} ${v.model}${v.trim ? ` ${v.trim}` : ''}`;
