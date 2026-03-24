@@ -13,7 +13,7 @@ import type { MapRef } from 'react-map-gl/mapbox';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { getRangeIsochrones } from '@/lib/api/mapbox';
 import type { GeocodingFeature, IsochroneResult } from '@/lib/api/mapbox';
-import { getNearestStations, stationsToGeoJson } from '@/lib/api/nrel';
+import { stationsToGeoJson } from '@/lib/api/nrel';
 import type { NrelStation } from '@/lib/api/nrel';
 import { StationPopup } from './StationPopup';
 
@@ -102,13 +102,20 @@ export function RangeMap({ adjustedRangeMi, speedMph = 35 }: RangeMapProps) {
       setError(null);
 
       try {
-        const [isochrones, stations] = await Promise.all([
+        const stationParams = new URLSearchParams({
+          lat: String(lat),
+          lng: String(lng),
+          radius: String(Math.min(adjustedRangeMi, 50)),
+          limit: '50',
+        });
+        const [isochrones, stationData] = await Promise.all([
           getRangeIsochrones(lng, lat, adjustedRangeMi, speedMph),
-          getNearestStations(lat, lng, {
-            radius: Math.min(adjustedRangeMi, 50),
-            limit: 50,
-          }).catch(() => [] as NrelStation[]),
+          fetch(`/api/stations?${stationParams}`)
+            .then((r) => r.ok ? r.json() : { stations: [] })
+            .then((d) => (d.stations ?? []) as NrelStation[])
+            .catch(() => [] as NrelStation[]),
         ]);
+        const stations = stationData;
 
         setIsochroneData(isochrones);
         setStationsData(stationsToGeoJson(stations));

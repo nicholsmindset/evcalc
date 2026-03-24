@@ -13,7 +13,7 @@ export const metadata: Metadata = genMeta({
   path: '/compare',
 });
 
-export const revalidate = 604800;
+export const dynamic = 'force-dynamic';
 
 export default async function ComparePage() {
   const [comparisons, topVehicles] = await Promise.all([
