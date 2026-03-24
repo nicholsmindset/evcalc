@@ -26,25 +26,23 @@ function circlePolygon(
   return [coords];
 }
 
-/** Build a GeoJSON FeatureCollection from contour minutes + colors */
+/** Build a GeoJSON FeatureCollection from contour miles + colors */
 function buildCircleIsochrone(
   lng: number,
   lat: number,
-  minutesList: number[],
+  milesList: number[],
   colorsList: string[]
 ) {
-  const AVG_SPEED_MPH = 35;
-  const features = minutesList.map((minutes, i) => {
-    const radiusMiles = (minutes / 60) * AVG_SPEED_MPH;
+  const features = milesList.map((miles, i) => {
     const color = `#${colorsList[i] ?? 'aaaaaa'}`;
     return {
       type: 'Feature' as const,
       geometry: {
         type: 'Polygon' as const,
-        coordinates: circlePolygon(lng, lat, radiusMiles),
+        coordinates: circlePolygon(lng, lat, miles),
       },
       properties: {
-        contour: minutes,
+        contour: miles,
         color,
         opacity: 0.3,
         fill: color,
@@ -63,6 +61,7 @@ export async function GET(req: NextRequest) {
   const lng = searchParams.get('lng');
   const lat = searchParams.get('lat');
   const contours_minutes = searchParams.get('contours_minutes');
+  const contours_miles = searchParams.get('contours_miles'); // optional override for fallback
   const contours_colors = searchParams.get('contours_colors');
   const polygons = searchParams.get('polygons') || 'true';
   const denoise = searchParams.get('denoise') || '1';
@@ -102,23 +101,27 @@ export async function GET(req: NextRequest) {
 
   // Fallback: circle polygon approximation (no external API needed)
   try {
-    const minutesList = contours_minutes
-      .split(',')
-      .map((s) => parseInt(s.trim(), 10))
-      .filter((n) => !isNaN(n) && n > 0);
+    // Prefer explicit miles over minute-derived radius for accuracy
+    const milesList = contours_miles
+      ? contours_miles.split(',').map((s) => parseFloat(s.trim())).filter((n) => !isNaN(n) && n > 0)
+      : contours_minutes!
+          .split(',')
+          .map((s) => parseInt(s.trim(), 10))
+          .filter((n) => !isNaN(n) && n > 0)
+          .map((mins) => (mins / 60) * 35); // 35 mph avg
 
     const colorsList = contours_colors
       ? contours_colors.split(',').map((s) => s.trim())
-      : minutesList.map(() => 'aaaaaa');
+      : milesList.map(() => 'aaaaaa');
 
-    if (minutesList.length === 0) {
+    if (milesList.length === 0) {
       return NextResponse.json({ type: 'FeatureCollection', features: [] });
     }
 
     const result = buildCircleIsochrone(
       parseFloat(lng),
       parseFloat(lat),
-      minutesList,
+      milesList,
       colorsList
     );
     return NextResponse.json(result);

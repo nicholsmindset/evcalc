@@ -117,6 +117,7 @@ export async function getIsochrone(
   options: {
     profile?: 'driving' | 'driving-traffic' | 'walking' | 'cycling';
     contourColors?: string[];
+    contourMiles?: number[];
     polygons?: boolean;
     denoise?: number;
     generalize?: number;
@@ -142,6 +143,11 @@ export async function getIsochrone(
 
   if (contourColors?.length) {
     params.set('contours_colors', contourColors.join(','));
+  }
+
+  // Pass miles directly so the server-side fallback can draw accurate circles
+  if (options.contourMiles?.length) {
+    params.set('contours_miles', options.contourMiles.join(','));
   }
 
   const res = await fetch(`/api/isochrone?${params}`);
@@ -220,20 +226,46 @@ export async function getRangeIsochrones(
   adjustedRangeMi: number,
   avgSpeedMph: number = 35
 ): Promise<IsochroneResult> {
-  // Calculate minutes for each charge level
-  const full = rangeMilesToMinutes(adjustedRangeMi, avgSpeedMph);
-  const half = rangeMilesToMinutes(adjustedRangeMi * 0.5, avgSpeedMph);
-  const low = rangeMilesToMinutes(adjustedRangeMi * 0.2, avgSpeedMph);
-
-  // Filter out zero values and deduplicate
-  const contours = Array.from(new Set([full, half, low].filter((m) => m > 0)));
-
-  if (contours.length === 0) {
+  if (adjustedRangeMi <= 0) {
     return { type: 'FeatureCollection', features: [] };
   }
 
-  // Colors: green for full, yellow for half, red for low
-  const colors = ['00e676', 'ffc107', 'ff5252'].slice(0, contours.length);
+  // Mile values for 100%, 50%, 20% charge — always 3 distinct rings
+  const milesFull = Math.round(adjustedRangeMi);
+  const milesHalf = Math.max(1, Math.round(adjustedRangeMi * 0.5));
+  const milesLow  = Math.max(1, Math.round(adjustedRangeMi * 0.2));
 
-  return getIsochrone(lng, lat, contours, { contourColors: colors });
+  // Minutes for Mapbox (capped at 60 per Mapbox limit — fallback uses miles instead)
+  const minFull = rangeMilesToMinutes(adjustedRangeMi, avgSpeedMph);
+  const minHalf = rangeMilesToMinutes(adjustedRangeMi * 0.5, avgSpeedMph);
+  const minLow  = rangeMilesToMinutes(adjustedRangeMi * 0.2, avgSpeedMph);
+
+  // Deduplicate minutes but keep corresponding miles aligned
+  const seen = new Set<number>();
+  const contourMinutes: number[] = [];
+  const contourMiles: number[] = [];
+  const contourColors: string[] = [];
+  const colorPalette = ['00e676', 'ffc107', 'ff5252'];
+
+  for (const [mins, miles, color] of [
+    [minFull, milesFull, colorPalette[0]],
+    [minHalf, milesHalf, colorPalette[1]],
+    [minLow,  milesLow,  colorPalette[2]],
+  ] as [number, number, string][]) {
+    if (mins > 0 && !seen.has(miles)) {
+      seen.add(miles);
+      contourMinutes.push(mins);
+      contourMiles.push(miles);
+      contourColors.push(color);
+    }
+  }
+
+  if (contourMinutes.length === 0) {
+    return { type: 'FeatureCollection', features: [] };
+  }
+
+  return getIsochrone(lng, lat, contourMinutes, {
+    contourColors,
+    contourMiles, // passed to fallback for accurate circle radii
+  });
 }
