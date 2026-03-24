@@ -19,7 +19,9 @@ export async function GET(req: NextRequest) {
   }
 
   try {
+    // Use Mapbox Search API v6 (v5 geocoding was deprecated)
     const params = new URLSearchParams({
+      q: query,
       access_token: token,
       limit,
       autocomplete: 'true',
@@ -27,7 +29,7 @@ export async function GET(req: NextRequest) {
     if (country) params.set('country', country);
     if (types) params.set('types', types);
 
-    const url = `${MAPBOX_BASE}/geocoding/v5/mapbox.places/${encodeURIComponent(query)}.json?${params}`;
+    const url = `${MAPBOX_BASE}/search/geocode/v6/forward?${params}`;
     const res = await fetch(url);
 
     if (!res.ok) {
@@ -37,7 +39,19 @@ export async function GET(req: NextRequest) {
     }
 
     const data = await res.json();
-    return NextResponse.json({ features: data.features ?? [] });
+
+    // Transform v6 response to v5-compatible shape so all clients work without changes:
+    // v5: feature.center = [lng, lat], feature.place_name, feature.id
+    // v6: feature.geometry.coordinates = [lng, lat], feature.properties.full_address, feature.properties.mapbox_id
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const features = (data.features ?? []).map((f: any) => ({
+      ...f,
+      id: f.properties?.mapbox_id ?? f.id,
+      center: f.geometry?.coordinates ?? [],
+      place_name: f.properties?.full_address ?? f.properties?.place_formatted ?? f.properties?.name ?? '',
+    }));
+
+    return NextResponse.json({ features });
   } catch (err) {
     const message = err instanceof Error ? err.message : 'Unknown error';
     console.error('[Geocode] Error:', message);
