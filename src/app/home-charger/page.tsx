@@ -67,7 +67,7 @@ const HOME_CHARGER_PRODUCTS: AffiliateProduct[] = [
   {
     name: 'ChargePoint Home Flex Level 2 EV Charger',
     category: 'charger',
-    affiliateUrl: 'https://www.amazon.com/dp/B07WXZDHGV?tag=evrangecalc-20',
+    affiliateUrl: 'https://www.amazon.com/dp/B07WXZDHGV?tag=robertnicho0a-20',
     priceDisplay: '$699.00',
     rating: 4.6,
     reviewCount: 3200,
@@ -76,7 +76,7 @@ const HOME_CHARGER_PRODUCTS: AffiliateProduct[] = [
   {
     name: 'Grizzl-E Classic Level 2 EV Charger',
     category: 'charger',
-    affiliateUrl: 'https://www.amazon.com/dp/B085C7152V?tag=evrangecalc-20',
+    affiliateUrl: 'https://www.amazon.com/dp/B085C7152V?tag=robertnicho0a-20',
     priceDisplay: '$459.00',
     rating: 4.7,
     reviewCount: 1800,
@@ -85,7 +85,7 @@ const HOME_CHARGER_PRODUCTS: AffiliateProduct[] = [
   {
     name: 'Lectron NACS to J1772 Adapter',
     category: 'adapter',
-    affiliateUrl: 'https://www.amazon.com/dp/B0CNFK7YH4?tag=evrangecalc-20',
+    affiliateUrl: 'https://www.amazon.com/dp/B0CNFK7YH4?tag=robertnicho0a-20',
     priceDisplay: '$149.99',
     rating: 4.5,
     reviewCount: 890,

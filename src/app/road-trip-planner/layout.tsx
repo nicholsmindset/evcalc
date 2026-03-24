@@ -22,7 +22,7 @@ const ROAD_TRIP_PRODUCTS: AffiliateProduct[] = [
   {
     name: 'BAUER Portable EV Charger — Level 1 & Level 2 (120V/240V)',
     category: 'charger',
-    affiliateUrl: 'https://www.amazon.com/dp/B0BQKFKHVS?tag=evrangecalc-20',
+    affiliateUrl: 'https://www.amazon.com/dp/B0BQKFKHVS?tag=robertnicho0a-20',
     priceDisplay: '$189.99',
     rating: 4.4,
     reviewCount: 1200,
@@ -31,7 +31,7 @@ const ROAD_TRIP_PRODUCTS: AffiliateProduct[] = [
   {
     name: 'Tesla to J1772 Adapter (Non-Tesla EVs at Tesla Chargers)',
     category: 'adapter',
-    affiliateUrl: 'https://www.amazon.com/dp/B0CNFK7YH4?tag=evrangecalc-20',
+    affiliateUrl: 'https://www.amazon.com/dp/B0CNFK7YH4?tag=robertnicho0a-20',
     priceDisplay: '$149.99',
     rating: 4.5,
     reviewCount: 890,
@@ -40,7 +40,7 @@ const ROAD_TRIP_PRODUCTS: AffiliateProduct[] = [
   {
     name: 'Magnetic Phone Mount for Car Dashboard',
     category: 'accessory',
-    affiliateUrl: 'https://www.amazon.com/dp/B07THRCL5H?tag=evrangecalc-20',
+    affiliateUrl: 'https://www.amazon.com/dp/B07THRCL5H?tag=robertnicho0a-20',
     priceDisplay: '$25.99',
     rating: 4.6,
     reviewCount: 45000,

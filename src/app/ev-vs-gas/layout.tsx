@@ -22,7 +22,7 @@ const EV_VS_GAS_PRODUCTS: AffiliateProduct[] = [
   {
     name: 'ChargePoint Home Flex Level 2 EV Charger',
     category: 'charger',
-    affiliateUrl: 'https://www.amazon.com/dp/B07WXZDHGV?tag=evrangecalc-20',
+    affiliateUrl: 'https://www.amazon.com/dp/B07WXZDHGV?tag=robertnicho0a-20',
     priceDisplay: '$699.00',
     rating: 4.6,
     reviewCount: 3200,
@@ -31,7 +31,7 @@ const EV_VS_GAS_PRODUCTS: AffiliateProduct[] = [
   {
     name: 'Grizzl-E Classic Level 2 EV Charger',
     category: 'charger',
-    affiliateUrl: 'https://www.amazon.com/dp/B085C7152V?tag=evrangecalc-20',
+    affiliateUrl: 'https://www.amazon.com/dp/B085C7152V?tag=robertnicho0a-20',
     priceDisplay: '$459.00',
     rating: 4.7,
     reviewCount: 1800,
@@ -40,7 +40,7 @@ const EV_VS_GAS_PRODUCTS: AffiliateProduct[] = [
   {
     name: 'NOCO Genius10 Smart Battery Charger',
     category: 'accessory',
-    affiliateUrl: 'https://www.amazon.com/dp/B07W8KXL2T?tag=evrangecalc-20',
+    affiliateUrl: 'https://www.amazon.com/dp/B07W8KXL2T?tag=robertnicho0a-20',
     priceDisplay: '$89.95',
     rating: 4.7,
     reviewCount: 22000,
