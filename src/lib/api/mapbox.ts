@@ -131,19 +131,20 @@ export async function getIsochrone(
   } = options;
 
   const params = new URLSearchParams({
-    access_token: MAPBOX_TOKEN,
+    lng: String(lng),
+    lat: String(lat),
     contours_minutes: contourMinutes.join(','),
     polygons: String(polygons),
     denoise: String(denoise),
     generalize: String(generalize),
+    profile,
   });
 
   if (contourColors?.length) {
     params.set('contours_colors', contourColors.join(','));
   }
 
-  const url = `${BASE}/isochrone/v1/mapbox/${profile}/${lng},${lat}?${params}`;
-  const res = await fetch(url);
+  const res = await fetch(`/api/isochrone?${params}`);
   if (!res.ok) throw new Error(`Isochrone request failed: ${res.status}`);
 
   return res.json();
@@ -196,14 +197,14 @@ export async function getDirections(
   const coordStr = coordinates.map((c) => `${c[0]},${c[1]}`).join(';');
 
   const params = new URLSearchParams({
-    access_token: MAPBOX_TOKEN,
+    coordinates: coordStr,
+    profile,
     alternatives: String(alternatives),
     geometries,
     overview,
   });
 
-  const url = `${BASE}/directions/v5/mapbox/${profile}/${coordStr}?${params}`;
-  const res = await fetch(url);
+  const res = await fetch(`/api/directions?${params}`);
   if (!res.ok) throw new Error(`Directions request failed: ${res.status}`);
 
   return res.json();
