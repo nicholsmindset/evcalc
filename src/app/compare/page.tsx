@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
-import dynamic from 'next/dynamic';
+import nextDynamic from 'next/dynamic';
 import { getAllComparisons } from '@/lib/supabase/queries/comparisons';
 import { getVehiclesByRange } from '@/lib/supabase/queries/vehicles';
 import { generateMetadata as genMeta, generateBreadcrumbSchema } from '@/lib/utils/seo';
@@ -8,7 +8,7 @@ import { SchemaMarkup } from '@/components/seo/SchemaMarkup';
 
 // Disable SSR for ComparePicker — it uses Supabase browser client which
 // calls browser-only APIs (localStorage) and throws in Node.js SSR context.
-const ComparePicker = dynamic(
+const ComparePicker = nextDynamic(
   () => import('@/components/comparison/ComparePicker').then((m) => m.ComparePicker),
   { ssr: false }
 );

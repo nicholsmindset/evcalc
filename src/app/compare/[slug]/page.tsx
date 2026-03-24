@@ -7,11 +7,11 @@ import { calculateRange } from '@/lib/calculations/range';
 import { generateMetadata as genMeta, generateBreadcrumbSchema } from '@/lib/utils/seo';
 import { SchemaMarkup } from '@/components/seo/SchemaMarkup';
 import { FAQSection } from '@/components/seo/FAQSection';
-import dynamic from 'next/dynamic';
+import nextDynamic from 'next/dynamic';
 import type { Vehicle } from '@/lib/supabase/types';
 
 // Disable SSR — Recharts uses browser-only ResizeObserver/SVG APIs
-const ComparisonRadar = dynamic(
+const ComparisonRadar = nextDynamic(
   () => import('@/components/charts/ComparisonRadar').then((m) => m.ComparisonRadar),
   { ssr: false }
 );
