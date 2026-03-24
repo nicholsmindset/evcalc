@@ -98,8 +98,8 @@ export function CalculatorContent() {
 
       {/* Main Content Grid */}
       <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_400px]">
-        {/* Left Column: Sliders */}
-        <div className="space-y-8">
+        {/* Left Column: Sliders — shown below results on mobile */}
+        <div className="order-2 space-y-8 lg:order-1">
           <ConditionSliders values={conditions} onChange={setConditions} />
 
           {/* Range by Speed Chart */}
@@ -120,8 +120,8 @@ export function CalculatorContent() {
           )}
         </div>
 
-        {/* Right Column: Results */}
-        <div className="space-y-6">
+        {/* Right Column: Results — shown FIRST on mobile */}
+        <div className="order-1 space-y-6 lg:order-2">
           {result && selectedVehicle ? (
             <>
               {/* Range Gauge */}

@@ -328,7 +328,7 @@ export function RoadTripMap({
       )}
 
       {/* Map */}
-      <div className="relative h-[500px] overflow-hidden rounded-xl border border-border">
+      <div className="relative h-[350px] overflow-hidden rounded-xl border border-border sm:h-[500px]">
         {loading && (
           <div className="absolute inset-0 z-10 flex items-center justify-center bg-bg-primary/60">
             <div className="flex items-center gap-2 rounded-lg bg-bg-secondary px-4 py-2 shadow-lg">
@@ -454,7 +454,7 @@ export function RoadTripMap({
 
       {/* Route summary */}
       {route && (
-        <div className="grid gap-3 sm:grid-cols-4">
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
           <div className="rounded-lg bg-bg-tertiary p-3 text-center">
             <p className="text-xs text-text-tertiary">Total Distance</p>
             <p className="font-mono text-lg font-bold text-text-primary">

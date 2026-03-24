@@ -46,8 +46,8 @@ export default function RoadTripPlannerPage() {
 
       {/* Conditions + Map */}
       <div className="mt-8 grid gap-8 lg:grid-cols-[300px_1fr]">
-        {/* Sidebar - Conditions */}
-        <div className="space-y-6">
+        {/* Sidebar - Conditions — below map on mobile, left on desktop */}
+        <div className="order-2 space-y-6 lg:order-1">
           <div className="rounded-xl border border-border bg-bg-secondary p-5">
             <h3 className="mb-4 text-sm font-display font-semibold text-text-primary">
               Trip Conditions
@@ -126,8 +126,8 @@ export default function RoadTripPlannerPage() {
           )}
         </div>
 
-        {/* Main content - Map */}
-        <div>
+        {/* Main content - Map — first on mobile */}
+        <div className="order-1 lg:order-2">
           {selectedVehicle && rangeResult ? (
             <RoadTripMap
               adjustedRangeMi={rangeResult.adjustedRangeMi}
@@ -136,7 +136,7 @@ export default function RoadTripPlannerPage() {
               dcFastMaxKw={selectedVehicle.dc_fast_max_kw ?? 150}
             />
           ) : (
-            <div className="flex h-[500px] flex-col items-center justify-center rounded-xl border border-dashed border-border bg-bg-secondary/50 text-center">
+            <div className="flex h-[350px] flex-col items-center justify-center rounded-xl border border-dashed border-border bg-bg-secondary/50 text-center sm:h-[500px]">
               <div className="mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-accent/5">
                 <svg className="h-10 w-10 text-accent/40" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M9 6.75V15m6-6v8.25m.503 3.498l4.875-2.437c.381-.19.622-.58.622-1.006V4.82c0-.836-.88-1.38-1.628-1.006l-3.869 1.934c-.317.159-.69.159-1.006 0L9.503 3.252a1.125 1.125 0 00-1.006 0L3.622 5.689C3.24 5.88 3 6.27 3 6.695V19.18c0 .836.88 1.38 1.628 1.006l3.869-1.934c.317-.159.69-.159 1.006 0l4.994 2.497c.317.158.69.158 1.006 0z" />

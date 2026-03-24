@@ -136,7 +136,7 @@ export default function ChargingStationsPage() {
       <div className="my-8 grid gap-6 lg:grid-cols-[1fr_380px]">
         <ChargingStationMap
           stations={stations}
-          className="h-[500px]"
+          className="h-[350px] sm:h-[500px]"
         />
         <StationList
           stations={stations}

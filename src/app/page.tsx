@@ -98,7 +98,7 @@ export default function HomePage() {
               The most accurate EV range calculator on the internet. Adjust for temperature,
               speed, terrain, and real driving conditions. Powered by EPA data and physics-based modeling.
             </p>
-            <div className="mt-10 flex items-center justify-center gap-4">
+            <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
               <Link
                 href="/calculator"
                 className="rounded-lg bg-accent px-6 py-3 text-base font-semibold text-bg-primary shadow-lg shadow-accent/25 hover:bg-accent-dim transition-all hover:shadow-accent/40"
