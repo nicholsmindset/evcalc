@@ -9,7 +9,7 @@ import MapGL, {
   NavigationControl,
 } from 'react-map-gl/mapbox';
 import 'mapbox-gl/dist/mapbox-gl.css';
-import { geocodeForward, getDirections } from '@/lib/api/mapbox';
+import { getDirections } from '@/lib/api/mapbox';
 import { stationsToGeoJson } from '@/lib/api/nrel';
 import type { GeocodingFeature, DirectionsRoute } from '@/lib/api/mapbox';
 import type { NrelStation } from '@/lib/api/nrel';
@@ -85,8 +85,11 @@ export function RoadTripMap({
       }
       searchTimeout.current = setTimeout(async () => {
         try {
-          const results = await geocodeForward(query, { limit: 5, country: 'us' });
-          setter(results);
+          const params = new URLSearchParams({ q: query, limit: '5', country: 'us' });
+          const res = await fetch(`/api/geocode?${params}`);
+          if (!res.ok) { setter([]); return; }
+          const data = await res.json();
+          setter(data.features ?? []);
         } catch {
           setter([]);
         }

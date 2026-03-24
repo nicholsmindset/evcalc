@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getComparisonBySlug } from '@/lib/supabase/queries/comparisons';
+import { getVehicles } from '@/lib/supabase/queries/vehicles';
 import { calculateRange } from '@/lib/calculations/range';
 import { generateMetadata as genMeta, generateBreadcrumbSchema } from '@/lib/utils/seo';
 import { SchemaMarkup } from '@/components/seo/SchemaMarkup';
@@ -121,7 +122,29 @@ export default async function ComparisonDetailPage({
   try {
     result = await getComparisonBySlug(slug);
   } catch {
-    notFound();
+    // DB error — try slug-based fallback
+  }
+
+  // Fallback: parse slug like "tesla-model-3-vs-hyundai-ioniq-5" and look up vehicles
+  if (!result) {
+    const parts = slug.split('-vs-');
+    if (parts.length === 2) {
+      try {
+        const allVehicles = await getVehicles();
+        const [prefixA, prefixB] = parts;
+        const vehicleA = allVehicles
+          .filter((v) => v.slug.startsWith(prefixA + '-') || v.slug === prefixA)
+          .sort((a, b) => b.epa_range_mi - a.epa_range_mi)[0];
+        const vehicleB = allVehicles
+          .filter((v) => v.slug.startsWith(prefixB + '-') || v.slug === prefixB)
+          .sort((a, b) => b.epa_range_mi - a.epa_range_mi)[0];
+        if (vehicleA && vehicleB) {
+          result = { comparison: { id: '', vehicle_a_id: vehicleA.id, vehicle_b_id: vehicleB.id, slug, generated_content: null, created_at: '', updated_at: '' }, vehicleA, vehicleB };
+        }
+      } catch {
+        // ignore
+      }
+    }
   }
 
   if (!result) notFound();

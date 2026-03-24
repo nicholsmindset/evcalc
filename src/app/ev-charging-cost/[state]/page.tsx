@@ -1,12 +1,12 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { getElectricityRate, getAllUSStateNames, getUSElectricityRates } from '@/lib/supabase/queries/rates';
+import { getElectricityRate, getUSElectricityRates } from '@/lib/supabase/queries/rates';
 import { generateMetadata as genMeta, generateBreadcrumbSchema } from '@/lib/utils/seo';
 import { SchemaMarkup } from '@/components/seo/SchemaMarkup';
 import { FAQSection } from '@/components/seo/FAQSection';
 
-export const revalidate = 604800;
+export const dynamic = 'force-dynamic';
 
 function stateSlug(name: string): string {
   return name.toLowerCase().replace(/\s+/g, '-');
@@ -17,16 +17,6 @@ function stateName(slug: string): string {
     .split('-')
     .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
     .join(' ');
-}
-
-export async function generateStaticParams() {
-  try {
-    const states = await getAllUSStateNames();
-    return states.map((s) => ({ state: stateSlug(s) }));
-  } catch {
-    // Database may not be available at build time; pages generated via ISR
-    return [];
-  }
 }
 
 export async function generateMetadata({
