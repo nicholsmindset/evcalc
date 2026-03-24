@@ -10,11 +10,26 @@ import MapGL, {
 } from 'react-map-gl/mapbox';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { geocodeForward, getDirections } from '@/lib/api/mapbox';
-import { getNearestStations, stationsToGeoJson } from '@/lib/api/nrel';
+import { stationsToGeoJson } from '@/lib/api/nrel';
 import type { GeocodingFeature, DirectionsRoute } from '@/lib/api/mapbox';
 import type { NrelStation } from '@/lib/api/nrel';
 
 const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN || '';
+
+// Fetch stations via the /api/stations proxy (keeps NREL key server-side)
+async function fetchStationsViaProxy(lat: number, lng: number, options: { radius?: number; limit?: number } = {}): Promise<NrelStation[]> {
+  const params = new URLSearchParams({
+    lat: String(lat),
+    lng: String(lng),
+    radius: String(options.radius ?? 50),
+    limit: String(options.limit ?? 50),
+    source: 'nrel',
+  });
+  const res = await fetch(`/api/stations?${params}`);
+  if (!res.ok) return [];
+  const data = await res.json();
+  return (data.stations ?? []) as NrelStation[];
+}
 
 interface ChargingStop {
   station: NrelStation;
@@ -200,9 +215,9 @@ export function RoadTripMap({
           return coords[idx];
         });
 
-        // Fetch stations around midpoints
+        // Fetch stations around midpoints via server-side proxy
         const stationPromises = samplePoints.map((pt) =>
-          getNearestStations(pt[1], pt[0], { radius: 50, limit: 50 }).catch(() => [] as NrelStation[])
+          fetchStationsViaProxy(pt[1], pt[0], { radius: 50, limit: 50 }).catch(() => [] as NrelStation[])
         );
         const stationArrays = await Promise.all(stationPromises);
         const stationMap = new Map<number, NrelStation>();
