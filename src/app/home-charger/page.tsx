@@ -1,11 +1,22 @@
 import Link from 'next/link';
 import type { Metadata } from 'next';
 import { ProductRecommendation, type AffiliateProduct } from '@/components/affiliate/ProductRecommendation';
+import { SchemaMarkup } from '@/components/seo/SchemaMarkup';
+import { FAQSection } from '@/components/seo/FAQSection';
+import { generateWebApplicationSchema, generateBreadcrumbSchema } from '@/lib/utils/seo';
 
 export const metadata: Metadata = {
   title: 'Home EV Charger Guide — Which Charger Is Right for You?',
   description: 'Compare Level 1 vs Level 2 home EV chargers. Learn installation costs, charging speeds, electrical requirements, and the best chargers for every budget.',
 };
+
+const HOME_CHARGER_FAQS = [
+  { question: 'How much does a home EV charger cost?', answer: 'A Level 2 home EV charger costs $300-700 for the unit, plus $500-2,000 for professional installation. Total cost ranges from $800-2,700 depending on your electrical setup. The ChargePoint Home Flex ($699) and Grizzl-E Classic ($460) are top-rated options.' },
+  { question: 'Can I install an EV charger myself?', answer: 'A Level 1 charger (120V) requires no installation — just plug into a standard outlet. Level 2 chargers require a 240V circuit and should be installed by a licensed electrician for safety and code compliance. DIY 240V electrical work may void your warranty and violate local building codes.' },
+  { question: 'How long does it take to charge an EV at home?', answer: 'Level 1 (120V): 40-60 hours for a full charge, adding 3-5 miles per hour. Level 2 at 32A (7.7 kW): 8-10 hours, adding 25-30 miles per hour. Level 2 at 48A (11.5 kW): 5-7 hours, adding 35-45 miles per hour. Most EV owners charge overnight and wake up to a full battery.' },
+  { question: 'Do I need to upgrade my electrical panel?', answer: 'If your panel is 200A or higher, you likely have capacity for a Level 2 charger without an upgrade. Older homes with 100A or 150A panels may need an upgrade ($1,500-3,000). An electrician can assess your available capacity. Some smart chargers can share circuits to avoid panel upgrades.' },
+  { question: 'What is the best home EV charger?', answer: 'Top picks for 2025: ChargePoint Home Flex (best overall, 50A, WiFi, $699), Grizzl-E Classic (best value, 40A, $460), Tesla Wall Connector (best for Tesla owners, 48A, $475), and Wallbox Pulsar Plus (best smart features, 48A, $649). All are UL-listed and rated for indoor/outdoor use.' },
+];
 
 const CHARGERS = [
   {
@@ -84,6 +95,20 @@ const HOME_CHARGER_PRODUCTS: AffiliateProduct[] = [
 
 export default function HomeChargerPage() {
   return (
+    <>
+    <SchemaMarkup
+      schema={[
+        generateWebApplicationSchema(
+          'Home EV Charger Guide',
+          'Compare Level 1 vs Level 2 home EV chargers. Learn installation costs, charging speeds, and electrical requirements.',
+          '/home-charger'
+        ),
+        generateBreadcrumbSchema([
+          { name: 'Home', href: '/' },
+          { name: 'Home Charger Guide', href: '/home-charger' },
+        ]),
+      ]}
+    />
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
       {/* Header */}
       <div className="mb-10">
@@ -216,6 +241,9 @@ export default function HomeChargerPage() {
         </div>
       </section>
 
+      {/* FAQ Section */}
+      <FAQSection faqs={HOME_CHARGER_FAQS} />
+
       {/* Related Tools */}
       <section className="rounded-xl border border-border bg-bg-secondary p-6">
         <h2 className="mb-4 text-lg font-display font-semibold text-text-primary">Related Tools</h2>
@@ -229,5 +257,6 @@ export default function HomeChargerPage() {
         </div>
       </section>
     </div>
+    </>
   );
 }

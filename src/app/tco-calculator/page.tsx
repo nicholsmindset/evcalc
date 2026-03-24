@@ -44,7 +44,7 @@ export default function TcoCalculatorPage() {
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
       <div className="mb-8">
         <h1 className="text-3xl font-display font-bold tracking-tight text-text-primary sm:text-4xl">
-          Total Cost of Ownership Calculator
+          EV Total Cost of Ownership — Compare EV vs Gas Over 5-10 Years
         </h1>
         <p className="mt-2 text-text-secondary">
           Compare the full ownership cost of an EV vs gas car — purchase price, fuel, maintenance, insurance, and depreciation.

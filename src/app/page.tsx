@@ -1,6 +1,21 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { POPULAR_VEHICLES } from '@/lib/utils/constants';
 import { formatCurrency } from '@/lib/utils/formatting';
+
+export const metadata: Metadata = {
+  title: 'EV Range Calculator — Real-World Range for Every Electric Vehicle',
+  description:
+    'The most accurate EV range calculator. Calculate real-world range, compare EVs, find charging stations, and plan road trips. Free tools powered by EPA data.',
+  alternates: { canonical: '/' },
+  openGraph: {
+    title: 'EV Range Calculator — Real-World Range for Every Electric Vehicle',
+    description:
+      'The most accurate EV range calculator. Calculate real-world range, compare EVs, find charging stations, and plan road trips. Free tools powered by EPA data.',
+    url: '/',
+    type: 'website',
+  },
+};
 
 
 const TOOLS = [

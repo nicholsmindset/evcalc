@@ -117,7 +117,7 @@ export default function EvVsGasPage() {
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-3xl font-display font-bold tracking-tight text-text-primary sm:text-4xl">
-          EV vs Gas Savings Calculator
+          EV vs Gas Savings — Is an Electric Car Cheaper Than Gas?
         </h1>
         <p className="mt-2 text-text-secondary">
           Compare the total running costs of an electric vehicle vs a gas car over time.

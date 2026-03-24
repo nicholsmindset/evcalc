@@ -77,7 +77,7 @@ export default function ChargingCostPage() {
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-3xl font-display font-bold tracking-tight text-text-primary sm:text-4xl">
-          EV Charging Cost Calculator
+          EV Charging Cost Calculator — How Much Does It Cost to Charge?
         </h1>
         <p className="mt-2 text-text-secondary">
           Calculate how much it costs to charge your EV at home, public stations, and DC fast chargers.

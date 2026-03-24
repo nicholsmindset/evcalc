@@ -22,6 +22,11 @@ export const FOOTER_LINKS = {
     { href: '/tco-calculator', label: 'Total Cost of Ownership' },
     { href: '/home-charger', label: 'Home Charger Guide' },
     { href: '/advisor', label: 'AI Range Advisor' },
+    { href: '/ev-charging-time-calculator', label: 'Charging Time Calculator' },
+    { href: '/ev-vs-hybrid', label: 'EV vs Hybrid' },
+    { href: '/ev-tax-credit', label: 'EV Tax Credit 2025' },
+    { href: '/ev-battery-replacement-cost', label: 'Battery Replacement Cost' },
+    { href: '/electric-car-maintenance-cost', label: 'EV Maintenance Cost' },
   ],
   popularEvs: [
     { href: '/vehicles/tesla-model-3-long-range-2024', label: 'Tesla Model 3' },

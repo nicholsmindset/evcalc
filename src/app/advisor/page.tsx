@@ -8,7 +8,7 @@ export default function AdvisorPage() {
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-3xl font-display font-bold tracking-tight text-text-primary sm:text-4xl">
-          AI Range Advisor
+          AI EV Advisor — Get Answers About Electric Vehicles
         </h1>
         <p className="mt-2 text-text-secondary">
           Get instant answers about EV range, charging strategies, costs, and buying advice from our AI expert.

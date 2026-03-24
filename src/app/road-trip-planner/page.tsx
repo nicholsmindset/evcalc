@@ -31,7 +31,7 @@ export default function RoadTripPlannerPage() {
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-3xl font-display font-bold tracking-tight text-text-primary sm:text-4xl">
-          EV Road Trip Planner
+          EV Road Trip Planner — Plan Routes with Charging Stops
         </h1>
         <p className="mt-2 text-text-secondary">
           Plan your route, find charging stops, and estimate travel time with your EV.

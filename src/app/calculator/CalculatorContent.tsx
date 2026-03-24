@@ -83,7 +83,7 @@ export function CalculatorContent() {
       {/* Page Header */}
       <div className="mb-8">
         <h1 className="text-3xl font-display font-bold tracking-tight text-text-primary sm:text-4xl">
-          EV Range Calculator
+          EV Range Calculator — How Far Can Your Electric Car Go?
         </h1>
         <p className="mt-2 text-text-secondary">
           Calculate real-world range adjusted for temperature, speed, terrain, and driving conditions.

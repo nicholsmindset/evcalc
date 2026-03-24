@@ -87,6 +87,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/home-charger',
     '/advisor',
     '/range-reports',
+    '/ev-vs-hybrid',
+    '/ev-battery-replacement-cost',
+    '/ev-charging-time-calculator',
+    '/ev-tax-credit',
+    '/electric-car-maintenance-cost',
   ].map((path) => ({
     url: `${SITE_URL}${path}`,
     lastModified: now,
