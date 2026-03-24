@@ -76,6 +76,11 @@ export default function RootLayout({
         <main className="min-h-screen">{children}</main>
         <Footer />
         <Script
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5441531660664467"
+          strategy="afterInteractive"
+          crossOrigin="anonymous"
+        />
+        <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-Y5SDG42JX8"
           strategy="afterInteractive"
         />
