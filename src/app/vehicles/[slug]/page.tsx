@@ -103,10 +103,16 @@ export default async function VehicleDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const [vehicle, allVehicles] = await Promise.all([
-    getVehicleBySlug(slug),
-    getVehicles(),
-  ]);
+  let vehicle: Vehicle | null = null;
+  let allVehicles: Vehicle[] = [];
+  try {
+    [vehicle, allVehicles] = await Promise.all([
+      getVehicleBySlug(slug),
+      getVehicles(),
+    ]);
+  } catch {
+    notFound();
+  }
 
   if (!vehicle) notFound();
 

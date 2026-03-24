@@ -125,7 +125,12 @@ export default async function ComparisonDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const result = await getComparisonBySlug(slug);
+  let result: Awaited<ReturnType<typeof getComparisonBySlug>> = null;
+  try {
+    result = await getComparisonBySlug(slug);
+  } catch {
+    notFound();
+  }
 
   if (!result) notFound();
 

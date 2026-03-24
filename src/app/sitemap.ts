@@ -3,25 +3,38 @@ import { getAllSlugs } from '@/lib/blog';
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.evrangetools.com';
 
-// Static vehicle slugs
+// Static vehicle slugs — matches 002_seed_vehicles.sql (2025 model year)
 const VEHICLE_SLUGS = [
-  'tesla-model-3-standard-range-plus-2024',
-  'tesla-model-3-long-range-2024',
-  'tesla-model-y-long-range-2024',
-  'tesla-model-y-performance-2024',
-  'tesla-model-s-long-range-2024',
-  'hyundai-ioniq-5-se-standard-range-2024',
-  'hyundai-ioniq-5-long-range-2024',
-  'kia-ev6-light-long-range-2024',
-  'ford-mustang-mach-e-select-2024',
-  'chevrolet-equinox-ev-2lt-2024',
-  'chevrolet-bolt-euv-2lt-2023',
-  'rivian-r1s-large-pack-2024',
-  'bmw-ix-xdrive50-2024',
-  'mercedes-eqe-350-2024',
-  'volkswagen-id4-standard-2024',
-  'nissan-ariya-engage-2024',
-  'polestar-2-long-range-single-motor-2024',
+  'tesla-model-3-standard-range-2025',
+  'tesla-model-3-long-range-2025',
+  'tesla-model-3-performance-2025',
+  'tesla-model-y-long-range-2025',
+  'tesla-model-y-performance-2025',
+  'tesla-model-s-dual-motor-2025',
+  'tesla-cybertruck-dual-motor-2025',
+  'hyundai-ioniq-5-se-standard-range-2025',
+  'hyundai-ioniq-5-sel-long-range-2025',
+  'hyundai-ioniq-6-se-long-range-rwd-2025',
+  'kia-ev6-light-long-range-rwd-2025',
+  'kia-ev9-light-long-range-rwd-2025',
+  'ford-mustang-mach-e-select-rwd-2025',
+  'ford-f-150-lightning-extended-range-2025',
+  'chevrolet-equinox-ev-lt-fwd-2025',
+  'chevrolet-blazer-ev-lt-fwd-2025',
+  'rivian-r1s-dual-motor-large-pack-2025',
+  'rivian-r1t-dual-motor-large-pack-2025',
+  'bmw-ix-xdrive50-2025',
+  'bmw-i4-edrive40-2025',
+  'mercedes-benz-eqe-350-plus-2025',
+  'mercedes-benz-eqs-450-plus-2025',
+  'volkswagen-id4-standard-2025',
+  'volkswagen-id-buzz-pro-s-2025',
+  'nissan-ariya-engage-fwd-2025',
+  'polestar-2-long-range-single-motor-2025',
+  'polestar-4-long-range-dual-motor-2025',
+  'lucid-air-grand-touring-2025',
+  'audi-q4-e-tron-premium-2025',
+  'cadillac-lyriq-tech-2025',
 ];
 
 // Comparison slugs
@@ -36,10 +49,10 @@ const COMPARISON_SLUGS = [
   'volkswagen-id4-vs-nissan-ariya',
 ];
 
-// Best EV for use cases
+// Best EV for use cases — must match keys in src/app/best-ev-for/[usecase]/page.tsx
 const USE_CASES = [
-  'commuting', 'road-trips', 'families', 'budget', 'luxury',
-  'winter-driving', 'towing', 'first-time-ev-buyers',
+  'long-range', 'budget', 'road-trips', 'families',
+  'commuting', 'cold-weather', 'towing', 'fast-charging',
 ];
 
 // US states for charging cost pages
@@ -60,10 +73,12 @@ const CATEGORIES = [
   'ev-suvs', 'ev-sedans', 'ev-trucks', 'ev-luxury', 'ev-budget',
 ];
 
-// Brand pages
+// Brand pages — slugs must match BRANDS config in src/app/brand/[slug]/page.tsx
 const BRAND_SLUGS = [
   'tesla', 'hyundai', 'kia', 'ford', 'chevrolet', 'bmw',
-  'rivian', 'mercedes', 'volkswagen', 'nissan', 'polestar',
+  'rivian', 'mercedes-benz', 'volkswagen', 'nissan', 'polestar',
+  'audi', 'lucid', 'volvo', 'cadillac', 'genesis', 'honda',
+  'toyota', 'subaru', 'porsche', 'byd', 'rivian',
 ];
 
 /**
