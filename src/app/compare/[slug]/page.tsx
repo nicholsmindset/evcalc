@@ -7,6 +7,7 @@ import { calculateRange } from '@/lib/calculations/range';
 import { generateMetadata as genMeta, generateBreadcrumbSchema } from '@/lib/utils/seo';
 import { SchemaMarkup } from '@/components/seo/SchemaMarkup';
 import { FAQSection } from '@/components/seo/FAQSection';
+import { ComparisonRadar } from '@/components/charts/ComparisonRadar';
 import type { Vehicle } from '@/lib/supabase/types';
 
 export const dynamic = 'force-dynamic';
@@ -225,6 +226,19 @@ export default async function ComparisonDetailPage({
           />
         )}
       </div>
+
+      {/* Radar Chart */}
+      <section className="mb-12">
+        <h2 className="mb-4 text-2xl font-display font-bold text-text-primary">
+          Head-to-Head Overview
+        </h2>
+        <div className="rounded-xl border border-border bg-bg-secondary p-6">
+          <ComparisonRadar vehicles={[vehicleA, vehicleB]} />
+          <p className="mt-2 text-center text-xs text-text-tertiary">
+            Normalized 0–100 scale across 5 dimensions. Higher is always better.
+          </p>
+        </div>
+      </section>
 
       {/* Side-by-Side Specs Table */}
       <section className="mb-12">

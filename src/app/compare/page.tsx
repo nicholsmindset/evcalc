@@ -4,6 +4,7 @@ import { getAllComparisons } from '@/lib/supabase/queries/comparisons';
 import { getVehiclesByRange } from '@/lib/supabase/queries/vehicles';
 import { generateMetadata as genMeta, generateBreadcrumbSchema } from '@/lib/utils/seo';
 import { SchemaMarkup } from '@/components/seo/SchemaMarkup';
+import { ComparePicker } from '@/components/comparison/ComparePicker';
 
 export const metadata: Metadata = genMeta({
   title: 'Compare Electric Vehicles — Side-by-Side EV Specs & Range',
@@ -38,6 +39,9 @@ export default async function ComparePage() {
           Side-by-side comparisons of range, battery, efficiency, charging, and pricing.
         </p>
       </div>
+
+      {/* Interactive Picker */}
+      <ComparePicker />
 
       {/* Popular Comparisons */}
       {comparisons.length > 0 && (

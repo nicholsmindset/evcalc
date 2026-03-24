@@ -11,7 +11,7 @@ import Map, {
 } from 'react-map-gl/mapbox';
 import type { MapRef } from 'react-map-gl/mapbox';
 import 'mapbox-gl/dist/mapbox-gl.css';
-import { geocodeForward, getRangeIsochrones } from '@/lib/api/mapbox';
+import { getRangeIsochrones } from '@/lib/api/mapbox';
 import type { GeocodingFeature, IsochroneResult } from '@/lib/api/mapbox';
 import { getNearestStations, stationsToGeoJson } from '@/lib/api/nrel';
 import type { NrelStation } from '@/lib/api/nrel';
@@ -65,10 +65,15 @@ export function RangeMap({ adjustedRangeMi, speedMph = 35 }: RangeMapProps) {
 
     debounceRef.current = setTimeout(async () => {
       try {
-        const results = await geocodeForward(value, {
-          limit: 5,
+        const params = new URLSearchParams({
+          q: value,
+          limit: '5',
           types: 'place,locality,neighborhood,address',
         });
+        const res = await fetch(`/api/geocode?${params}`);
+        if (!res.ok) { setSuggestions([]); return; }
+        const data = await res.json();
+        const results: GeocodingFeature[] = data.features ?? [];
         setSuggestions(results);
         setShowSuggestions(results.length > 0);
       } catch {

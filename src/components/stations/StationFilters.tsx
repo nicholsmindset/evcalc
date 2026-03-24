@@ -70,12 +70,12 @@ export function StationFilters({
     setGeoError(null);
 
     try {
-      const mapboxToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
-      if (!mapboxToken) throw new Error('Mapbox not configured');
-
-      const res = await fetch(
-        `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(location.trim())}.json?access_token=${mapboxToken}&limit=1&types=place,postcode,address,locality`
-      );
+      const params = new URLSearchParams({
+        q: location.trim(),
+        limit: '1',
+        types: 'place,postcode,address,locality',
+      });
+      const res = await fetch(`/api/geocode?${params}`);
       if (!res.ok) throw new Error('Geocoding failed');
 
       const data = await res.json();
