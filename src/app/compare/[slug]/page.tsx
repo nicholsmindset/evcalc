@@ -33,7 +33,8 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const result = await getComparisonBySlug(slug);
+  let result = null;
+  try { result = await getComparisonBySlug(slug); } catch { return {}; }
   if (!result) return {};
 
   const { vehicleA, vehicleB } = result;

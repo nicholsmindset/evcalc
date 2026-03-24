@@ -26,7 +26,8 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  const vehicle = await getVehicleBySlug(slug);
+  let vehicle = null;
+  try { vehicle = await getVehicleBySlug(slug); } catch { return {}; }
   if (!vehicle) return {};
 
   const name = `${vehicle.year} ${vehicle.make} ${vehicle.model}${vehicle.trim ? ` ${vehicle.trim}` : ''}`;
