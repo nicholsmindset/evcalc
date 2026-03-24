@@ -1,7 +1,7 @@
-export const SITE_NAME = 'EV Range Calculator';
-export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://evrangecalculator.com';
+export const SITE_NAME = 'EV Range Tools';
+export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.evrangetools.com';
 export const SITE_DESCRIPTION =
-  'The most accurate EV range calculator on the internet. Calculate real-world electric vehicle range adjusted for temperature, speed, terrain, and driving conditions.';
+  'The most comprehensive EV tools on the internet. Calculate real-world electric vehicle range, compare EVs, find charging stations, and plan road trips — free tools powered by EPA data.';
 
 export const NAV_LINKS = [
   { href: '/calculator', label: 'Range Calculator' },

@@ -1,9 +1,9 @@
 import type { MetadataRoute } from 'next';
 import { getAllSlugs } from '@/lib/blog';
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://evrangecalculator.com';
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.evrangetools.com';
 
-// Static vehicle slugs (from generateStaticParams in vehicles/[slug])
+// Static vehicle slugs
 const VEHICLE_SLUGS = [
   'tesla-model-3-standard-range-plus-2024',
   'tesla-model-3-long-range-2024',
@@ -66,131 +66,139 @@ const BRAND_SLUGS = [
   'rivian', 'mercedes', 'volkswagen', 'nissan', 'polestar',
 ];
 
-export default function sitemap(): MetadataRoute.Sitemap {
+/**
+ * Generates 4 sub-sitemaps submitted individually to Google Search Console:
+ *   /sitemap/0.xml — Core & Tools
+ *   /sitemap/1.xml — Vehicles & Comparisons
+ *   /sitemap/2.xml — Content (use cases, states, blog)
+ *   /sitemap/3.xml — Locations & Categories
+ *
+ * Next.js auto-generates a sitemap index at /sitemap.xml pointing to all 4.
+ */
+export async function generateSitemaps() {
+  return [{ id: 0 }, { id: 1 }, { id: 2 }, { id: 3 }];
+}
+
+export default function sitemap({ id }: { id: number }): MetadataRoute.Sitemap {
   const now = new Date().toISOString();
 
-  // Core pages (highest priority)
-  const corePages: MetadataRoute.Sitemap = [
-    { url: SITE_URL, lastModified: now, changeFrequency: 'weekly', priority: 1.0 },
-    { url: `${SITE_URL}/calculator`, lastModified: now, changeFrequency: 'monthly', priority: 0.95 },
-    { url: `${SITE_URL}/vehicles`, lastModified: now, changeFrequency: 'weekly', priority: 0.9 },
-    { url: `${SITE_URL}/compare`, lastModified: now, changeFrequency: 'weekly', priority: 0.9 },
-    { url: `${SITE_URL}/charging-stations`, lastModified: now, changeFrequency: 'weekly', priority: 0.9 },
-  ];
+  switch (id) {
+    case 0: {
+      // Core pages + Tool pages
+      const corePages: MetadataRoute.Sitemap = [
+        { url: SITE_URL, lastModified: now, changeFrequency: 'weekly', priority: 1.0 },
+        { url: `${SITE_URL}/calculator`, lastModified: now, changeFrequency: 'monthly', priority: 0.95 },
+        { url: `${SITE_URL}/vehicles`, lastModified: now, changeFrequency: 'weekly', priority: 0.9 },
+        { url: `${SITE_URL}/compare`, lastModified: now, changeFrequency: 'weekly', priority: 0.9 },
+        { url: `${SITE_URL}/charging-stations`, lastModified: now, changeFrequency: 'weekly', priority: 0.9 },
+        { url: `${SITE_URL}/about`, lastModified: now, changeFrequency: 'monthly', priority: 0.6 },
+        { url: `${SITE_URL}/contact`, lastModified: now, changeFrequency: 'monthly', priority: 0.5 },
+        { url: `${SITE_URL}/blog`, lastModified: now, changeFrequency: 'weekly', priority: 0.8 },
+      ];
 
-  // Tool pages
-  const toolPages: MetadataRoute.Sitemap = [
-    '/charging-cost-calculator',
-    '/ev-vs-gas',
-    '/road-trip-planner',
-    '/tco-calculator',
-    '/home-charger',
-    '/advisor',
-    '/range-reports',
-    '/ev-vs-hybrid',
-    '/ev-battery-replacement-cost',
-    '/ev-charging-time-calculator',
-    '/ev-tax-credit',
-    '/electric-car-maintenance-cost',
-  ].map((path) => ({
-    url: `${SITE_URL}${path}`,
-    lastModified: now,
-    changeFrequency: 'monthly' as const,
-    priority: 0.85,
-  }));
+      const toolPages: MetadataRoute.Sitemap = [
+        '/charging-cost-calculator',
+        '/ev-vs-gas',
+        '/road-trip-planner',
+        '/tco-calculator',
+        '/home-charger',
+        '/advisor',
+        '/range-reports',
+        '/ev-vs-hybrid',
+        '/ev-battery-replacement-cost',
+        '/ev-charging-time-calculator',
+        '/ev-tax-credit',
+        '/electric-car-maintenance-cost',
+        '/embed-widget',
+      ].map((path) => ({
+        url: `${SITE_URL}${path}`,
+        lastModified: now,
+        changeFrequency: 'monthly' as const,
+        priority: 0.85,
+      }));
 
-  // Vehicle pages
-  const vehiclePages: MetadataRoute.Sitemap = VEHICLE_SLUGS.map((slug) => ({
-    url: `${SITE_URL}/vehicles/${slug}`,
-    lastModified: now,
-    changeFrequency: 'monthly' as const,
-    priority: 0.8,
-  }));
+      return [...corePages, ...toolPages];
+    }
 
-  // Comparison pages
-  const comparisonPages: MetadataRoute.Sitemap = COMPARISON_SLUGS.map((slug) => ({
-    url: `${SITE_URL}/compare/${slug}`,
-    lastModified: now,
-    changeFrequency: 'monthly' as const,
-    priority: 0.75,
-  }));
+    case 1: {
+      // Vehicle pages + Comparison pages
+      const vehiclePages: MetadataRoute.Sitemap = VEHICLE_SLUGS.map((slug) => ({
+        url: `${SITE_URL}/vehicles/${slug}`,
+        lastModified: now,
+        changeFrequency: 'monthly' as const,
+        priority: 0.8,
+      }));
 
-  // Best EV for pages
-  const useCasePages: MetadataRoute.Sitemap = USE_CASES.map((usecase) => ({
-    url: `${SITE_URL}/best-ev-for/${usecase}`,
-    lastModified: now,
-    changeFrequency: 'monthly' as const,
-    priority: 0.7,
-  }));
+      const comparisonPages: MetadataRoute.Sitemap = COMPARISON_SLUGS.map((slug) => ({
+        url: `${SITE_URL}/compare/${slug}`,
+        lastModified: now,
+        changeFrequency: 'monthly' as const,
+        priority: 0.75,
+      }));
 
-  // State charging cost pages
-  const statePages: MetadataRoute.Sitemap = STATES.map((state) => ({
-    url: `${SITE_URL}/ev-charging-cost/${state}`,
-    lastModified: now,
-    changeFrequency: 'monthly' as const,
-    priority: 0.7,
-  }));
+      return [...vehiclePages, ...comparisonPages];
+    }
 
-  // Charging station regional pages
-  const stationPages: MetadataRoute.Sitemap = STATION_REGIONS.map((region) => ({
-    url: `${SITE_URL}/charging-stations/${region}`,
-    lastModified: now,
-    changeFrequency: 'weekly' as const,
-    priority: 0.7,
-  }));
+    case 2: {
+      // Content: use cases, state pages, blog posts
+      const useCasePages: MetadataRoute.Sitemap = USE_CASES.map((usecase) => ({
+        url: `${SITE_URL}/best-ev-for/${usecase}`,
+        lastModified: now,
+        changeFrequency: 'monthly' as const,
+        priority: 0.7,
+      }));
 
-  // Category pages
-  const categoryPages: MetadataRoute.Sitemap = CATEGORIES.map((cat) => ({
-    url: `${SITE_URL}/category/${cat}`,
-    lastModified: now,
-    changeFrequency: 'monthly' as const,
-    priority: 0.75,
-  }));
+      const statePages: MetadataRoute.Sitemap = STATES.map((state) => ({
+        url: `${SITE_URL}/ev-charging-cost/${state}`,
+        lastModified: now,
+        changeFrequency: 'monthly' as const,
+        priority: 0.7,
+      }));
 
-  // Brand pages
-  const brandPages: MetadataRoute.Sitemap = BRAND_SLUGS.map((brand) => ({
-    url: `${SITE_URL}/brand/${brand}`,
-    lastModified: now,
-    changeFrequency: 'monthly' as const,
-    priority: 0.75,
-  }));
+      let blogSlugs: string[] = [];
+      try {
+        blogSlugs = getAllSlugs();
+      } catch {
+        // Build-time safety — blog dir may not exist yet
+      }
 
-  // Embed widget page
-  const utilityPages: MetadataRoute.Sitemap = [
-    { url: `${SITE_URL}/embed-widget`, lastModified: now, changeFrequency: 'monthly' as const, priority: 0.5 },
-  ];
+      const blogPages: MetadataRoute.Sitemap = blogSlugs.map((slug) => ({
+        url: `${SITE_URL}/blog/${slug}`,
+        lastModified: now,
+        changeFrequency: 'monthly' as const,
+        priority: 0.7,
+      }));
 
-  // Blog pages
-  let blogSlugs: string[] = [];
-  try {
-    blogSlugs = getAllSlugs();
-  } catch {
-    // Build-time safety
+      return [...useCasePages, ...statePages, ...blogPages];
+    }
+
+    case 3: {
+      // Locations & Categories
+      const stationPages: MetadataRoute.Sitemap = STATION_REGIONS.map((region) => ({
+        url: `${SITE_URL}/charging-stations/${region}`,
+        lastModified: now,
+        changeFrequency: 'weekly' as const,
+        priority: 0.7,
+      }));
+
+      const categoryPages: MetadataRoute.Sitemap = CATEGORIES.map((cat) => ({
+        url: `${SITE_URL}/category/${cat}`,
+        lastModified: now,
+        changeFrequency: 'monthly' as const,
+        priority: 0.75,
+      }));
+
+      const brandPages: MetadataRoute.Sitemap = BRAND_SLUGS.map((brand) => ({
+        url: `${SITE_URL}/brand/${brand}`,
+        lastModified: now,
+        changeFrequency: 'monthly' as const,
+        priority: 0.75,
+      }));
+
+      return [...stationPages, ...categoryPages, ...brandPages];
+    }
+
+    default:
+      return [];
   }
-
-  const blogIndex: MetadataRoute.Sitemap = [
-    { url: `${SITE_URL}/blog`, lastModified: now, changeFrequency: 'weekly' as const, priority: 0.8 },
-  ];
-
-  const blogPages: MetadataRoute.Sitemap = blogSlugs.map((slug) => ({
-    url: `${SITE_URL}/blog/${slug}`,
-    lastModified: now,
-    changeFrequency: 'monthly' as const,
-    priority: 0.7,
-  }));
-
-  return [
-    ...corePages,
-    ...toolPages,
-    ...vehiclePages,
-    ...comparisonPages,
-    ...useCasePages,
-    ...statePages,
-    ...stationPages,
-    ...categoryPages,
-    ...brandPages,
-    ...utilityPages,
-    ...blogIndex,
-    ...blogPages,
-  ];
 }

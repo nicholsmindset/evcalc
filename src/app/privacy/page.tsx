@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy — EV Range Calculator',
-  description: 'Privacy policy for EV Range Calculator. Learn how we handle your data, cookies, and third-party services.',
+  title: 'Privacy Policy — EV Range Tools',
+  description: 'Privacy policy for EV Range Tools. Learn how we handle your data, cookies, advertising, and third-party services.',
 };
 
 export default function PrivacyPage() {
@@ -66,11 +66,36 @@ export default function PrivacyPage() {
         </section>
 
         <section>
+          <h2 className="mb-3 text-lg font-display font-semibold text-text-primary">3B. Advertising</h2>
+          <div className="space-y-3">
+            <p>
+              We display advertisements served by Google AdSense. Google uses cookies to serve
+              ads based on your prior visits to this website or other websites. You may opt out
+              of personalized advertising by visiting{' '}
+              <a href="https://adssettings.google.com" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">
+                Google&apos;s Ads Settings
+              </a>{' '}
+              or{' '}
+              <a href="https://www.aboutads.info" target="_blank" rel="noopener noreferrer" className="text-accent hover:underline">
+                aboutads.info
+              </a>.
+            </p>
+            <p>
+              Third-party vendors, including Google, use cookies to serve ads based on a user&apos;s
+              prior visit to our website. Google&apos;s use of advertising cookies enables it and its
+              partners to serve ads to our users based on their visit to our site and/or other
+              sites on the internet.
+            </p>
+          </div>
+        </section>
+
+        <section>
           <h2 className="mb-3 text-lg font-display font-semibold text-text-primary">4. Cookies</h2>
           <p>
-            We do not use tracking cookies. Plausible Analytics is cookie-free. If you create
-            an account, Supabase Auth uses essential cookies for session management only.
-            No third-party advertising cookies are used.
+            We do not use tracking cookies for analytics. Plausible Analytics is cookie-free.
+            If you create an account, Supabase Auth uses essential cookies for session management
+            only. Google AdSense may set advertising cookies to serve personalized ads — see
+            Section 3B above for opt-out options.
           </p>
         </section>
 

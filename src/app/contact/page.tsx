@@ -2,8 +2,8 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Contact Us — EV Range Calculator',
-  description: 'Get in touch with the EV Range Calculator team. Report issues, suggest features, or ask questions about our EV tools.',
+  title: 'Contact Us — EV Range Tools',
+  description: 'Get in touch with the EV Range Tools team. Report issues, suggest features, or ask questions about our EV tools.',
 };
 
 const FAQ_ITEMS = [
@@ -55,10 +55,10 @@ export default function ContactPage() {
             For general inquiries, data corrections, or partnership opportunities.
           </p>
           <a
-            href="mailto:hello@evrangecalculator.com"
+            href="mailto:hello@evrangetools.com"
             className="mt-4 inline-block text-sm font-medium text-accent hover:underline"
           >
-            hello@evrangecalculator.com
+            hello@evrangetools.com
           </a>
         </div>
 
@@ -73,10 +73,10 @@ export default function ContactPage() {
             Found a bug or have a feature idea? Let us know what would make the tool better.
           </p>
           <a
-            href="mailto:feedback@evrangecalculator.com"
+            href="mailto:feedback@evrangetools.com"
             className="mt-4 inline-block text-sm font-medium text-accent hover:underline"
           >
-            feedback@evrangecalculator.com
+            feedback@evrangetools.com
           </a>
         </div>
       </div>

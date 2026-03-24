@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
 export const metadata = {
-  title: 'Offline — EV Range Calculator',
+  title: 'Offline — EV Range Tools',
 };
 
 export default function OfflinePage() {

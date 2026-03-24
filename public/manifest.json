@@ -1,7 +1,7 @@
 {
-  "name": "EV Range Calculator",
-  "short_name": "EV Range",
-  "description": "The most comprehensive EV range calculator. Calculate real-world electric vehicle range adjusted for temperature, speed, terrain, and driving conditions.",
+  "name": "EV Range Tools",
+  "short_name": "EV Range Tools",
+  "description": "The most comprehensive EV tools on the internet. Calculate real-world range, compare EVs, find charging stations, and plan road trips — free tools powered by EPA data.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#0a0a0f",

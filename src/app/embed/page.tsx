@@ -127,7 +127,7 @@ export default function EmbedCalculator() {
         {/* Attribution */}
         <div className="mt-4 text-center">
           <a
-            href="https://evrangecalculator.com/calculator"
+            href="https://www.evrangetools.com/calculator"
             target="_blank"
             rel="noopener noreferrer"
             className="text-xs text-[#00e676] hover:underline"

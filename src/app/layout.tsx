@@ -33,21 +33,21 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: {
-    default: `${SITE_NAME} — Real-World EV Range Calculator`,
+    default: `${SITE_NAME} — Free EV Tools Powered by EPA Data`,
     template: `%s | ${SITE_NAME}`,
   },
   description: SITE_DESCRIPTION,
   manifest: '/manifest.json',
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://evrangecalculator.com'),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://www.evrangetools.com'),
   openGraph: {
     type: 'website',
     siteName: SITE_NAME,
-    title: `${SITE_NAME} — Real-World EV Range Calculator`,
+    title: `${SITE_NAME} — Free EV Tools Powered by EPA Data`,
     description: SITE_DESCRIPTION,
   },
   twitter: {
     card: 'summary_large_image',
-    title: `${SITE_NAME} — Real-World EV Range Calculator`,
+    title: `${SITE_NAME} — Free EV Tools Powered by EPA Data`,
     description: SITE_DESCRIPTION,
   },
   robots: {

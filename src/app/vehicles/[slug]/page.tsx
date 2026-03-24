@@ -31,7 +31,7 @@ export async function generateMetadata({
 
   const name = `${vehicle.year} ${vehicle.make} ${vehicle.model}${vehicle.trim ? ` ${vehicle.trim}` : ''}`;
   return genMeta({
-    title: `${name} Range, Specs & Charging — EV Range Calculator`,
+    title: `${name} Range, Specs & Charging — EV Range Tools`,
     description: `${name}: ${vehicle.epa_range_mi} miles EPA range, ${vehicle.battery_kwh} kWh battery, ${vehicle.efficiency_kwh_per_100mi} kWh/100mi. See real-world range under different conditions.`,
     path: `/vehicles/${slug}`,
   });

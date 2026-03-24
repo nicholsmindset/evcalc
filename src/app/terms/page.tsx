@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Terms of Use — EV Range Calculator',
-  description: 'Terms of use for EV Range Calculator. Understand our data accuracy disclaimers, affiliate disclosures, and usage policies.',
+  title: 'Terms of Use — EV Range Tools',
+  description: 'Terms of use for EV Range Tools. Understand our data accuracy disclaimers, affiliate disclosures, and usage policies.',
 };
 
 export default function TermsPage() {
@@ -17,7 +17,7 @@ export default function TermsPage() {
         <section>
           <h2 className="mb-3 text-lg font-display font-semibold text-text-primary">1. Acceptance of Terms</h2>
           <p>
-            By accessing and using EV Range Calculator (&ldquo;the Service&rdquo;), you accept and
+            By accessing and using EV Range Tools (&ldquo;the Service&rdquo;), you accept and
             agree to be bound by these Terms of Use. If you do not agree to these terms, please
             do not use the Service.
           </p>
@@ -26,7 +26,7 @@ export default function TermsPage() {
         <section>
           <h2 className="mb-3 text-lg font-display font-semibold text-text-primary">2. Description of Service</h2>
           <p>
-            EV Range Calculator provides electric vehicle range estimation tools, charging station
+            EV Range Tools provides electric vehicle range estimation tools, charging station
             information, cost calculators, vehicle comparisons, and related resources. The Service
             is provided free of charge for personal, non-commercial use.
           </p>
@@ -70,7 +70,7 @@ export default function TermsPage() {
         <section>
           <h2 className="mb-3 text-lg font-display font-semibold text-text-primary">5. Affiliate Disclosure</h2>
           <p>
-            EV Range Calculator participates in the Amazon Services LLC Associates Program, an
+            EV Range Tools participates in the Amazon Services LLC Associates Program, an
             affiliate advertising program designed to provide a means for sites to earn advertising
             fees by advertising and linking to Amazon.com. Product recommendations are clearly
             labeled as sponsored content. As an Amazon Associate, we earn from qualifying purchases.

@@ -2,12 +2,12 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Embed EV Range Calculator Widget — Free for Any Website',
-  description: 'Add the EV Range Calculator to your website for free. Get the embed code for blogs, forums, and EV enthusiast sites.',
+  title: 'Embed EV Range Tools Widget — Free for Any Website',
+  description: 'Add the EV Range Tools calculator to your website for free. Get the embed code for blogs, forums, and EV enthusiast sites.',
 };
 
 const EMBED_CODE = `<iframe
-  src="https://evrangecalculator.com/embed"
+  src="https://www.evrangetools.com/embed"
   width="100%"
   height="520"
   style="border: none; border-radius: 12px; max-width: 440px;"

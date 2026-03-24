@@ -20,7 +20,7 @@ export async function generateMetadata({
   if (!post) return { title: 'Post Not Found' };
 
   return {
-    title: `${post.title} — EV Range Calculator Blog`,
+    title: `${post.title} — EV Range Tools Blog`,
     description: post.description,
     openGraph: {
       title: post.title,
@@ -62,11 +62,11 @@ export default async function BlogPostPage({
     },
     publisher: {
       '@type': 'Organization',
-      name: 'EV Range Calculator',
+      name: 'EV Range Tools',
     },
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': `https://evrangecalculator.com/blog/${slug}`,
+      '@id': `https://www.evrangetools.com/blog/${slug}`,
     },
   };
 
@@ -78,19 +78,19 @@ export default async function BlogPostPage({
         '@type': 'ListItem',
         position: 1,
         name: 'Home',
-        item: 'https://evrangecalculator.com',
+        item: 'https://www.evrangetools.com',
       },
       {
         '@type': 'ListItem',
         position: 2,
         name: 'Blog',
-        item: 'https://evrangecalculator.com/blog',
+        item: 'https://www.evrangetools.com/blog',
       },
       {
         '@type': 'ListItem',
         position: 3,
         name: post.title,
-        item: `https://evrangecalculator.com/blog/${slug}`,
+        item: `https://www.evrangetools.com/blog/${slug}`,
       },
     ],
   };

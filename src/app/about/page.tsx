@@ -2,8 +2,8 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'About EV Range Calculator — Our Mission & Data Sources',
-  description: 'Learn about EV Range Calculator, the most accurate electric vehicle range tool on the internet. Powered by EPA, NREL, and OpenChargeMap data.',
+  title: 'About EV Range Tools — Our Mission & Data Sources',
+  description: 'Learn about EV Range Tools, the most accurate electric vehicle range tool on the internet. Powered by EPA, NREL, and OpenChargeMap data.',
 };
 
 const DATA_SOURCES = [
@@ -35,7 +35,7 @@ export default function AboutPage() {
       {/* Header */}
       <div className="mb-12">
         <h1 className="text-3xl font-display font-bold tracking-tight text-text-primary sm:text-4xl">
-          About EV Range Calculator
+          About EV Range Tools
         </h1>
         <p className="mt-4 text-lg text-text-secondary">
           The most comprehensive, accurate EV range calculator on the internet.
@@ -47,7 +47,7 @@ export default function AboutPage() {
         <h2 className="mb-4 text-xl font-display font-bold text-text-primary">Our Mission</h2>
         <div className="space-y-4 text-text-secondary">
           <p>
-            We built EV Range Calculator to answer the question every EV buyer asks:
+            We built EV Range Tools to answer the question every EV buyer asks:
             &ldquo;How far can this car <em>really</em> go?&rdquo; EPA range numbers are a starting
             point, but real-world range depends on temperature, speed, terrain, HVAC usage,
             cargo weight, and battery health.

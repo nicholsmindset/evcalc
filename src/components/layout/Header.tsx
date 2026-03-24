@@ -50,7 +50,7 @@ export function Header() {
             <path d="M16 4l-4 12h8L12 28l8-12h-8L16 4z" />
           </svg>
           <span>
-            EV Range<span className="text-accent">Calc</span>
+            EV Range<span className="text-accent">Tools</span>
           </span>
         </Link>
 
