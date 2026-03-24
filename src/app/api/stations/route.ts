@@ -40,27 +40,41 @@ export async function GET(req: NextRequest) {
 async function fetchNrelStations(params: {
   lat: string; lng: string; radius: string; limit: string; network: string; connector: string;
 }) {
-  const apiKey = process.env.NREL_API_KEY;
-  if (!apiKey) throw new Error('NREL_API_KEY not configured');
+  // Fall back to DEMO_KEY if env var is missing or invalid — rate limited but functional.
+  const configuredKey = process.env.NREL_API_KEY?.trim();
+  const apiKey = configuredKey || 'DEMO_KEY';
 
-  const query = new URLSearchParams({
-    api_key: apiKey,
-    fuel_type: 'ELEC',
-    status: 'E',
-    access: 'public',
-    latitude: params.lat,
-    longitude: params.lng,
-    radius: params.radius,
-    limit: params.limit,
-  });
+  const buildQuery = (key: string) => {
+    const q = new URLSearchParams({
+      api_key: key,
+      fuel_type: 'ELEC',
+      status: 'E',
+      access: 'public',
+      latitude: params.lat,
+      longitude: params.lng,
+      radius: params.radius,
+      limit: params.limit,
+    });
+    if (params.network) q.set('ev_network', params.network);
+    if (params.connector) q.set('ev_connector_type', params.connector);
+    return q;
+  };
 
-  if (params.network) query.set('ev_network', params.network);
-  if (params.connector) query.set('ev_connector_type', params.connector);
+  const tryKey = async (key: string) => {
+    const url = `${NREL_BASE}/nearest.json?${buildQuery(key)}`;
+    console.log('[NREL] Fetching with key:', key === 'DEMO_KEY' ? 'DEMO_KEY' : '***');
+    const res = await fetch(url);
+    return res;
+  };
 
-  const url = `${NREL_BASE}/nearest.json?${query}`;
-  console.log('[NREL] Fetching:', url.replace(apiKey, '***'));
+  let res = await tryKey(apiKey);
 
-  const res = await fetch(url);
+  // If configured key is invalid, retry with DEMO_KEY
+  if (!res.ok && apiKey !== 'DEMO_KEY') {
+    console.warn('[NREL] Configured key returned', res.status, '— retrying with DEMO_KEY');
+    res = await tryKey('DEMO_KEY');
+  }
+
   if (!res.ok) {
     const errBody = await res.text().catch(() => '');
     console.error('[NREL] Error response:', res.status, errBody);
