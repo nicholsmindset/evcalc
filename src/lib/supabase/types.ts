@@ -206,6 +206,29 @@ export interface InstallationCostRow {
   notes: string | null;
 }
 
+export interface UtilityRebateRow {
+  id: string;
+  utility_name: string;
+  utility_slug: string;
+  state: string;
+  service_area_description: string | null;
+  rebate_type: string;
+  rebate_name: string;
+  description: string;
+  amount: number | null;
+  amount_text: string;
+  eligibility: string | null;
+  eligible_charger_levels: string[] | null;
+  max_rebate_per_customer: number | null;
+  application_url: string | null;
+  program_status: string;
+  start_date: string | null;
+  end_date: string | null;
+  requirements: string | null;
+  source_url: string | null;
+  last_verified: string;
+}
+
 // Database type for Supabase client typing
 export interface Database {
   public: {
@@ -274,6 +297,12 @@ export interface Database {
         Row: InstallationCostRow;
         Insert: Omit<InstallationCostRow, 'id'>;
         Update: Partial<Omit<InstallationCostRow, 'id'>>;
+        Relationships: [];
+      };
+      utility_rebates: {
+        Row: UtilityRebateRow;
+        Insert: Omit<UtilityRebateRow, 'id'>;
+        Update: Partial<Omit<UtilityRebateRow, 'id'>>;
         Relationships: [];
       };
     };
