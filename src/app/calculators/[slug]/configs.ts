@@ -1,0 +1,287 @@
+import type { CalculatorConfig } from './CalcContent';
+
+const ALL_SLUGS = ['watts-to-kwh', 'kw-to-kwh', 'kwh-to-watts', 'ah-to-kwh', 'amp-to-kwh'];
+
+function otherSlugs(current: string): string[] {
+  return ALL_SLUGS.filter((s) => s !== current);
+}
+
+export const CALCULATOR_CONFIGS: Record<string, CalculatorConfig> = {
+  'watts-to-kwh': {
+    slug: 'watts-to-kwh',
+    title: 'Watts to kWh Calculator',
+    tagline: 'Convert power (watts) × time (hours) to energy in kilowatt-hours.',
+    formula: 'kWh = (W × H) / 1000',
+    formulaLatex: 'kWh = (Watts × Hours) ÷ 1,000',
+    inputs: [
+      {
+        id: 'watts',
+        label: 'Power',
+        unit: 'W',
+        placeholder: 'e.g. 7200',
+        min: 0,
+        presets: [
+          { label: '1.4 kW (L1)', value: 1400 },
+          { label: '7.7 kW (32A L2)', value: 7680 },
+          { label: '11.5 kW (48A L2)', value: 11520 },
+          { label: '19.2 kW (80A L2)', value: 19200 },
+          { label: '50 kW DCFC', value: 50000 },
+          { label: '150 kW DCFC', value: 150000 },
+          { label: '350 kW DCFC', value: 350000 },
+        ],
+      },
+      {
+        id: 'hours',
+        label: 'Duration',
+        unit: 'hours',
+        placeholder: 'e.g. 8',
+        min: 0,
+        presets: [
+          { label: '0.5 hr', value: 0.5 },
+          { label: '1 hr', value: 1 },
+          { label: '4 hrs', value: 4 },
+          { label: '8 hrs', value: 8 },
+          { label: '10 hrs', value: 10 },
+        ],
+      },
+    ],
+    outputUnit: 'kWh',
+    outputLabel: 'Energy delivered',
+    compute: ({ watts, hours }) => (watts * hours) / 1000,
+    howItWorks:
+      'Power (watts) measures the rate of energy transfer. Time (hours) measures duration. Multiplying them gives watt-hours (Wh). Dividing by 1,000 converts to kilowatt-hours (kWh) — the unit on your electricity bill and EV battery specs. A 7,200W (7.2 kW) charger running for 8 hours delivers 57.6 kWh — enough to fully charge most EVs.',
+    evExamples: [
+      { label: 'Level 1 overnight', description: '1,400W × 10 hours', result: '14 kWh (~50 miles)' },
+      { label: 'Level 2 at 40A, 8 hrs', description: '9,600W × 8 hours', result: '76.8 kWh' },
+      { label: '150 kW DC Fast, 20 min', description: '150,000W × 0.33 hrs', result: '50 kWh (~175 miles)' },
+      { label: 'Cybertruck 80A charger', description: '19,200W × 10 hrs', result: '192 kWh' },
+      { label: 'Tesla Supercharger V3', description: '250,000W × 0.25 hrs', result: '62.5 kWh' },
+      { label: 'Monthly home charging', description: '9,600W × 120 hrs/mo', result: '1,152 kWh/month' },
+    ],
+    relatedSlugs: otherSlugs('watts-to-kwh'),
+  },
+
+  'kw-to-kwh': {
+    slug: 'kw-to-kwh',
+    title: 'kW to kWh Calculator',
+    tagline: 'Convert charging power in kilowatts to energy delivered in kilowatt-hours.',
+    formula: 'kWh = kW × H',
+    formulaLatex: 'kWh = Kilowatts × Hours',
+    inputs: [
+      {
+        id: 'kw',
+        label: 'Power',
+        unit: 'kW',
+        placeholder: 'e.g. 11.5',
+        min: 0,
+        presets: [
+          { label: '1.4 kW (L1)', value: 1.4 },
+          { label: '7.7 kW (32A)', value: 7.7 },
+          { label: '9.6 kW (40A)', value: 9.6 },
+          { label: '11.5 kW (48A)', value: 11.5 },
+          { label: '19.2 kW (80A)', value: 19.2 },
+          { label: '50 kW', value: 50 },
+          { label: '250 kW', value: 250 },
+        ],
+      },
+      {
+        id: 'hours',
+        label: 'Duration',
+        unit: 'hours',
+        placeholder: 'e.g. 8',
+        min: 0,
+        presets: [
+          { label: '15 min', value: 0.25 },
+          { label: '30 min', value: 0.5 },
+          { label: '1 hr', value: 1 },
+          { label: '4 hrs', value: 4 },
+          { label: '8 hrs', value: 8 },
+          { label: '10 hrs', value: 10 },
+        ],
+      },
+    ],
+    outputUnit: 'kWh',
+    outputLabel: 'Energy delivered',
+    compute: ({ kw, hours }) => kw * hours,
+    howItWorks:
+      'kW (kilowatts) is the rate at which energy is transferred. kWh (kilowatt-hours) is the total energy transferred. Multiply kW by the number of hours to get kWh. This is the same unit used on your electric bill. A 11.5 kW Level 2 charger running for 7 hours adds 80.5 kWh — enough to fully charge a Tesla Model Y Long Range.',
+    evExamples: [
+      { label: 'Ioniq 5 overnight (11.5 kW, 6 hrs)', description: '11.5 × 6 hours', result: '69 kWh (full charge)' },
+      { label: 'Model 3 quick top-up (11.5 kW, 2 hrs)', description: '11.5 × 2 hours', result: '23 kWh (~80 miles)' },
+      { label: '350 kW HPC, 10 minutes', description: '350 × 0.167 hrs', result: '58.3 kWh (~200 miles)' },
+      { label: 'Daily Level 1 (1.4 kW, 12 hrs)', description: '1.4 × 12 hours', result: '16.8 kWh (~60 miles)' },
+      { label: 'Fleet DC fast (50 kW, 1 hr)', description: '50 × 1 hour', result: '50 kWh' },
+      { label: 'EV home solar (8 kW system)', description: '8 kW × 5 peak hours', result: '40 kWh/day' },
+    ],
+    relatedSlugs: otherSlugs('kw-to-kwh'),
+  },
+
+  'kwh-to-watts': {
+    slug: 'kwh-to-watts',
+    title: 'kWh to Watts Calculator',
+    tagline: 'Convert energy (kWh) and time (hours) to average power in watts.',
+    formula: 'W = (kWh / H) × 1000',
+    formulaLatex: 'Watts = (kWh ÷ Hours) × 1,000',
+    inputs: [
+      {
+        id: 'kwh',
+        label: 'Energy',
+        unit: 'kWh',
+        placeholder: 'e.g. 77',
+        min: 0,
+        presets: [
+          { label: '40 kWh', value: 40 },
+          { label: '54 kWh', value: 54 },
+          { label: '77 kWh', value: 77 },
+          { label: '100 kWh', value: 100 },
+          { label: '131 kWh', value: 131 },
+        ],
+      },
+      {
+        id: 'hours',
+        label: 'Duration',
+        unit: 'hours',
+        placeholder: 'e.g. 8',
+        min: 0,
+        presets: [
+          { label: '0.5 hr', value: 0.5 },
+          { label: '1 hr', value: 1 },
+          { label: '4 hrs', value: 4 },
+          { label: '8 hrs', value: 8 },
+          { label: '10 hrs', value: 10 },
+        ],
+      },
+    ],
+    outputUnit: 'Watts',
+    outputLabel: 'Average power required',
+    compute: ({ kwh, hours }) => (kwh / hours) * 1000,
+    howItWorks:
+      'This reverses the kWh formula. If you know how much energy you need (kWh) and how long you have to charge (hours), this tells you the required charger power in watts. Useful for sizing a home charger: if you need to add 60 kWh overnight in 8 hours, you need (60/8)×1000 = 7,500W (≈ a 40A Level 2 charger).',
+    evExamples: [
+      { label: 'Model Y Long Range (77 kWh, 8 hrs)', description: '(77 / 8) × 1,000', result: '9,625 W (≈40A L2)' },
+      { label: 'Chevy Bolt (65 kWh, 6 hrs)', description: '(65 / 6) × 1,000', result: '10,833 W (≈48A L2)' },
+      { label: 'Ioniq 5 (77 kWh, 7 hrs)', description: '(77 / 7) × 1,000', result: '11,000 W (≈48A L2)' },
+      { label: 'Cybertruck (123 kWh, 10 hrs)', description: '(123 / 10) × 1,000', result: '12,300 W (≈50A L2)' },
+      { label: 'Nissan Leaf (40 kWh, 10 hrs)', description: '(40 / 10) × 1,000', result: '4,000 W (L1 or 24A L2)' },
+      { label: 'R1T (135 kWh, 7 hrs)', description: '(135 / 7) × 1,000', result: '19,286 W (80A L2)' },
+    ],
+    relatedSlugs: otherSlugs('kwh-to-watts'),
+  },
+
+  'ah-to-kwh': {
+    slug: 'ah-to-kwh',
+    title: 'Amp-Hours to kWh Calculator',
+    tagline: 'Convert battery capacity in amp-hours (Ah) and voltage to kilowatt-hours.',
+    formula: 'kWh = (Ah × V) / 1000',
+    formulaLatex: 'kWh = (Amp-Hours × Volts) ÷ 1,000',
+    inputs: [
+      {
+        id: 'ah',
+        label: 'Capacity',
+        unit: 'Ah',
+        placeholder: 'e.g. 200',
+        min: 0,
+        presets: [
+          { label: '50 Ah', value: 50 },
+          { label: '100 Ah', value: 100 },
+          { label: '200 Ah', value: 200 },
+          { label: '300 Ah', value: 300 },
+          { label: '400 Ah', value: 400 },
+        ],
+      },
+      {
+        id: 'volts',
+        label: 'Voltage',
+        unit: 'V',
+        placeholder: 'e.g. 400',
+        min: 0,
+        presets: [
+          { label: '12V (car)', value: 12 },
+          { label: '24V', value: 24 },
+          { label: '48V (golf cart)', value: 48 },
+          { label: '400V (most EVs)', value: 400 },
+          { label: '800V (Ioniq 5, EV6)', value: 800 },
+        ],
+      },
+    ],
+    outputUnit: 'kWh',
+    outputLabel: 'Battery capacity',
+    compute: ({ ah, volts }) => (ah * volts) / 1000,
+    howItWorks:
+      'Amp-hours (Ah) measures charge capacity — how many amps a battery can deliver for one hour. Multiplying by voltage gives watt-hours (Wh), and dividing by 1,000 converts to kWh. EV battery packs typically run at 350–800V nominal, so a 200Ah 400V pack holds 80 kWh. Home battery systems and golf carts use lower voltages (12–48V).',
+    evExamples: [
+      { label: 'Tesla Model 3 LR battery', description: '~193 Ah × 400V', result: '≈77 kWh' },
+      { label: 'Hyundai Ioniq 5 (800V)', description: '~96 Ah × 800V', result: '≈77 kWh' },
+      { label: 'Nissan Leaf 40 kWh', description: '~111 Ah × 360V', result: '≈40 kWh' },
+      { label: 'Golf cart pack (48V)', description: '200 Ah × 48V', result: '9.6 kWh' },
+      { label: 'LiFePO4 home battery (48V)', description: '300 Ah × 48V', result: '14.4 kWh' },
+      { label: 'Rivian R1T (800V)', description: '~169 Ah × 800V', result: '≈135 kWh' },
+    ],
+    relatedSlugs: otherSlugs('ah-to-kwh'),
+  },
+
+  'amp-to-kwh': {
+    slug: 'amp-to-kwh',
+    title: 'Amps to kWh Calculator',
+    tagline: 'Calculate energy from current (amps), voltage, and time.',
+    formula: 'kWh = (A × V × H) / 1000',
+    formulaLatex: 'kWh = (Amps × Volts × Hours) ÷ 1,000',
+    inputs: [
+      {
+        id: 'amps',
+        label: 'Current',
+        unit: 'A',
+        placeholder: 'e.g. 40',
+        min: 0,
+        presets: [
+          { label: '12A (L1)', value: 12 },
+          { label: '16A', value: 16 },
+          { label: '24A', value: 24 },
+          { label: '32A', value: 32 },
+          { label: '40A', value: 40 },
+          { label: '48A', value: 48 },
+          { label: '80A', value: 80 },
+        ],
+      },
+      {
+        id: 'volts',
+        label: 'Voltage',
+        unit: 'V',
+        placeholder: 'e.g. 240',
+        min: 0,
+        presets: [
+          { label: '120V (L1)', value: 120 },
+          { label: '240V (L2)', value: 240 },
+        ],
+      },
+      {
+        id: 'hours',
+        label: 'Duration',
+        unit: 'hours',
+        placeholder: 'e.g. 8',
+        min: 0,
+        presets: [
+          { label: '0.5 hr', value: 0.5 },
+          { label: '1 hr', value: 1 },
+          { label: '4 hrs', value: 4 },
+          { label: '8 hrs', value: 8 },
+          { label: '10 hrs', value: 10 },
+        ],
+      },
+    ],
+    outputUnit: 'kWh',
+    outputLabel: 'Energy delivered',
+    compute: ({ amps, volts, hours }) => (amps * volts * hours) / 1000,
+    howItWorks:
+      'Power (watts) = amps × volts. Multiply by time to get watt-hours, then divide by 1,000 for kWh. This is exactly how your home EV charger works: a 40A charger on a 240V circuit delivers 9,600W (9.6 kW). Over 8 hours, that\'s 76.8 kWh — enough to charge most EVs from near-empty. The formula is fundamental to understanding both home charging costs and EVSE sizing.',
+    evExamples: [
+      { label: '40A Level 2, 8 hours', description: '40A × 240V × 8 hrs', result: '76.8 kWh' },
+      { label: '48A Level 2, 7 hours', description: '48A × 240V × 7 hrs', result: '80.6 kWh' },
+      { label: '12A Level 1, 12 hours', description: '12A × 120V × 12 hrs', result: '17.3 kWh (~60 mi)' },
+      { label: '80A Level 2, 6 hours', description: '80A × 240V × 6 hrs', result: '115.2 kWh' },
+      { label: '32A Level 2, 6 hours', description: '32A × 240V × 6 hrs', result: '46.1 kWh' },
+      { label: '16A (EVSE cord), 10 hrs', description: '16A × 240V × 10 hrs', result: '38.4 kWh' },
+    ],
+    relatedSlugs: otherSlugs('amp-to-kwh'),
+  },
+};
