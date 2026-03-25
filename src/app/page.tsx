@@ -6,18 +6,18 @@ import { formatCurrency } from '@/lib/utils/formatting';
 export const metadata: Metadata = {
   title: 'EV Range Tools — Free EV Calculators, Comparisons & Charging Maps',
   description:
-    'The most comprehensive free EV tools — range calculator, charging cost, EV vs gas savings, road trip planner, and more. Powered by EPA data.',
+    'The most comprehensive free EV tools — range calculator, charging cost, carbon footprint, depreciation, towing guide, and more. Powered by EPA data.',
   alternates: { canonical: '/' },
   openGraph: {
     title: 'EV Range Tools — Free EV Calculators, Comparisons & Charging Maps',
     description:
-      'The most comprehensive free EV tools — range calculator, charging cost, EV vs gas savings, road trip planner, and more. Powered by EPA data.',
+      'The most comprehensive free EV tools — range calculator, charging cost, carbon footprint, depreciation, towing guide, and more. Powered by EPA data.',
     url: '/',
     type: 'website',
   },
 };
 
-
+// Core tools grid
 const TOOLS = [
   {
     href: '/calculator',
@@ -42,7 +42,7 @@ const TOOLS = [
   {
     href: '/ev-vs-gas',
     title: 'EV vs Gas Savings',
-    description: 'See exactly how much you\'ll save switching from gas to electric over 5, 7, or 10 years.',
+    description: "See exactly how much you'll save switching from gas to electric over 5, 7, or 10 years.",
     icon: (
       <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
@@ -96,7 +96,7 @@ const TOOLS = [
     description: 'Find rebates and tax credits in all 50 states — stack with the $7,500 federal credit.',
     icon: (
       <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z" />
       </svg>
     ),
   },
@@ -131,26 +131,6 @@ const TOOLS = [
     ),
   },
   {
-    href: '/charger-installation-cost',
-    title: 'Installation Cost',
-    description: 'Get an itemized estimate for Level 2 charger installation in your state — labor, wire, permit.',
-    icon: (
-      <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 11-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 004.486-6.336l-3.276 3.277a3.004 3.004 0 01-2.25-2.25l3.276-3.276a4.5 4.5 0 00-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437l1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008z" />
-      </svg>
-    ),
-  },
-  {
-    href: '/best-ev-chargers',
-    title: 'Best EV Chargers',
-    description: 'Top 7 home EV chargers reviewed by category — overall, value, smart, Tesla, and portable.',
-    icon: (
-      <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
-      </svg>
-    ),
-  },
-  {
     href: '/ev-quiz',
     title: 'EV Readiness Quiz',
     description: 'Is an EV right for you? Take our 10-question quiz and get a personalized readiness score.',
@@ -162,6 +142,64 @@ const TOOLS = [
   },
 ];
 
+// New & featured tools — Phase 5 + 6 highlights
+const NEW_TOOLS = [
+  {
+    href: '/ev-carbon-footprint',
+    title: 'Carbon Footprint Calculator',
+    badge: 'New',
+    emoji: '🌱',
+    description: 'How much CO₂ does your EV actually save? Compare vs a gas car by state grid, including manufacturing emissions and lifecycle breakeven timeline.',
+    stat: '50 state grids',
+    statLabel: 'EPA eGRID data',
+  },
+  {
+    href: '/ev-towing',
+    title: 'EV Towing Guide',
+    badge: 'New',
+    emoji: '🚛',
+    description: 'Which EVs can actually tow? Capacity, payload, and real towing range estimates at every trailer weight for 15 towable EVs.',
+    stat: '14,000 lbs',
+    statLabel: 'max tow capacity',
+  },
+  {
+    href: '/charging-networks',
+    title: 'Charging Network Comparison',
+    badge: 'New',
+    emoji: '⚡',
+    description: 'Tesla vs ChargePoint vs Electrify America vs EVgo — pricing, coverage, reliability, and compatibility side by side.',
+    stat: '9 networks',
+    statLabel: 'compared',
+  },
+  {
+    href: '/ev-insurance-cost',
+    title: 'EV Insurance Cost Guide',
+    badge: 'New',
+    emoji: '🛡️',
+    description: 'Annual insurance costs for 30 EV models. See the cheapest and most expensive, state-by-state rates, and tips to save.',
+    stat: '30 EV models',
+    statLabel: 'insurance data',
+  },
+  {
+    href: '/ev-depreciation-calculator',
+    title: 'Depreciation Calculator',
+    badge: 'New',
+    emoji: '📉',
+    description: "See your EV's current value, projected resale at 3 and 5 years, and the best time to sell — based on real iSeeCars data.",
+    stat: '20 model curves',
+    statLabel: 'resale data',
+  },
+  {
+    href: '/ev-vs-gas/compare',
+    title: 'EV vs Specific Gas Car',
+    badge: 'New',
+    emoji: '⛽',
+    description: 'Compare your exact EV against any gas car — year, make, model, trim — for annual costs, 10-year savings, and CO₂.',
+    stat: 'Any gas car',
+    statLabel: 'via EPA database',
+  },
+];
+
 export default function HomePage() {
   return (
     <>
@@ -170,13 +208,17 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-gradient-to-b from-accent/5 via-transparent to-transparent" />
         <div className="relative mx-auto max-w-7xl px-4 pb-16 pt-20 sm:px-6 sm:pb-24 sm:pt-32 lg:px-8">
           <div className="mx-auto max-w-3xl text-center">
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-accent/20 bg-accent/5 px-4 py-1.5 text-sm text-accent">
+              <span className="h-1.5 w-1.5 rounded-full bg-accent animate-pulse" />
+              25+ free tools for EV owners and buyers
+            </div>
             <h1 className="text-4xl font-display font-bold tracking-tight text-text-primary sm:text-5xl lg:text-6xl">
               How Far Can Your EV{' '}
               <span className="text-accent">Really</span> Go?
             </h1>
             <p className="mt-6 text-lg leading-8 text-text-secondary sm:text-xl">
-              The most accurate EV range calculator on the internet. Adjust for temperature,
-              speed, terrain, and real driving conditions. Powered by EPA data and physics-based modeling.
+              The most accurate EV range calculator on the internet. Calculate range, compare costs,
+              check incentives, and plan trips — all free, powered by EPA data.
             </p>
             <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
               <Link
@@ -196,7 +238,51 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Tools Grid */}
+      {/* NEW TOOLS SPOTLIGHT */}
+      <section className="border-t border-border bg-bg-secondary">
+        <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
+          <div className="mb-2 flex items-center gap-2">
+            <span className="rounded bg-accent/15 px-2.5 py-1 text-xs font-bold uppercase tracking-wider text-accent">
+              New Tools
+            </span>
+          </div>
+          <h2 className="text-2xl font-display font-bold text-text-primary sm:text-3xl">
+            Just Added
+          </h2>
+          <p className="mt-2 text-text-secondary">
+            New calculators, guides, and comparisons added to the toolkit.
+          </p>
+
+          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {NEW_TOOLS.map((tool) => (
+              <Link
+                key={tool.href}
+                href={tool.href}
+                className="group relative rounded-xl border border-border bg-bg-primary p-5 transition-all hover:border-accent/40 hover:shadow-lg hover:shadow-accent/5"
+              >
+                <div className="mb-3 flex items-start justify-between">
+                  <span className="text-2xl">{tool.emoji}</span>
+                  <span className="rounded bg-accent/15 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-accent">
+                    {tool.badge}
+                  </span>
+                </div>
+                <h3 className="font-display text-base font-semibold text-text-primary group-hover:text-accent transition-colors">
+                  {tool.title}
+                </h3>
+                <p className="mt-1.5 text-sm leading-relaxed text-text-secondary">
+                  {tool.description}
+                </p>
+                <div className="mt-3 flex items-center gap-1.5 border-t border-border pt-3">
+                  <span className="font-mono text-sm font-bold text-accent">{tool.stat}</span>
+                  <span className="text-xs text-text-tertiary">{tool.statLabel}</span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Core Tools Grid */}
       <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <h2 className="text-center text-2xl font-display font-bold text-text-primary sm:text-3xl">
           Everything You Need for EV Ownership
@@ -229,6 +315,19 @@ export default function HomePage() {
               </div>
             </Link>
           ))}
+        </div>
+
+        <div className="mt-10 text-center">
+          <p className="text-sm text-text-tertiary">
+            Looking for more?{' '}
+            <Link href="/ev-carbon-footprint" className="text-accent hover:underline">Carbon footprint</Link>
+            {' · '}
+            <Link href="/ev-towing" className="text-accent hover:underline">EV towing guide</Link>
+            {' · '}
+            <Link href="/charging-schedule" className="text-accent hover:underline">Charging schedule optimizer</Link>
+            {' · '}
+            <Link href="/fleet-calculator" className="text-accent hover:underline">Fleet ROI calculator</Link>
+          </p>
         </div>
       </section>
 
@@ -268,6 +367,18 @@ export default function HomePage() {
               </Link>
             ))}
           </div>
+
+          <div className="mt-8 text-center">
+            <Link
+              href="/vehicles"
+              className="inline-flex items-center gap-2 rounded-lg border border-border px-5 py-2.5 text-sm font-medium text-text-primary hover:bg-bg-tertiary transition-colors"
+            >
+              Browse all EVs
+              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+              </svg>
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -277,7 +388,8 @@ export default function HomePage() {
           <p className="text-center text-sm text-text-tertiary">
             Powered by official data from the{' '}
             <span className="text-text-secondary">U.S. Environmental Protection Agency (EPA)</span>,{' '}
-            <span className="text-text-secondary">National Renewable Energy Laboratory (NREL)</span>, and{' '}
+            <span className="text-text-secondary">National Renewable Energy Laboratory (NREL)</span>,{' '}
+            <span className="text-text-secondary">EPA eGRID</span>, and{' '}
             <span className="text-text-secondary">OpenChargeMap</span>.
           </p>
         </div>
