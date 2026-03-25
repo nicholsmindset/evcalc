@@ -122,6 +122,8 @@ export default function sitemap({ id }: { id: string }): MetadataRoute.Sitemap {
         '/road-trip-planner',
         '/tco-calculator',
         '/home-charger',
+        '/home-charger-wizard',
+        '/tax-credit-checker',
         '/advisor',
         '/range-reports',
         '/ev-vs-hybrid',
@@ -130,6 +132,28 @@ export default function sitemap({ id }: { id: string }): MetadataRoute.Sitemap {
         '/ev-tax-credit',
         '/electric-car-maintenance-cost',
         '/embed-widget',
+        '/charger-installation-cost',
+        '/ev-quiz',
+        '/can-i-afford-an-ev',
+        '/find-my-ev',
+        '/v2h-calculator',
+        '/solar-ev-calculator',
+        '/winter-ev-range',
+        '/battery-health-tracker',
+        '/apartment-ev-charging',
+        '/ev-vs-gas/compare',
+        '/charging-schedule',
+        '/ev-insurance-cost',
+        '/ev-depreciation-calculator',
+        '/charging-networks',
+        '/ev-towing',
+        '/ev-carbon-footprint',
+        '/best-credit-card-ev-charging',
+        '/fleet-calculator',
+        '/lease-vs-buy',
+        '/ev-incentives',
+        '/ev-rebates',
+        '/calculators',
       ].map((path) => ({
         url: `${SITE_URL}${path}`,
         lastModified: now,
@@ -137,7 +161,33 @@ export default function sitemap({ id }: { id: string }): MetadataRoute.Sitemap {
         priority: 0.85,
       }));
 
-      return [...corePages, ...toolPages];
+      const chargerGuides: MetadataRoute.Sitemap = [
+        '/best-ev-chargers',
+        '/best-ev-chargers/level-2',
+        '/best-ev-chargers/portable',
+        '/best-ev-chargers/level-1',
+        '/best-ev-chargers/tesla',
+      ].map((path) => ({
+        url: `${SITE_URL}${path}`,
+        lastModified: now,
+        changeFrequency: 'monthly' as const,
+        priority: 0.8,
+      }));
+
+      const calculatorMicroTools: MetadataRoute.Sitemap = [
+        '/calculators/watts-to-kwh',
+        '/calculators/kw-to-kwh',
+        '/calculators/kwh-to-watts',
+        '/calculators/ah-to-kwh',
+        '/calculators/amp-to-kwh',
+      ].map((path) => ({
+        url: `${SITE_URL}${path}`,
+        lastModified: now,
+        changeFrequency: 'monthly' as const,
+        priority: 0.75,
+      }));
+
+      return [...corePages, ...toolPages, ...chargerGuides, ...calculatorMicroTools];
     }
 
     case 'vehicles': {
