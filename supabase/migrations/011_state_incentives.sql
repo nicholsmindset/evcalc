@@ -35,7 +35,7 @@ CREATE INDEX IF NOT EXISTS idx_state_incentives_status ON state_incentives(fundi
 -- SEED: all 50 states + DC
 -- ============================================================
 
-INSERT INTO state_incentives (state_code, state_name, slug, incentive_type, incentive_name, description, amount_or_value, amount_usd, eligibility_requirements, income_limit, msrp_cap, vehicle_types_eligible, application_url, funding_status, source_url, last_verified)
+INSERT INTO state_incentives (state_code, state_name, slug, incentive_type, incentive_name, description, amount_or_value, amount_usd, eligibility_requirements, income_limit, msrp_cap, vehicle_types_eligible, application_url, expiration_date, funding_status, source_url, last_verified)
 VALUES
 
 -- ============================================================
