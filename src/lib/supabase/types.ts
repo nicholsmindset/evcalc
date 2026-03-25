@@ -121,6 +121,91 @@ export interface VehicleComparison {
 export type VehicleComparisonInsert = Omit<VehicleComparison, 'id' | 'created_at' | 'updated_at'>;
 export type VehicleComparisonUpdate = Partial<VehicleComparisonInsert>;
 
+// ─── New tables from migrations 009–011 ──────────────────────────────────────
+
+export interface TaxCredit {
+  id: string;
+  make: string;
+  model: string;
+  year: number;
+  trim: string | null;
+  vehicle_type: string;
+  credit_amount: number;
+  is_full_credit: boolean;
+  msrp_cap: number | null;
+  assembly_location: string | null;
+  battery_minerals_compliant: boolean | null;
+  battery_components_compliant: boolean | null;
+  notes: string | null;
+  source_url: string | null;
+  last_verified: string;
+}
+
+export interface StateIncentiveRow {
+  id: string;
+  state_code: string;
+  state_name: string;
+  slug: string;
+  incentive_type: string;
+  incentive_name: string;
+  description: string;
+  amount_or_value: string;
+  amount_usd: number | null;
+  eligibility_requirements: string | null;
+  income_limit: string | null;
+  msrp_cap: string | null;
+  vehicle_types_eligible: string[] | null;
+  application_url: string | null;
+  expiration_date: string | null;
+  funding_status: 'active' | 'expired' | 'waitlisted' | 'pending';
+  source_url: string | null;
+  last_verified: string;
+}
+
+export interface ChargerProductRow {
+  id: string;
+  brand: string;
+  model: string;
+  charger_level: number;
+  max_amps: number;
+  max_kw: number;
+  connector_type: string;
+  hardwired_or_plug: string;
+  plug_type: string | null;
+  wifi_enabled: boolean;
+  cable_length_ft: number | null;
+  indoor_outdoor: string;
+  energy_star_certified: boolean;
+  nacs_compatible: boolean;
+  price_usd: number;
+  amazon_asin: string | null;
+  affiliate_url: string | null;
+  image_url: string | null;
+  rating_stars: number | null;
+  review_count: number | null;
+  is_recommended: boolean;
+  recommended_for: string[] | null;
+  pros: string[] | null;
+  cons: string[] | null;
+  slug: string | null;
+}
+
+export interface InstallationCostRow {
+  id: string;
+  state: string;
+  state_code: string;
+  region: string;
+  avg_labor_rate_per_hour: number;
+  avg_hours_simple_install: number;
+  avg_hours_new_circuit: number;
+  avg_hours_panel_upgrade: number;
+  avg_permit_cost: number;
+  avg_wire_cost_per_foot: number;
+  avg_breaker_cost: number;
+  requires_permit: boolean;
+  notes: string | null;
+}
+
 // Database type for Supabase client typing
 export interface Database {
   public: {
@@ -165,6 +250,30 @@ export interface Database {
         Row: VehicleComparison;
         Insert: VehicleComparisonInsert;
         Update: VehicleComparisonUpdate;
+        Relationships: [];
+      };
+      tax_credits: {
+        Row: TaxCredit;
+        Insert: Omit<TaxCredit, 'id'>;
+        Update: Partial<Omit<TaxCredit, 'id'>>;
+        Relationships: [];
+      };
+      state_incentives: {
+        Row: StateIncentiveRow;
+        Insert: Omit<StateIncentiveRow, 'id'>;
+        Update: Partial<Omit<StateIncentiveRow, 'id'>>;
+        Relationships: [];
+      };
+      charger_products: {
+        Row: ChargerProductRow;
+        Insert: Omit<ChargerProductRow, 'id'>;
+        Update: Partial<Omit<ChargerProductRow, 'id'>>;
+        Relationships: [];
+      };
+      installation_costs: {
+        Row: InstallationCostRow;
+        Insert: Omit<InstallationCostRow, 'id'>;
+        Update: Partial<Omit<InstallationCostRow, 'id'>>;
         Relationships: [];
       };
     };
