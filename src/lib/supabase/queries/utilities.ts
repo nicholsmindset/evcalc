@@ -1,4 +1,5 @@
 import { createClient } from '@/lib/supabase/server';
+import { createStaticClient } from '@/lib/supabase/static';
 
 export interface UtilityRebate {
   id: string;
@@ -58,7 +59,8 @@ export async function getUtilityRebateBySlug(slug: string): Promise<UtilityRebat
 
 /** Get all slugs for generateStaticParams */
 export async function getAllUtilitySlugs(): Promise<{ slug: string }[]> {
-  const supabase = await createClient();
+  const supabase = createStaticClient();
+  if (!supabase) return [];
   const { data, error } = await supabase
     .from('utility_rebates')
     .select('utility_slug')

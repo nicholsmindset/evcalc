@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
+import { CALCULATOR_CONFIGS } from './configs';
 
 export interface InputField {
   id: string;
@@ -37,14 +38,16 @@ const SLUG_LABELS: Record<string, string> = {
 };
 
 interface CalcContentProps {
-  config: CalculatorConfig;
+  slug: string;
 }
 
-export default function CalcContent({ config }: CalcContentProps) {
+export default function CalcContent({ slug }: CalcContentProps) {
+  const config = CALCULATOR_CONFIGS[slug] as CalculatorConfig | undefined;
   const [values, setValues] = useState<Record<string, string>>({});
   const [result, setResult] = useState<number | null>(null);
 
   const compute = useCallback(() => {
+    if (!config) return;
     const numericInputs: Record<string, number> = {};
     for (const field of config.inputs) {
       const raw = values[field.id];
@@ -62,6 +65,8 @@ export default function CalcContent({ config }: CalcContentProps) {
   useEffect(() => {
     compute();
   }, [compute]);
+
+  if (!config) return null;
 
   const handleChange = (id: string, value: string) => {
     setValues((prev) => ({ ...prev, [id]: value }));

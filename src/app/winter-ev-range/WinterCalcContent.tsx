@@ -148,14 +148,13 @@ export default function WinterCalcContent() {
   const city = CITIES.find(c => `${c.city},${c.stateCode}` === cityKey) ?? CITIES[0];
   const coldestAvg = Math.min(city.decF, city.janF, city.febF);
 
-  const scenarios: TempScenario[] = [
-    { label: `Avg coldest month (${Math.round(coldestAvg)}°F)`, tempF: coldestAvg, color: 'text-accent' },
-    { label: '20°F cold day', tempF: 20, color: 'text-warning' },
-    { label: '0°F extreme cold', tempF: 0, color: 'text-error' },
-    { label: `Record low (${city.recordLow}°F)`, tempF: city.recordLow, color: 'text-error' },
-  ];
-
   const results = useMemo(() => {
+    const scenarios: TempScenario[] = [
+      { label: `Avg coldest month (${Math.round(coldestAvg)}°F)`, tempF: coldestAvg, color: 'text-accent' },
+      { label: '20°F cold day', tempF: 20, color: 'text-warning' },
+      { label: '0°F extreme cold', tempF: 0, color: 'text-error' },
+      { label: `Record low (${city.recordLow}°F)`, tempF: city.recordLow, color: 'text-error' },
+    ];
     return scenarios.map(s => ({
       ...s,
       withHeatPump: ev.hasHeatPump ? calcRange(ev.epaRange, s.tempF, 'heat_pump') : null,
@@ -166,7 +165,7 @@ export default function WinterCalcContent() {
         resistive: Math.round((calcRange(ev.epaRange, s.tempF, 'resistive') / ev.epaRange) * 100),
       },
     }));
-  }, [ev, city, scenarios]);
+  }, [ev, coldestAvg, city.recordLow]);
 
   const heatPumpSaving = ev.hasHeatPump
     ? calcRange(ev.epaRange, coldestAvg, 'heat_pump') - calcRange(ev.epaRange, coldestAvg, 'resistive')

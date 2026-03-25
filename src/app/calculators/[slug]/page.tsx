@@ -100,7 +100,7 @@ export default async function CalculatorPage({ params }: PageProps) {
           <p className="mt-2 text-text-secondary">{config.tagline}</p>
         </div>
 
-        <CalcContent config={config} />
+        <CalcContent slug={slug} />
       </div>
     </>
   );

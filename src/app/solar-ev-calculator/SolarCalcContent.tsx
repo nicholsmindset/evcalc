@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback } from 'react';
 import {
   BarChart,
   Bar,
@@ -130,7 +130,6 @@ export default function SolarCalcContent() {
     : [];
 
   const annualSolar = result?.annual_kwh ?? 0;
-  const netAnnualCost = Math.max(0, annualEvKwh - annualSolar) * electricityRate;
   const annualSavings = Math.min(annualEvKwh, annualSolar) * electricityRate;
   const coveragePct = annualEvKwh > 0 ? Math.min(100, (annualSolar / annualEvKwh) * 100) : 0;
 

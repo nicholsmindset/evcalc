@@ -6,7 +6,6 @@ import {
   getAllUtilitySlugs,
 } from '@/lib/supabase/queries/utilities';
 import { getAllChargers } from '@/lib/supabase/queries/chargers';
-import { POPULAR_VEHICLES } from '@/lib/utils/constants';
 
 export const revalidate = 2592000; // 30 days
 

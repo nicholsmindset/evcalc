@@ -1,4 +1,5 @@
 import { createClient } from '@/lib/supabase/server';
+import { createStaticClient } from '@/lib/supabase/static';
 
 export interface StateIncentive {
   id: string;
@@ -40,7 +41,8 @@ export async function getStateIncentivesBySlug(slug: string): Promise<StateIncen
 
 /** Get all unique state slugs for generateStaticParams */
 export async function getAllStateIncentiveSlugs(): Promise<{ slug: string }[]> {
-  const supabase = await createClient();
+  const supabase = createStaticClient();
+  if (!supabase) return [];
 
   const { data, error } = await supabase
     .from('state_incentives')

@@ -84,7 +84,6 @@ function scoreEV(ev: EVSpec, weights: Weights, maxBudget: number): number {
 
 function whyBest(ev: EVSpec, weights: Weights): string[] {
   const reasons: string[] = [];
-  const sorted = [...EVS].sort((a, b) => a.epaRange - b.epaRange);
   if (weights.range >= 7 && ev.epaRange >= 310) reasons.push(`Outstanding ${ev.epaRange}-mile range`);
   if (weights.budget >= 7 && ev.msrp - ev.federalCredit < 35000) reasons.push('Excellent value after incentives');
   if (weights.cargo >= 7 && ev.cargoVolume >= 60) reasons.push(`${ev.cargoVolume} cu ft of cargo space`);

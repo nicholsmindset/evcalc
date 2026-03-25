@@ -75,7 +75,7 @@ export default function BestLevel1ChargersPage() {
           </div>
           <div>
             <div className="font-semibold text-text-primary mb-1">Emergency Backup</div>
-            <p>Every EV owner should have a Level 1 EVSE in the car. When Level 2 isn't available, any 120V outlet keeps you from running empty.</p>
+            <p>Every EV owner should have a Level 1 EVSE in the car. When Level 2 isn&apos;t available, any 120V outlet keeps you from running empty.</p>
           </div>
         </div>
       </div>

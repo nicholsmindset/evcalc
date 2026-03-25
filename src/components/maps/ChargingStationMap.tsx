@@ -65,7 +65,7 @@ export function ChargingStationMap({
     } catch {
       setError('Failed to load map. Showing station list instead.');
     }
-  }, [token, center, zoom, stations]);
+  }, [token, center, zoom, stations]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     initMap();

@@ -1,4 +1,5 @@
 import { createClient } from '@/lib/supabase/server';
+import { createStaticClient } from '@/lib/supabase/static';
 import type { Vehicle } from '@/lib/supabase/types';
 
 /**
@@ -165,14 +166,15 @@ export async function searchVehicles(query: string): Promise<Vehicle[]> {
  * Get all vehicle slugs for static page generation.
  */
 export async function getAllVehicleSlugs(): Promise<string[]> {
-  const supabase = await createClient();
+  const supabase = createStaticClient();
+  if (!supabase) return [];
 
   const { data, error } = await supabase
     .from('vehicles')
     .select('slug')
     .eq('is_active', true);
 
-  if (error) throw error;
+  if (error) return [];
   return (data as { slug: string }[]).map((d) => d.slug);
 }
 

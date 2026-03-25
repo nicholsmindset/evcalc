@@ -30,7 +30,7 @@ const PORTABLE_CHARGERS: ChargerProduct[] = [
 const BADGES = ['Best Portable', 'Best Budget Portable', 'Best Premium Portable', 'Best Level 1', 'Best for 2 EVs'];
 
 export default async function BestPortableChargersPage() {
-  let dbChargers = await getAllChargers();
+  const dbChargers = await getAllChargers();
   const portableChargers = dbChargers.filter((c) =>
     c.hardwired_or_plug === 'plug' && c.plug_type?.includes('14-50')
   );

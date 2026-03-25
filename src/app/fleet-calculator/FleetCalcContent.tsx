@@ -43,7 +43,6 @@ export default function FleetCalcContent() {
   const [fuelTypeId, setFuelTypeId] = useState('gasoline');
   const [fuelPrice, setFuelPrice] = useState(3.60);
   const [electricityRate, setElectricityRate] = useState(US_AVG_ELEC_RATE);
-  const [stateCode, setStateCode] = useState('US');
   const [showLeadForm, setShowLeadForm] = useState(false);
 
   const vt = VEHICLE_TYPES.find((v) => v.id === vehicleTypeId) ?? VEHICLE_TYPES[0];

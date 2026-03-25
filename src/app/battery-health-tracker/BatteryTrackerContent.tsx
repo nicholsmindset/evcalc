@@ -70,7 +70,7 @@ export default function BatteryTrackerContent() {
   // Is under warranty?
   const underWarranty =
     ageYears < curve.warrantyYears && mileage < curve.warrantyMiles;
-  const warrantyExpiredByYear = !underWarranty;
+  // warrantyExpiredByYear unused — use underWarranty directly
 
   // Projection data (0 to 15 years from purchase)
   const projectionData = useMemo(() => {

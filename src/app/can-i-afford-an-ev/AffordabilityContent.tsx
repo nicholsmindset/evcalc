@@ -68,9 +68,9 @@ export default function AffordabilityContent() {
   const [creditScore, setCreditScore] = useState<keyof typeof CREDIT_SCORE_RATES>('good');
   const [vehicleClass, setVehicleClass] = useState<'all' | 'sedan' | 'suv' | 'truck' | 'sports'>('all');
   const [monthlyMiles, setMonthlyMiles] = useState(1000);
-  const [electricityRate, setElectricityRate] = useState(0.14);
+  const [electricityRate] = useState(0.14);
   const [gasMpg, setGasMpg] = useState(28);
-  const [gasPrice, setGasPrice] = useState(3.50);
+  const [gasPrice] = useState(3.50);
   const [loanTermMonths, setLoanTermMonths] = useState(60);
 
   const results = useMemo(() => {
@@ -278,7 +278,7 @@ export default function AffordabilityContent() {
 
       {/* Results list */}
       <div className="space-y-3">
-        {results.map(({ ev, netPrice, payment, insurance, chargingCost, fuelSavings, totalMonthly, fits, annualSavings }) => (
+        {results.map(({ ev, netPrice, payment, insurance, chargingCost, fuelSavings: _fuelSavings, totalMonthly, fits, annualSavings }) => (
           <div
             key={ev.slug}
             className={`rounded-xl border p-5 transition-all ${
