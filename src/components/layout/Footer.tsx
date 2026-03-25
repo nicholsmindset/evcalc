@@ -136,6 +136,7 @@ export function Footer() {
             <div className="text-xs text-text-tertiary text-right space-y-1">
               <p>Data from EPA, NREL, and OpenChargeMap. Not affiliated with any vehicle manufacturer.</p>
               <p>As an Amazon Associate, we earn from qualifying purchases.</p>
+              <p>Vehicle images are AI-generated illustrations for informational purposes and may not exactly represent actual vehicle appearance.</p>
             </div>
           </div>
         </div>
