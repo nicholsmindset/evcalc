@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import WinterCalcContent from './WinterCalcContent';
+import { RelatedTools } from '@/components/ui/RelatedTools';
 
 export const metadata: Metadata = {
   title: 'Winter EV Range Calculator — How Cold Weather Affects Range',
@@ -99,15 +100,11 @@ export default function WinterEvRangePage() {
 
         <WinterCalcContent />
 
-        <section className="mt-12 border-t border-border pt-8">
-          <h2 className="mb-3 font-display text-lg font-bold text-text-primary">Related Tools</h2>
-          <div className="flex flex-wrap gap-3">
-            <Link href="/calculator" className="text-sm text-accent hover:underline">EV Range Calculator</Link>
-            <Link href="/find-my-ev" className="text-sm text-accent hover:underline">Find My EV</Link>
-            <Link href="/charging-cost-calculator" className="text-sm text-accent hover:underline">Charging Cost Calculator</Link>
-            <Link href="/vehicles" className="text-sm text-accent hover:underline">Browse All EVs</Link>
-          </div>
-        </section>
+        <RelatedTools tools={[
+          { href: '/calculator', emoji: '📊', label: 'Range Calculator', desc: 'Fine-tune range estimates for your exact winter conditions' },
+          { href: '/road-trip-planner', emoji: '🗺️', label: 'Road Trip Planner', desc: 'Plan a winter road trip with charging stops built in' },
+          { href: '/battery-health-tracker', emoji: '🔋', label: 'Battery Health Tracker', desc: 'Learn how cold weather affects long-term battery health' },
+        ]} />
       </div>
     </>
   );

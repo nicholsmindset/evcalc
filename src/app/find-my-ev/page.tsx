@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import RecommendationContent from './RecommendationContent';
+import { RelatedTools } from '@/components/ui/RelatedTools';
 
 export const metadata: Metadata = {
   title: 'Find My EV — Personalized Electric Car Recommendation Engine',
@@ -100,24 +101,11 @@ export default function FindMyEVPage() {
 
         <RecommendationContent />
 
-        {/* Related tools */}
-        <section className="mt-12 border-t border-border pt-8">
-          <h2 className="mb-3 font-display text-lg font-bold text-text-primary">Related Tools</h2>
-          <div className="flex flex-wrap gap-3">
-            <Link href="/can-i-afford-an-ev" className="text-sm text-accent hover:underline">
-              Can I Afford an EV?
-            </Link>
-            <Link href="/vehicles" className="text-sm text-accent hover:underline">
-              Browse All EVs
-            </Link>
-            <Link href="/calculator" className="text-sm text-accent hover:underline">
-              EV Range Calculator
-            </Link>
-            <Link href="/ev-vs-gas" className="text-sm text-accent hover:underline">
-              EV vs Gas Savings
-            </Link>
-          </div>
-        </section>
+        <RelatedTools tools={[
+          { href: '/compare', emoji: '⚖️', label: 'Compare EVs', desc: 'Deep dive into specs for your top matches' },
+          { href: '/can-i-afford-an-ev', emoji: '💰', label: 'Can I Afford an EV?', desc: 'Check if your top picks fit your budget with credits applied' },
+          { href: '/tax-credit-checker', emoji: '✅', label: 'Tax Credit Checker', desc: 'Verify $7,500 federal eligibility for your chosen vehicle' },
+        ]} />
       </div>
     </>
   );

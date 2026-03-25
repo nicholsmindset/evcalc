@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
+import { RelatedTools } from '@/components/ui/RelatedTools';
 
 interface TowEV {
   slug: string;
@@ -257,15 +258,11 @@ export default function EvTowingPage() {
           </div>
         </section>
 
-        <section className="mt-12 border-t border-border pt-8">
-          <h2 className="mb-3 font-display text-lg font-bold text-text-primary">Related Tools</h2>
-          <div className="flex flex-wrap gap-3">
-            <Link href="/calculator" className="text-sm text-accent hover:underline">EV Range Calculator</Link>
-            <Link href="/find-my-ev" className="text-sm text-accent hover:underline">Find My EV</Link>
-            <Link href="/charging-networks" className="text-sm text-accent hover:underline">Charging Networks</Link>
-            <Link href="/winter-ev-range" className="text-sm text-accent hover:underline">Winter Range Calculator</Link>
-          </div>
-        </section>
+        <RelatedTools tools={[
+          { href: '/calculator', emoji: '📊', label: 'Range Calculator', desc: 'Estimate range at towing speeds and heavy loads' },
+          { href: '/road-trip-planner', emoji: '🗺️', label: 'Road Trip Planner', desc: 'Plan a towing trip with charging stops factored in' },
+          { href: '/ev-vs-gas', emoji: '⛽', label: 'EV vs Gas Savings', desc: 'Compare towing costs vs a gas truck over 5 years' },
+        ]} />
       </div>
     </>
   );

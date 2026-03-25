@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import Link from 'next/link';
+import { RelatedTools } from '@/components/ui/RelatedTools';
 
 // ─── Static insurance data (from migration 015 seed) ─────────────────────────
 interface InsuranceEst {
@@ -332,15 +333,11 @@ export default function EvInsuranceCostPage() {
           </div>
         </section>
 
-        <section className="mt-12 border-t border-border pt-8">
-          <h2 className="mb-3 font-display text-lg font-bold text-text-primary">Related Tools</h2>
-          <div className="flex flex-wrap gap-3">
-            <Link href="/ev-depreciation-calculator" className="text-sm text-accent hover:underline">EV Depreciation Calculator</Link>
-            <Link href="/ev-vs-gas/compare" className="text-sm text-accent hover:underline">EV vs Gas Comparison</Link>
-            <Link href="/tco-calculator" className="text-sm text-accent hover:underline">Total Cost of Ownership</Link>
-            <Link href="/find-my-ev" className="text-sm text-accent hover:underline">Find My EV</Link>
-          </div>
-        </section>
+        <RelatedTools tools={[
+          { href: '/ev-depreciation-calculator', emoji: '📉', label: 'Depreciation Calculator', desc: 'Project your EV\'s resale value at 3, 5, and 7 years' },
+          { href: '/tco-calculator', emoji: '📈', label: 'Total Cost of Ownership', desc: 'Include insurance in your full lifetime ownership cost' },
+          { href: '/lease-vs-buy', emoji: '📋', label: 'Lease vs Buy Calculator', desc: 'See how insurance affects your lease vs buy decision' },
+        ]} />
       </div>
     </>
   );

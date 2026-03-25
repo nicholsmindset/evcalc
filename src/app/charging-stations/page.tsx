@@ -6,6 +6,7 @@ import { ChargingStationMap } from '@/components/maps/ChargingStationMap';
 import { StationFilters, DEFAULT_FILTERS, type StationFilterState } from '@/components/stations/StationFilters';
 import { StationList } from '@/components/stations/StationList';
 import type { StationProperties } from '@/components/maps/StationPopup';
+import { RelatedTools } from '@/components/ui/RelatedTools';
 
 const NETWORKS = [
   { name: 'Tesla Supercharger', stations: '2,500+', speed: 'Up to 250 kW', connector: 'NACS', color: 'text-error' },
@@ -239,14 +240,12 @@ export default function ChargingStationsPage() {
             comprehensive coverage across the US and internationally.
           </p>
         </div>
-        <div className="mt-6 flex flex-wrap gap-3">
-          <Link href="/road-trip-planner" className="text-sm text-accent hover:underline">Road Trip Planner</Link>
-          <Link href="/charging-cost-calculator" className="text-sm text-accent hover:underline">Charging Cost Calculator</Link>
-          <Link href="/home-charger" className="text-sm text-accent hover:underline">Home Charger Guide</Link>
-          <Link href="/calculator" className="text-sm text-accent hover:underline">Range Calculator</Link>
-          <Link href="/blog/best-ev-road-trip-tips" className="text-sm text-accent hover:underline">Road Trip Tips</Link>
-        </div>
       </section>
+      <RelatedTools tools={[
+        { href: '/home-charger-wizard', emoji: '🔌', label: 'Charger Setup Wizard', desc: 'Set up reliable home charging so you rarely need public stations' },
+        { href: '/road-trip-planner', emoji: '🗺️', label: 'Road Trip Planner', desc: 'Plan longer routes with optimized charging stops' },
+        { href: '/charging-networks', emoji: '⚡', label: 'Charging Network Comparison', desc: 'Compare pricing and coverage across all major networks' },
+      ]} />
     </div>
   );
 }

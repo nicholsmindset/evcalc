@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Suspense } from 'react';
 import InstallationCalcContent from './InstallationCalcContent';
+import { RelatedTools } from '@/components/ui/RelatedTools';
 
 export const metadata: Metadata = {
   title: 'EV Charger Installation Cost Calculator 2025 | How Much Does It Cost?',
@@ -263,27 +264,11 @@ export default function ChargerInstallationCostPage() {
           </div>
         </section>
 
-        {/* Related tools */}
-        <section className="mt-10 border-t border-border pt-8">
-          <h2 className="mb-4 font-display text-lg font-bold text-text-primary">Related Tools</h2>
-          <div className="flex flex-wrap gap-3">
-            <Link href="/ev-rebates" className="text-sm text-accent hover:underline">
-              EV Charger Rebates by Utility
-            </Link>
-            <Link href="/home-charger-wizard" className="text-sm text-accent hover:underline">
-              Home Charger Setup Wizard
-            </Link>
-            <Link href="/tax-credit-checker" className="text-sm text-accent hover:underline">
-              Federal Tax Credit Checker
-            </Link>
-            <Link href="/ev-incentives" className="text-sm text-accent hover:underline">
-              State EV Incentives
-            </Link>
-            <Link href="/best-ev-chargers" className="text-sm text-accent hover:underline">
-              Best EV Chargers Buyer&apos;s Guide
-            </Link>
-          </div>
-        </section>
+        <RelatedTools tools={[
+          { href: '/home-charger-wizard', emoji: '🔌', label: 'Charger Setup Wizard', desc: 'Get personalized charger picks before you call an electrician' },
+          { href: '/ev-rebates', emoji: '💵', label: 'Utility Rebates', desc: 'Find rebates from your utility — up to $1,000 back' },
+          { href: '/charging-stations', emoji: '📍', label: 'Charging Station Finder', desc: 'Find nearby public stations as a backup while you set up at home' },
+        ]} />
       </div>
     </>
   );

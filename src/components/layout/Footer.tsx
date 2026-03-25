@@ -6,14 +6,52 @@ export function Footer() {
   return (
     <footer className="border-t border-border bg-bg-secondary">
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
-          {/* Tools */}
+        <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 lg:grid-cols-6">
+          {/* Range & Cost Calculators */}
           <div>
             <h3 className="text-sm font-display font-semibold uppercase tracking-wider text-text-primary">
-              Tools
+              Calculators
             </h3>
             <ul className="mt-4 space-y-2">
-              {FOOTER_LINKS.tools.map((link) => (
+              {FOOTER_LINKS.calculators.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="text-sm text-text-secondary hover:text-accent transition-colors"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Buying & Incentives */}
+          <div>
+            <h3 className="text-sm font-display font-semibold uppercase tracking-wider text-text-primary">
+              Buying & Incentives
+            </h3>
+            <ul className="mt-4 space-y-2">
+              {FOOTER_LINKS.buyingTools.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="text-sm text-text-secondary hover:text-accent transition-colors"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Charging & Ownership */}
+          <div>
+            <h3 className="text-sm font-display font-semibold uppercase tracking-wider text-text-primary">
+              Charging & Ownership
+            </h3>
+            <ul className="mt-4 space-y-2">
+              {FOOTER_LINKS.chargingOwnership.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
@@ -45,13 +83,13 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Resources */}
+          {/* Guides & Resources */}
           <div>
             <h3 className="text-sm font-display font-semibold uppercase tracking-wider text-text-primary">
-              Resources
+              Guides & Resources
             </h3>
             <ul className="mt-4 space-y-2">
-              {FOOTER_LINKS.resources.map((link) => (
+              {FOOTER_LINKS.guides.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}

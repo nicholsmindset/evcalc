@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import DepreciationContent from './DepreciationContent';
+import { RelatedTools } from '@/components/ui/RelatedTools';
 
 export const metadata: Metadata = {
   title: 'EV Depreciation Calculator — Estimate Your Electric Car\'s Resale Value',
@@ -98,15 +99,11 @@ export default function EvDepreciationCalculatorPage() {
 
         <DepreciationContent />
 
-        <section className="mt-12 border-t border-border pt-8">
-          <h2 className="mb-3 font-display text-lg font-bold text-text-primary">Related Tools</h2>
-          <div className="flex flex-wrap gap-3">
-            <Link href="/ev-insurance-cost" className="text-sm text-accent hover:underline">EV Insurance Cost Guide</Link>
-            <Link href="/battery-health-tracker" className="text-sm text-accent hover:underline">Battery Health Tracker</Link>
-            <Link href="/tco-calculator" className="text-sm text-accent hover:underline">Total Cost of Ownership</Link>
-            <Link href="/ev-vs-gas/compare" className="text-sm text-accent hover:underline">EV vs Gas Comparison</Link>
-          </div>
-        </section>
+        <RelatedTools tools={[
+          { href: '/tco-calculator', emoji: '📈', label: 'Total Cost of Ownership', desc: 'Include depreciation in your full lifetime ownership cost' },
+          { href: '/ev-insurance-cost', emoji: '🛡️', label: 'EV Insurance Cost Guide', desc: 'Annual insurance costs for 30+ EV models' },
+          { href: '/battery-health-tracker', emoji: '🔋', label: 'Battery Health Tracker', desc: 'Track how degradation affects your residual value over time' },
+        ]} />
       </div>
     </>
   );

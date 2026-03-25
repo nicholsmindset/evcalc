@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { getAllStateIncentiveSummaries } from '@/lib/supabase/queries/incentives';
+import { RelatedTools } from '@/components/ui/RelatedTools';
 
 export const revalidate = 2592000; // 30 days
 
@@ -180,17 +181,11 @@ export default async function EVIncentivesIndexPage() {
         </div>
       </section>
 
-      {/* Bottom CTA row */}
-      <section className="mt-12 border-t border-border pt-8">
-        <h2 className="mb-4 font-display text-lg font-bold text-text-primary">Related Tools</h2>
-        <div className="flex flex-wrap gap-3">
-          <Link href="/tax-credit-checker" className="text-sm text-accent hover:underline">Federal Tax Credit Checker</Link>
-          <Link href="/home-charger-wizard" className="text-sm text-accent hover:underline">Home Charger Setup Wizard</Link>
-          <Link href="/lease-vs-buy" className="text-sm text-accent hover:underline">Lease vs Buy Calculator</Link>
-          <Link href="/tco-calculator" className="text-sm text-accent hover:underline">Total Cost of Ownership</Link>
-          <Link href="/vehicles" className="text-sm text-accent hover:underline">Browse All EVs</Link>
-        </div>
-      </section>
+      <RelatedTools tools={[
+        { href: '/tax-credit-checker', emoji: '✅', label: 'Tax Credit Checker', desc: 'Check your federal $7,500 eligibility in 60 seconds' },
+        { href: '/ev-rebates', emoji: '💵', label: 'Utility Rebates', desc: 'Stack utility rebates on top of your state and federal savings' },
+        { href: '/lease-vs-buy', emoji: '📋', label: 'Lease vs Buy Calculator', desc: 'See how incentives change your monthly payment calculation' },
+      ]} />
     </div>
   );
 }

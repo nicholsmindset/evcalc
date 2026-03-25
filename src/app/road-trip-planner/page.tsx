@@ -6,6 +6,7 @@ import { Slider } from '@/components/ui/Slider';
 import { RoadTripMap } from '@/components/maps/RoadTripMap';
 import { calculateRange } from '@/lib/calculations/range';
 import type { Vehicle } from '@/lib/supabase/types';
+import { RelatedTools } from '@/components/ui/RelatedTools';
 
 export default function RoadTripPlannerPage() {
   const [selectedVehicle, setSelectedVehicle] = useState<Vehicle | null>(null);
@@ -178,6 +179,11 @@ export default function RoadTripPlannerPage() {
           </p>
         </div>
       </section>
+      <RelatedTools tools={[
+        { href: '/charging-stations', emoji: '📍', label: 'Charging Station Finder', desc: 'Browse 85,000+ stations on a live map with filters' },
+        { href: '/winter-ev-range', emoji: '❄️', label: 'Winter Range Calculator', desc: 'Check cold-weather range estimates before a winter trip' },
+        { href: '/calculator', emoji: '📊', label: 'Range Calculator', desc: 'Calculate real-world range for your conditions before you leave' },
+      ]} />
     </div>
   );
 }

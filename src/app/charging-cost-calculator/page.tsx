@@ -7,6 +7,7 @@ import { CostComparisonBar } from '@/components/charts/CostComparisonBar';
 import { calculateChargingCosts } from '@/lib/calculations/charging-cost';
 import { createClient } from '@/lib/supabase/client';
 import type { Vehicle } from '@/lib/supabase/types';
+import { RelatedTools } from '@/components/ui/RelatedTools';
 
 const US_STATES = [
   'Alabama','Alaska','Arizona','Arkansas','California','Colorado','Connecticut',
@@ -262,6 +263,11 @@ export default function ChargingCostPage() {
           </p>
         </div>
       </section>
+      <RelatedTools tools={[
+        { href: '/calculator', emoji: '📊', label: 'Range Calculator', desc: 'Calculate real-world range adjusted for temperature, speed, and conditions' },
+        { href: '/ev-vs-gas', emoji: '⛽', label: 'EV vs Gas Savings', desc: 'See your total savings over 5, 7, and 10 years vs a gas car' },
+        { href: '/charging-schedule', emoji: '🕐', label: 'Charging Schedule Optimizer', desc: 'Find off-peak hours to cut your electricity bill' },
+      ]} />
     </div>
   );
 }

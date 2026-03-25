@@ -8,6 +8,7 @@ import { SavingsTimeline } from '@/components/charts/SavingsTimeline';
 import { calculateEvVsGas, COMMON_GAS_CARS } from '@/lib/calculations/ev-vs-gas';
 import { createClient } from '@/lib/supabase/client';
 import type { Vehicle } from '@/lib/supabase/types';
+import { RelatedTools } from '@/components/ui/RelatedTools';
 
 const US_STATES = [
   'Alabama','Alaska','Arizona','Arkansas','California','Colorado','Connecticut',
@@ -430,6 +431,11 @@ export default function EvVsGasPage() {
           </p>
         </div>
       </section>
+      <RelatedTools tools={[
+        { href: '/tco-calculator', emoji: '📈', label: 'Total Cost of Ownership', desc: 'Full lifetime cost breakdown including depreciation and maintenance' },
+        { href: '/lease-vs-buy', emoji: '📋', label: 'Lease vs Buy Calculator', desc: 'Compare payments and break-even timelines with the $7,500 credit' },
+        { href: '/ev-depreciation-calculator', emoji: '📉', label: 'Depreciation Calculator', desc: 'Project your EV\'s resale value at 3, 5, and 7 years' },
+      ]} />
     </div>
   );
 }

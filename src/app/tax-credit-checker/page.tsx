@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Suspense } from 'react';
 import TaxCreditContent from './TaxCreditContent';
+import { RelatedTools } from '@/components/ui/RelatedTools';
 
 export const metadata: Metadata = {
   title: 'EV Tax Credit Eligibility Checker 2025 | $7,500 Federal Credit Calculator',
@@ -159,17 +160,11 @@ export default function TaxCreditCheckerPage() {
           </div>
         </section>
 
-        {/* Related tools */}
-        <section className="mt-10 border-t border-border pt-8">
-          <h2 className="mb-4 font-display text-lg font-bold text-text-primary">Related Tools</h2>
-          <div className="flex flex-wrap gap-3">
-            <Link href="/lease-vs-buy" className="text-sm text-accent hover:underline">Lease vs Buy Calculator</Link>
-            <Link href="/ev-incentives" className="text-sm text-accent hover:underline">State EV Incentives</Link>
-            <Link href="/tco-calculator" className="text-sm text-accent hover:underline">Total Cost of Ownership</Link>
-            <Link href="/ev-vs-gas" className="text-sm text-accent hover:underline">EV vs Gas Savings</Link>
-            <Link href="/vehicles" className="text-sm text-accent hover:underline">Browse All EVs</Link>
-          </div>
-        </section>
+        <RelatedTools tools={[
+          { href: '/ev-incentives', emoji: '🏛️', label: 'State EV Incentives', desc: 'Stack state rebates on top of your federal savings — all 50 states' },
+          { href: '/lease-vs-buy', emoji: '📋', label: 'Lease vs Buy Calculator', desc: 'Apply the $7,500 credit directly to your payment comparison' },
+          { href: '/can-i-afford-an-ev', emoji: '💰', label: 'Can I Afford an EV?', desc: 'Full affordability check with all credits factored in' },
+        ]} />
       </div>
     </>
   );

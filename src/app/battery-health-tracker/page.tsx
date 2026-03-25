@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import BatteryTrackerContent from './BatteryTrackerContent';
+import { RelatedTools } from '@/components/ui/RelatedTools';
 
 export const metadata: Metadata = {
   title: 'EV Battery Health Tracker — Estimate Your Battery Degradation',
@@ -98,15 +99,11 @@ export default function BatteryHealthTrackerPage() {
 
         <BatteryTrackerContent />
 
-        <section className="mt-12 border-t border-border pt-8">
-          <h2 className="mb-3 font-display text-lg font-bold text-text-primary">Related Tools</h2>
-          <div className="flex flex-wrap gap-3">
-            <Link href="/winter-ev-range" className="text-sm text-accent hover:underline">Winter EV Range Calculator</Link>
-            <Link href="/calculator" className="text-sm text-accent hover:underline">EV Range Calculator</Link>
-            <Link href="/find-my-ev" className="text-sm text-accent hover:underline">Find My EV</Link>
-            <Link href="/ev-depreciation-calculator" className="text-sm text-accent hover:underline">EV Depreciation Calculator</Link>
-          </div>
-        </section>
+        <RelatedTools tools={[
+          { href: '/ev-depreciation-calculator', emoji: '📉', label: 'Depreciation Calculator', desc: 'See how battery health affects your resale value' },
+          { href: '/ev-battery-replacement-cost', emoji: '🔋', label: 'Battery Replacement Cost', desc: 'Real replacement costs for 20+ EV models' },
+          { href: '/charging-schedule', emoji: '🕐', label: 'Charging Schedule Optimizer', desc: 'Off-peak charging helps preserve long-term battery health' },
+        ]} />
       </div>
     </>
   );

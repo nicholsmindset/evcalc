@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import CarbonCalcContent from './CarbonCalcContent';
+import { RelatedTools } from '@/components/ui/RelatedTools';
 
 export const metadata: Metadata = {
   title: 'EV Carbon Footprint Calculator — CO₂ vs Gas Car Comparison',
@@ -113,16 +114,11 @@ export default function EvCarbonFootprintPage() {
           </div>
         </section>
 
-        <section className="mt-12 border-t border-border pt-8">
-          <h2 className="mb-3 font-display text-lg font-bold text-text-primary">Related Tools</h2>
-          <div className="flex flex-wrap gap-3">
-            <Link href="/tco-calculator" className="text-sm text-accent hover:underline">Total Cost of Ownership</Link>
-            <Link href="/ev-vs-gas/compare" className="text-sm text-accent hover:underline">EV vs Gas Comparison</Link>
-            <Link href="/solar-ev-calculator" className="text-sm text-accent hover:underline">Solar + EV Calculator</Link>
-            <Link href="/ev-insurance-cost" className="text-sm text-accent hover:underline">EV Insurance Cost Guide</Link>
-            <Link href="/calculator" className="text-sm text-accent hover:underline">EV Range Calculator</Link>
-          </div>
-        </section>
+        <RelatedTools tools={[
+          { href: '/ev-vs-gas', emoji: '⛽', label: 'EV vs Gas Savings', desc: 'Combine emissions savings with financial savings analysis' },
+          { href: '/solar-ev-calculator', emoji: '☀️', label: 'Solar + EV Calculator', desc: 'Size a solar system to charge your EV on clean energy' },
+          { href: '/calculator', emoji: '📊', label: 'Range Calculator', desc: 'Calculate real-world range for your driving conditions' },
+        ]} />
       </div>
     </>
   );

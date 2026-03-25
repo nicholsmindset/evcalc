@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Suspense } from 'react';
 import { ChargerWizard } from '@/components/wizard/ChargerWizard';
+import { RelatedTools } from '@/components/ui/RelatedTools';
 
 export const metadata: Metadata = {
   title: 'Home EV Charger Setup Wizard 2025 | Find the Best Level 2 Charger',
@@ -139,17 +140,11 @@ export default function HomeChargerWizardPage() {
           </div>
         </section>
 
-        {/* Related tools */}
-        <section className="mt-10 border-t border-border pt-8">
-          <h2 className="mb-4 font-display text-lg font-bold text-text-primary">Related Tools</h2>
-          <div className="flex flex-wrap gap-3">
-            <Link href="/charging-cost-calculator" className="text-sm text-accent hover:underline">Charging Cost Calculator</Link>
-            <Link href="/ev-vs-gas" className="text-sm text-accent hover:underline">EV vs Gas Savings</Link>
-            <Link href="/lease-vs-buy" className="text-sm text-accent hover:underline">Lease vs Buy Calculator</Link>
-            <Link href="/tax-credit-checker" className="text-sm text-accent hover:underline">Tax Credit Checker</Link>
-            <Link href="/calculator" className="text-sm text-accent hover:underline">Range Calculator</Link>
-          </div>
-        </section>
+        <RelatedTools tools={[
+          { href: '/charger-installation-cost', emoji: '🔧', label: 'Installation Cost Calculator', desc: 'Itemized installation cost estimates by state' },
+          { href: '/ev-rebates', emoji: '💵', label: 'Utility Rebates', desc: '35+ utilities offering up to $1,000 back on charger installation' },
+          { href: '/charging-schedule', emoji: '🕐', label: 'Charging Schedule Optimizer', desc: 'Set off-peak charging windows to minimize electricity costs' },
+        ]} />
       </div>
     </>
   );

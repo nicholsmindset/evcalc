@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import SolarCalcContent from './SolarCalcContent';
+import { RelatedTools } from '@/components/ui/RelatedTools';
 
 export const metadata: Metadata = {
   title: 'Solar + EV Calculator — Size Your Solar System for EV Charging',
@@ -109,27 +110,11 @@ export default function SolarEvCalculatorPage() {
 
         <SolarCalcContent />
 
-        {/* Related tools */}
-        <section className="mt-12 border-t border-border pt-8">
-          <h2 className="mb-3 font-display text-lg font-bold text-text-primary">Related Tools</h2>
-          <div className="flex flex-wrap gap-3">
-            <Link href="/v2h-calculator" className="text-sm text-accent hover:underline">
-              V2H Backup Power Calculator
-            </Link>
-            <Link href="/charging-cost-calculator" className="text-sm text-accent hover:underline">
-              Charging Cost Calculator
-            </Link>
-            <Link href="/ev-vs-gas" className="text-sm text-accent hover:underline">
-              EV vs Gas Savings
-            </Link>
-            <Link href="/tco-calculator" className="text-sm text-accent hover:underline">
-              Total Cost of Ownership
-            </Link>
-            <Link href="/charger-installation-cost" className="text-sm text-accent hover:underline">
-              Charger Installation Cost
-            </Link>
-          </div>
-        </section>
+        <RelatedTools tools={[
+          { href: '/v2h-calculator', emoji: '🏠', label: 'V2H Calculator', desc: 'See how long your EV can power your home during an outage' },
+          { href: '/charging-schedule', emoji: '🕐', label: 'Charging Schedule Optimizer', desc: 'Optimize charging times around your solar production peak' },
+          { href: '/charging-cost-calculator', emoji: '🔋', label: 'Charging Cost Calculator', desc: 'Compare charging costs before and after solar' },
+        ]} />
       </div>
     </>
   );

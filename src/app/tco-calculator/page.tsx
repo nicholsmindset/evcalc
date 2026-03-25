@@ -1,9 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
 import { calculateTCO } from '@/lib/calculations/tco';
 import type { TcoResult } from '@/lib/calculations/tco';
+import { RelatedTools } from '@/components/ui/RelatedTools';
 
 export default function TcoCalculatorPage() {
   // EV inputs
@@ -217,13 +217,12 @@ export default function TcoCalculatorPage() {
             cost parity with gas cars within 2-3 years.
           </p>
         </div>
-        <div className="mt-6 flex flex-wrap gap-3">
-          <Link href="/ev-vs-gas" className="text-sm text-accent hover:underline">EV vs Gas Calculator</Link>
-          <Link href="/charging-cost-calculator" className="text-sm text-accent hover:underline">Charging Cost Calculator</Link>
-          <Link href="/calculator" className="text-sm text-accent hover:underline">Range Calculator</Link>
-          <Link href="/blog/ev-vs-gas-true-cost" className="text-sm text-accent hover:underline">EV vs Gas: True Cost Guide</Link>
-        </div>
       </section>
+      <RelatedTools tools={[
+        { href: '/ev-vs-gas', emoji: '⛽', label: 'EV vs Gas Savings', desc: 'Side-by-side annual cost comparison vs your current gas car' },
+        { href: '/lease-vs-buy', emoji: '📋', label: 'Lease vs Buy Calculator', desc: 'Monthly payments and total cost with tax credit analysis' },
+        { href: '/ev-depreciation-calculator', emoji: '📉', label: 'Depreciation Calculator', desc: 'See how much your EV will be worth in 3–7 years' },
+      ]} />
     </div>
   );
 }

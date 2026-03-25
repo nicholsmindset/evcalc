@@ -4,6 +4,7 @@ import { CalculatorContent } from './CalculatorContent';
 import { SchemaMarkup } from '@/components/seo/SchemaMarkup';
 import { FAQSection } from '@/components/seo/FAQSection';
 import { generateWebApplicationSchema, generateBreadcrumbSchema } from '@/lib/utils/seo';
+import { RelatedTools } from '@/components/ui/RelatedTools';
 
 export const metadata: Metadata = {
   title: 'EV Range Calculator — Calculate Real-World Electric Car Range',
@@ -60,6 +61,11 @@ export default function CalculatorPage() {
     </Suspense>
       <div className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
         <FAQSection faqs={CALCULATOR_FAQS} />
+        <RelatedTools tools={[
+          { href: '/charging-cost-calculator', emoji: '🔋', label: 'Charging Cost Calculator', desc: 'Find your exact cost per charge using real state electricity rates' },
+          { href: '/road-trip-planner', emoji: '🗺️', label: 'Road Trip Planner', desc: 'Plan any route with optimized charging stops and real-time station data' },
+          { href: '/winter-ev-range', emoji: '❄️', label: 'Winter Range Calculator', desc: 'See how cold weather impacts your range city by city' },
+        ]} />
       </div>
     </>
   );

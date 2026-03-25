@@ -2,6 +2,7 @@ import { Suspense } from 'react';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import LeaseVsBuyContent from './LeaseVsBuyContent';
+import { RelatedTools } from '@/components/ui/RelatedTools';
 
 export const metadata: Metadata = {
   title: 'EV Lease vs Buy Calculator 2025 | Compare Monthly Payments & Total Cost',
@@ -117,18 +118,11 @@ export default function LeaseVsBuyPage() {
           </div>
         </section>
 
-        {/* Related Tools */}
-        <section className="mt-12 border-t border-border pt-8">
-          <h2 className="mb-4 font-display text-lg font-bold text-text-primary">Related Tools</h2>
-          <div className="flex flex-wrap gap-3">
-            <Link href="/ev-vs-gas" className="text-sm text-accent hover:underline">EV vs Gas Savings</Link>
-            <Link href="/tco-calculator" className="text-sm text-accent hover:underline">Total Cost of Ownership</Link>
-            <Link href="/charging-cost-calculator" className="text-sm text-accent hover:underline">Charging Cost Calculator</Link>
-            <Link href="/calculator" className="text-sm text-accent hover:underline">Range Calculator</Link>
-            <Link href="/compare" className="text-sm text-accent hover:underline">Vehicle Comparison</Link>
-            <Link href="/vehicles" className="text-sm text-accent hover:underline">Browse All EVs</Link>
-          </div>
-        </section>
+        <RelatedTools tools={[
+          { href: '/tax-credit-checker', emoji: '✅', label: 'Tax Credit Checker', desc: 'Check your $7,500 federal eligibility before you sign anything' },
+          { href: '/tco-calculator', emoji: '📈', label: 'Total Cost of Ownership', desc: 'Full lifetime cost comparison including fuel and maintenance' },
+          { href: '/can-i-afford-an-ev', emoji: '💰', label: 'Can I Afford an EV?', desc: 'Monthly budget tool with all costs factored in' },
+        ]} />
       </div>
     </>
   );
