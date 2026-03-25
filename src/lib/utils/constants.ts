@@ -11,6 +11,7 @@ export const NAV_LINKS = [
   { href: '/charging-cost-calculator', label: 'Charging Cost' },
   { href: '/ev-vs-gas', label: 'EV vs Gas' },
   { href: '/road-trip-planner', label: 'Road Trip Planner' },
+  { href: '/lease-vs-buy', label: 'Lease vs Buy' },
 ] as const;
 
 export const FOOTER_LINKS = {
@@ -27,6 +28,7 @@ export const FOOTER_LINKS = {
     { href: '/ev-tax-credit', label: 'EV Tax Credit 2025' },
     { href: '/ev-battery-replacement-cost', label: 'Battery Replacement Cost' },
     { href: '/electric-car-maintenance-cost', label: 'EV Maintenance Cost' },
+    { href: '/lease-vs-buy', label: 'Lease vs Buy Calculator' },
   ],
   popularEvs: [
     { href: '/vehicles/tesla-model-3-long-range-2025', label: 'Tesla Model 3' },

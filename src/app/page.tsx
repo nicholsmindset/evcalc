@@ -80,6 +80,16 @@ const TOOLS = [
       </svg>
     ),
   },
+  {
+    href: '/lease-vs-buy',
+    title: 'Lease vs Buy',
+    description: 'Compare monthly payments, total cost, and break-even timelines. Includes $7,500 tax credit analysis.',
+    icon: (
+      <svg className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9 14.25l6-6m4.5-3.493V21.75l-4.125-1.688a4.5 4.5 0 00-3.75 0l-4.5 1.875-.375-.375A.375.375 0 016 21.375V7.507c0-.97.684-1.8 1.638-1.98l.39-.073A48.4 48.4 0 0112 5.25c.83 0 1.652.04 2.472.118l.39.073A2.01 2.01 0 0118 7.507v2.25" />
+      </svg>
+    ),
+  },
 ];
 
 export default function HomePage() {
