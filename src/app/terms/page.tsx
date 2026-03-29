@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Terms of Use — EV Range Tools',
   description: 'Terms of use for EV Range Tools. Understand our data accuracy disclaimers, affiliate disclosures, and usage policies.',
+  alternates: { canonical: '/terms' },
 };
 
 export default function TermsPage() {

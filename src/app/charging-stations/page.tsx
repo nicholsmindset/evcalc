@@ -1,12 +1,21 @@
-'use client';
-
-import { useState, useCallback } from 'react';
+import type { Metadata } from 'next';
 import Link from 'next/link';
-import { ChargingStationMap } from '@/components/maps/ChargingStationMap';
-import { StationFilters, DEFAULT_FILTERS, type StationFilterState } from '@/components/stations/StationFilters';
-import { StationList } from '@/components/stations/StationList';
-import type { StationProperties } from '@/components/maps/StationPopup';
+import { StationFinder } from './components/StationFinder';
 import { RelatedTools } from '@/components/ui/RelatedTools';
+
+export const metadata: Metadata = {
+  title: 'EV Charging Station Finder — 85,000+ US Stations on a Live Map',
+  description:
+    'Find EV charging stations near you from Tesla Supercharger, ChargePoint, Electrify America, EVgo, and more. Filter by network, connector type, and power level.',
+  alternates: { canonical: '/charging-stations' },
+  openGraph: {
+    title: 'EV Charging Station Finder — 85,000+ US Stations on a Live Map',
+    description:
+      'Find EV charging stations near you from Tesla Supercharger, ChargePoint, Electrify America, EVgo, and more. Filter by network, connector type, and power level.',
+    url: '/charging-stations',
+    type: 'website',
+  },
+};
 
 const NETWORKS = [
   { name: 'Tesla Supercharger', stations: '2,500+', speed: 'Up to 250 kW', connector: 'NACS', color: 'text-error' },
@@ -37,81 +46,6 @@ const CONNECTOR_TYPES = [
 ];
 
 export default function ChargingStationsPage() {
-  const [filters, setFilters] = useState<StationFilterState>(DEFAULT_FILTERS);
-  const [stations, setStations] = useState<StationProperties[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [searched, setSearched] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
-  const fetchStations = useCallback(async (lat: number, lng: number) => {
-    const params = new URLSearchParams({
-      lat: lat.toString(),
-      lng: lng.toString(),
-      radius: filters.radius.toString(),
-      limit: '50',
-      ...(filters.network && { network: filters.network }),
-      ...(filters.connectorType && { connector: filters.connectorType }),
-    });
-
-    const res = await fetch(`/api/stations?${params}`);
-
-    if (!res.ok) {
-      const errData = await res.json().catch(() => ({ error: 'Request failed' }));
-      throw new Error(errData.error || `Request failed: ${res.status}`);
-    }
-
-    const data = await res.json();
-    const mapped: StationProperties[] = (data.stations || []).map((s: Record<string, unknown>) => ({
-      id: (s.id as number) || 0,
-      name: (s.station_name as string) || 'Unknown Station',
-      network: (s.ev_network as string) || null,
-      address: (s.street_address as string) || '',
-      city: (s.city as string) || '',
-      state: (s.state as string) || '',
-      connectors: Array.isArray(s.ev_connector_types) ? s.ev_connector_types as string[] : null,
-      level2Count: (s.ev_level2_evse_num as number) || 0,
-      dcFastCount: (s.ev_dc_fast_num as number) || 0,
-      pricing: (s.ev_pricing as string) || null,
-      accessHours: (s.access_days_time as string) || null,
-      phone: (s.station_phone as string) || null,
-      distance: typeof s.distance === 'number' ? s.distance : undefined,
-    }));
-    setStations(mapped);
-  }, [filters]);
-
-  const handleSearch = useCallback(async (coords?: { lat: number; lng: number }) => {
-    setLoading(true);
-    setSearched(true);
-    setError(null);
-
-    try {
-      if (coords) {
-        // Manual location search — coords provided by geocoding
-        await fetchStations(coords.lat, coords.lng);
-      } else {
-        // "Near Me" — use browser geolocation
-        const position = await new Promise<GeolocationPosition>((resolve, reject) => {
-          if (!navigator.geolocation) {
-            reject(new Error('Geolocation not supported'));
-            return;
-          }
-          navigator.geolocation.getCurrentPosition(resolve, reject, { timeout: 10000 });
-        });
-        await fetchStations(position.coords.latitude, position.coords.longitude);
-      }
-    } catch (err) {
-      const message = err instanceof Error ? err.message : 'Search failed';
-      if (message.includes('denied') || message.includes('Geolocation') || message.includes('timeout')) {
-        setError('Location access denied or timed out. Try entering a city or zip code instead.');
-      } else {
-        setError(message);
-      }
-      setStations([]);
-    } finally {
-      setLoading(false);
-    }
-  }, [fetchStations]);
-
   return (
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
       {/* Header */}
@@ -125,32 +59,8 @@ export default function ChargingStationsPage() {
         </p>
       </div>
 
-      {/* Filters */}
-      <StationFilters
-        filters={filters}
-        onChange={setFilters}
-        onSearch={handleSearch}
-        loading={loading}
-      />
-
-      {/* Map + List */}
-      <div className="my-8 grid gap-6 lg:grid-cols-[1fr_380px]">
-        <ChargingStationMap
-          stations={stations}
-          className="h-[350px] sm:h-[500px]"
-        />
-        <StationList
-          stations={stations}
-          loading={loading}
-          emptyMessage={
-            error
-              ? error
-              : searched
-                ? 'No stations found. Try adjusting filters or increasing the search radius.'
-                : 'Click "Search Near Me" to find charging stations near your location.'
-          }
-        />
-      </div>
+      {/* Interactive Map + Filters + Station List */}
+      <StationFinder />
 
       {/* Charging Networks */}
       <section className="mb-12">
@@ -241,6 +151,7 @@ export default function ChargingStationsPage() {
           </p>
         </div>
       </section>
+
       <RelatedTools tools={[
         { href: '/home-charger-wizard', emoji: '🔌', label: 'Charger Setup Wizard', desc: 'Set up reliable home charging so you rarely need public stations' },
         { href: '/road-trip-planner', emoji: '🗺️', label: 'Road Trip Planner', desc: 'Plan longer routes with optimized charging stops' },

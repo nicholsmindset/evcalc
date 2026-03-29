@@ -12,6 +12,7 @@ export const metadata: Metadata = {
     'EV fleet total cost of ownership',
     'corporate fleet EV calculator',
   ],
+  alternates: { canonical: '/fleet-calculator' },
   openGraph: {
     title: 'Fleet EV ROI Calculator',
     description:

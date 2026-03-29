@@ -5,6 +5,7 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'EV Blog — Range Tips, Charging Guides & EV News',
   description: 'Expert articles on EV range optimization, charging strategies, battery health, road trip planning, and cost analysis. Data-driven guides for EV owners.',
+  alternates: { canonical: '/blog' },
   openGraph: {
     title: 'EV Blog — Range Tips, Charging Guides & EV News',
     description: 'Expert articles on EV range optimization, charging strategies, battery health, road trip planning, and cost analysis.',

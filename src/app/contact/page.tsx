@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Contact Us — EV Range Tools',
   description: 'Get in touch with the EV Range Tools team. Report issues, suggest features, or ask questions about our EV tools.',
+  alternates: { canonical: '/contact' },
 };
 
 const FAQ_ITEMS = [

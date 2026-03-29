@@ -2,6 +2,7 @@ import Link from 'next/link';
 
 export const metadata = {
   title: 'Offline — EV Range Tools',
+  robots: { index: false, follow: false },
 };
 
 export default function OfflinePage() {
