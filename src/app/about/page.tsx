@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'About EV Range Tools — Our Mission & Data Sources',
   description: 'Learn about EV Range Tools, the most accurate electric vehicle range tool on the internet. Powered by EPA, NREL, and OpenChargeMap data.',
+  alternates: { canonical: '/about' },
 };
 
 const DATA_SOURCES = [

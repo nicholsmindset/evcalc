@@ -8,6 +8,7 @@ import { generateWebApplicationSchema, generateBreadcrumbSchema } from '@/lib/ut
 export const metadata: Metadata = {
   title: 'Home EV Charger Guide — Which Charger Is Right for You?',
   description: 'Compare Level 1 vs Level 2 home EV chargers. Learn installation costs, charging speeds, electrical requirements, and the best chargers for every budget.',
+  alternates: { canonical: '/home-charger' },
 };
 
 const HOME_CHARGER_FAQS = [

@@ -1,21 +1,4 @@
-import type { Metadata } from 'next';
-import { SchemaMarkup } from '@/components/seo/SchemaMarkup';
 import { FAQSection } from '@/components/seo/FAQSection';
-import { generateWebApplicationSchema, generateBreadcrumbSchema } from '@/lib/utils/seo';
-
-export const metadata: Metadata = {
-  title: 'EV Total Cost of Ownership Calculator — EV vs Gas Over 5-10 Years',
-  description:
-    'Compare the total cost of owning an EV vs gas car including purchase price, fuel, maintenance, insurance, and depreciation.',
-  alternates: { canonical: '/tco-calculator' },
-  openGraph: {
-    title: 'EV Total Cost of Ownership Calculator — EV vs Gas Over 5-10 Years',
-    description:
-      'Compare the total cost of owning an EV vs gas car including purchase price, fuel, maintenance, insurance, and depreciation.',
-    url: '/tco-calculator',
-    type: 'website',
-  },
-};
 
 const TCO_FAQS = [
   { question: 'What is total cost of ownership for an EV?', answer: 'Total cost of ownership (TCO) includes purchase price, fuel costs, maintenance, insurance, depreciation, and any tax credits or incentives. For most EVs, the TCO is $5,000-15,000 less than a comparable gas car over 5 years, despite higher upfront costs.' },
@@ -32,19 +15,6 @@ export default function TcoCalculatorLayout({
 }) {
   return (
     <>
-      <SchemaMarkup
-        schema={[
-          generateWebApplicationSchema(
-            'EV Total Cost of Ownership Calculator',
-            'Compare the total cost of owning an EV vs gas car over 5-10 years.',
-            '/tco-calculator'
-          ),
-          generateBreadcrumbSchema([
-            { name: 'Home', href: '/' },
-            { name: 'Total Cost of Ownership', href: '/tco-calculator' },
-          ]),
-        ]}
-      />
       {children}
       <div className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
         <FAQSection faqs={TCO_FAQS} />

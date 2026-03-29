@@ -1,10 +1,51 @@
-'use client';
-
+import type { Metadata } from 'next';
 import { ChatInterface } from '@/components/advisor/ChatInterface';
+
+export const metadata: Metadata = {
+  title: 'AI EV Advisor — Get Personalized Electric Vehicle Answers',
+  description:
+    'Ask our AI expert about EV range, charging, costs, and buying advice. Get instant, personalized answers powered by EPA data and real-world EV knowledge.',
+  alternates: { canonical: '/advisor' },
+  openGraph: {
+    title: 'AI EV Advisor — Get Personalized Electric Vehicle Answers',
+    description:
+      'Ask our AI expert about EV range, charging, costs, and buying advice. Get instant, personalized answers powered by EPA data and real-world EV knowledge.',
+    url: '/advisor',
+    type: 'website',
+  },
+};
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebApplication',
+      name: 'AI EV Advisor',
+      url: 'https://evrangetools.com/advisor',
+      description:
+        'Ask our AI expert about EV range, charging, costs, and buying advice. Get instant, personalized answers powered by EPA data and real-world EV knowledge.',
+      applicationCategory: 'UtilityApplication',
+      operatingSystem: 'Any',
+      offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://evrangetools.com' },
+        { '@type': 'ListItem', position: 2, name: 'AI EV Advisor', item: 'https://evrangetools.com/advisor' },
+      ],
+    },
+  ],
+};
 
 export default function AdvisorPage() {
   return (
     <div className="mx-auto max-w-4xl px-4 py-8 sm:px-6 lg:px-8">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+
       {/* Header */}
       <div className="mb-8">
         <h1 className="text-3xl font-display font-bold tracking-tight text-text-primary sm:text-4xl">

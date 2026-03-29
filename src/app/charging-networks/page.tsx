@@ -1,9 +1,23 @@
-'use client';
-
-import { useState, useMemo } from 'react';
+import type { Metadata } from 'next';
 import Link from 'next/link';
+import ChargingNetworksTool from './components/ChargingNetworksTool';
 
-// ─── Network data ─────────────────────────────────────────────────────────────
+// ─── Metadata ────────────────────────────────────────────────────────────────
+export const metadata: Metadata = {
+  title: 'EV Charging Network Comparison 2026 — Pricing, Coverage & Reliability',
+  description:
+    'Compare Tesla Supercharger, Electrify America, ChargePoint, EVgo, and more. Side-by-side pricing, reliability, app ratings, and EV connector compatibility.',
+  alternates: { canonical: '/charging-networks' },
+  openGraph: {
+    title: 'EV Charging Network Comparison 2026 — Pricing, Coverage & Reliability',
+    description:
+      'Compare Tesla Supercharger, Electrify America, ChargePoint, EVgo, and more. Side-by-side pricing, reliability, app ratings, and EV connector compatibility.',
+    url: '/charging-networks',
+    type: 'article',
+  },
+};
+
+// ─── Static network data ─────────────────────────────────────────────────────
 interface Network {
   name: string;
   slug: string;
@@ -16,7 +30,7 @@ interface Network {
   connectors: string[];
   usStations: number;
   usPorts: number;
-  reliability: number;     // out of 10
+  reliability: number;
   maxSpeedKw: number;
   appIos: number | null;
   appAndroid: number | null;
@@ -144,12 +158,12 @@ const NETWORKS: Network[] = [
   },
 ];
 
-// ─── EV compatibility ─────────────────────────────────────────────────────────
+// ─── EV compatibility data ───────────────────────────────────────────────────
 type ConnectorType = 'NACS' | 'CCS1' | 'CHAdeMO' | 'J1772';
 interface EVCompat {
   name: string;
   native: ConnectorType;
-  canUseNacs: boolean;   // natively or via free adapter
+  canUseNacs: boolean;
   canUseCcs: boolean;
   canUseChademo: boolean;
 }
@@ -169,59 +183,35 @@ const EV_COMPAT: EVCompat[] = [
   { name: 'Polestar 2',            native: 'CCS1',    canUseNacs: false, canUseCcs: true,  canUseChademo: false },
 ];
 
-// ─── Cost-to-charge calculator ────────────────────────────────────────────────
-interface EVSpec { name: string; batteryKwh: number; }
-const EVS_FOR_CALC: EVSpec[] = [
-  { name: 'Tesla Model 3 RWD (57.5 kWh)', batteryKwh: 57.5 },
-  { name: 'Tesla Model 3 LR (82 kWh)', batteryKwh: 82 },
-  { name: 'Tesla Model Y RWD (60 kWh)', batteryKwh: 60 },
-  { name: 'Tesla Model Y LR (82 kWh)', batteryKwh: 82 },
-  { name: 'Chevrolet Equinox EV (85 kWh)', batteryKwh: 85 },
-  { name: 'Hyundai IONIQ 6 (77.4 kWh)', batteryKwh: 77.4 },
-  { name: 'Hyundai IONIQ 5 (77.4 kWh)', batteryKwh: 77.4 },
-  { name: 'Kia EV6 (77.4 kWh)', batteryKwh: 77.4 },
-  { name: 'VW ID.4 Pro (82 kWh)', batteryKwh: 82 },
-  { name: 'Ford F-150 Lightning (98 kWh)', batteryKwh: 98 },
-  { name: 'Rivian R1T (135 kWh)', batteryKwh: 135 },
-  { name: 'Nissan LEAF 40 kWh', batteryKwh: 40 },
-  { name: 'Chevy Bolt EV (65 kWh)', batteryKwh: 65 },
-];
-
-function reliabilityColor(r: number) {
+// ─── Helpers ─────────────────────────────────────────────────────────────────
+function reliabilityColor(r: number): string {
   if (r >= 8.5) return 'text-green-400';
   if (r >= 7.0) return 'text-yellow-400';
   return 'text-red-400';
 }
 
+// ─── JSON-LD ─────────────────────────────────────────────────────────────────
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Article',
+      headline: 'EV Charging Network Comparison 2026 — Pricing, Coverage & Reliability',
+      url: 'https://evrangetools.com/charging-networks',
+      author: { '@type': 'Organization', name: 'EV Range Tools' },
+    },
+    {
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://evrangetools.com' },
+        { '@type': 'ListItem', position: 2, name: 'Charging Networks', item: 'https://evrangetools.com/charging-networks' },
+      ],
+    },
+  ],
+};
+
+// ─── Page (Server Component) ─────────────────────────────────────────────────
 export default function ChargingNetworksPage() {
-  const [selEV, setSelEV] = useState(EVS_FOR_CALC[0]);
-  const [chargeFromPct, setChargeFromPct] = useState(20);
-  const [chargeToP, setChargeToP] = useState(80);
-
-  const kwhNeeded = useMemo(() => {
-    const pct = Math.max(0, chargeToP - chargeFromPct);
-    return selEV.batteryKwh * pct / 100;
-  }, [selEV, chargeFromPct, chargeToP]);
-
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@graph': [
-      {
-        '@type': 'Article',
-        headline: 'EV Charging Network Comparison 2026 — Pricing, Coverage & Reliability',
-        url: 'https://evrangetools.com/charging-networks',
-        author: { '@type': 'Organization', name: 'EV Range Tools' },
-      },
-      {
-        '@type': 'BreadcrumbList',
-        itemListElement: [
-          { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://evrangetools.com' },
-          { '@type': 'ListItem', position: 2, name: 'Charging Networks', item: 'https://evrangetools.com/charging-networks' },
-        ],
-      },
-    ],
-  };
-
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
@@ -242,70 +232,10 @@ export default function ChargingNetworksPage() {
           </p>
         </div>
 
-        {/* ─── Cost-to-charge calculator ────────────────────────────────────── */}
-        <div className="mb-10 rounded-lg border border-border bg-bg-secondary p-5">
-          <h2 className="mb-4 font-display text-base font-bold text-text-primary">
-            Cost to Charge 10% → 80% by Network
-          </h2>
-          <div className="mb-4 flex flex-wrap items-end gap-4">
-            <div>
-              <label className="mb-1 block text-xs text-text-secondary">Select EV</label>
-              <select
-                value={selEV.name}
-                onChange={e => { const f = EVS_FOR_CALC.find(ev => ev.name === e.target.value); if (f) setSelEV(f); }}
-                className="rounded border border-border bg-bg-tertiary px-3 py-2 text-sm text-text-primary focus:outline-none focus:ring-1 focus:ring-accent"
-              >
-                {EVS_FOR_CALC.map(ev => <option key={ev.name} value={ev.name}>{ev.name}</option>)}
-              </select>
-            </div>
-            <div>
-              <label className="mb-1 block text-xs text-text-secondary">Charge from %</label>
-              <input type="number" min={0} max={90} value={chargeFromPct}
-                onChange={e => setChargeFromPct(Number(e.target.value))}
-                className="w-20 rounded border border-border bg-bg-tertiary px-3 py-2 text-sm text-text-primary focus:outline-none focus:ring-1 focus:ring-accent" />
-            </div>
-            <div>
-              <label className="mb-1 block text-xs text-text-secondary">Charge to %</label>
-              <input type="number" min={10} max={100} value={chargeToP}
-                onChange={e => setChargeToP(Number(e.target.value))}
-                className="w-20 rounded border border-border bg-bg-tertiary px-3 py-2 text-sm text-text-primary focus:outline-none focus:ring-1 focus:ring-accent" />
-            </div>
-            <div className="text-sm text-text-secondary">
-              = <span className="font-mono font-bold text-text-primary">{kwhNeeded.toFixed(1)} kWh</span>
-            </div>
-          </div>
-          <div className="overflow-x-auto rounded border border-border">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-border bg-bg-tertiary text-xs text-text-secondary">
-                  <th className="px-3 py-2 text-left">Network</th>
-                  <th className="px-3 py-2 text-right">Non-member</th>
-                  <th className="px-3 py-2 text-right">Member</th>
-                  <th className="px-3 py-2 text-right">Max Speed</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-border">
-                {NETWORKS.filter(n => n.pricingDcfc !== null).sort((a, b) => (a.pricingDcfc ?? 99) - (b.pricingDcfc ?? 99)).map(n => {
-                  const cost = (n.pricingDcfc ?? 0) * kwhNeeded;
-                  const memberCost = n.membershipName ? cost * 0.84 : null; // ~16% member discount avg
-                  return (
-                    <tr key={n.slug}>
-                      <td className="px-3 py-2 font-medium text-text-primary">{n.name}</td>
-                      <td className="px-3 py-2 text-right font-mono">${cost.toFixed(2)}</td>
-                      <td className="px-3 py-2 text-right font-mono text-green-400">
-                        {memberCost !== null ? `$${memberCost.toFixed(2)}` : '—'}
-                      </td>
-                      <td className="px-3 py-2 text-right font-mono text-text-secondary">{n.maxSpeedKw} kW</td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-          <p className="mt-2 text-xs text-text-tertiary">Member pricing shown as ~16% average discount; actual varies by network and plan.</p>
-        </div>
+        {/* ─── Interactive cost-to-charge calculator (client component) ──── */}
+        <ChargingNetworksTool />
 
-        {/* ─── Full comparison table ────────────────────────────────────────── */}
+        {/* ─── Full comparison table (static, server-rendered) ─────────── */}
         <h2 className="mb-4 font-display text-lg font-bold text-text-primary">Full Network Comparison</h2>
         <div className="overflow-x-auto rounded-lg border border-border">
           <table className="w-full text-sm">
@@ -335,10 +265,10 @@ export default function ChargingNetworksPage() {
                     )}
                   </td>
                   <td className="px-4 py-3 text-right font-mono text-text-secondary">
-                    {n.pricingL2 !== null ? (n.pricingL2 === 0 ? <span className="text-green-400">FREE</span> : `$${n.pricingL2.toFixed(2)}`) : '—'}
+                    {n.pricingL2 !== null ? (n.pricingL2 === 0 ? <span className="text-green-400">FREE</span> : `$${n.pricingL2.toFixed(2)}`) : '\u2014'}
                   </td>
                   <td className="px-4 py-3 text-right font-mono text-text-secondary">
-                    {n.pricingDcfc !== null ? `$${n.pricingDcfc.toFixed(2)}` : '—'}
+                    {n.pricingDcfc !== null ? `$${n.pricingDcfc.toFixed(2)}` : '\u2014'}
                   </td>
                   <td className="px-4 py-3 text-right font-mono">{n.usStations.toLocaleString()}</td>
                   <td className="px-4 py-3 text-right font-mono text-text-secondary">{n.usPorts.toLocaleString()}</td>
@@ -347,7 +277,7 @@ export default function ChargingNetworksPage() {
                   </td>
                   <td className="px-4 py-3 text-right font-mono text-text-secondary">{n.maxSpeedKw}</td>
                   <td className="px-4 py-3 text-center font-mono text-text-secondary">
-                    {n.appIos !== null ? `${n.appIos}★` : '—'}
+                    {n.appIos !== null ? `${n.appIos}\u2605` : '\u2014'}
                   </td>
                   <td className="px-4 py-3">
                     <div className="flex flex-wrap gap-1">
@@ -365,7 +295,7 @@ export default function ChargingNetworksPage() {
           Pricing as of 2026. Reliability scores based on PlugShare user reports and network uptime data. App ratings from App Store/Google Play.
         </p>
 
-        {/* ─── Compatibility matrix ─────────────────────────────────────────── */}
+        {/* ─── Compatibility matrix (static, server-rendered) ──────────── */}
         <div className="mt-10">
           <h2 className="mb-4 font-display text-lg font-bold text-text-primary">
             EV Connector Compatibility Guide
@@ -389,10 +319,10 @@ export default function ChargingNetworksPage() {
                     <td className="px-4 py-3 text-center">
                       <span className="rounded bg-accent/10 px-2 py-0.5 text-xs font-medium text-accent">{ev.native}</span>
                     </td>
-                    <td className="px-4 py-3 text-center">{ev.canUseNacs ? '✅' : '❌'}</td>
-                    <td className="px-4 py-3 text-center">{ev.canUseCcs ? '✅' : '❌'}</td>
-                    <td className="px-4 py-3 text-center">{ev.canUseChademo ? '✅' : '❌'}</td>
-                    <td className="px-4 py-3 text-center">✅</td>
+                    <td className="px-4 py-3 text-center">{ev.canUseNacs ? '\u2705' : '\u274C'}</td>
+                    <td className="px-4 py-3 text-center">{ev.canUseCcs ? '\u2705' : '\u274C'}</td>
+                    <td className="px-4 py-3 text-center">{ev.canUseChademo ? '\u2705' : '\u274C'}</td>
+                    <td className="px-4 py-3 text-center">{'\u2705'}</td>
                   </tr>
                 ))}
               </tbody>

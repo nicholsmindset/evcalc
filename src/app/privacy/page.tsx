@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 export const metadata: Metadata = {
   title: 'Privacy Policy — EV Range Tools',
   description: 'Privacy policy for EV Range Tools. Learn how we handle your data, cookies, advertising, and third-party services.',
+  alternates: { canonical: '/privacy' },
 };
 
 export default function PrivacyPage() {

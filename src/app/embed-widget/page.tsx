@@ -4,6 +4,7 @@ import Link from 'next/link';
 export const metadata: Metadata = {
   title: 'Embed EV Range Tools Widget — Free for Any Website',
   description: 'Add the EV Range Tools calculator to your website for free. Get the embed code for blogs, forums, and EV enthusiast sites.',
+  alternates: { canonical: '/embed-widget' },
 };
 
 const EMBED_CODE = `<iframe
