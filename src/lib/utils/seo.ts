@@ -101,6 +101,66 @@ export function generateBreadcrumbSchema(
   };
 }
 
+export function generateWebSiteSchema() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: SITE_NAME,
+    url: SITE_URL,
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: {
+        '@type': 'EntryPoint',
+        urlTemplate: `${SITE_URL}/vehicles?q={search_term_string}`,
+      },
+      'query-input': 'required name=search_term_string',
+    },
+  };
+}
+
+export function generateHowToSchema(
+  name: string,
+  description: string,
+  steps: Array<{ name: string; text: string }>
+) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name,
+    description,
+    step: steps.map((s) => ({
+      '@type': 'HowToStep',
+      name: s.name,
+      text: s.text,
+    })),
+  };
+}
+
+export function generateProductSchema(vehicle: {
+  name: string;
+  description: string;
+  slug: string;
+  msrp?: number | null;
+  imageUrl?: string | null;
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: vehicle.name,
+    description: vehicle.description,
+    url: `${SITE_URL}/vehicles/${vehicle.slug}`,
+    ...(vehicle.imageUrl && { image: vehicle.imageUrl }),
+    ...(vehicle.msrp && {
+      offers: {
+        '@type': 'Offer',
+        price: vehicle.msrp,
+        priceCurrency: 'USD',
+        availability: 'https://schema.org/InStock',
+      },
+    }),
+  };
+}
+
 export function generateVehicleSchema(vehicle: {
   name: string;
   make: string;

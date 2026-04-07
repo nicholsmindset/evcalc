@@ -4,12 +4,12 @@ import { POPULAR_VEHICLES } from '@/lib/utils/constants';
 import { formatCurrency } from '@/lib/utils/formatting';
 
 export const metadata: Metadata = {
-  title: 'EV Range Tools — Free EV Calculators, Comparisons & Charging Maps',
+  title: 'EV Range Tools — Free EV Calculators & Charging Maps',
   description:
     'The most comprehensive free EV tools — range calculator, charging cost, carbon footprint, depreciation, towing guide, and more. Powered by EPA data.',
   alternates: { canonical: '/' },
   openGraph: {
-    title: 'EV Range Tools — Free EV Calculators, Comparisons & Charging Maps',
+    title: 'EV Range Tools — Free EV Calculators & Charging Maps',
     description:
       'The most comprehensive free EV tools — range calculator, charging cost, carbon footprint, depreciation, towing guide, and more. Powered by EPA data.',
     url: '/',

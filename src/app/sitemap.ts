@@ -1,5 +1,7 @@
 import type { MetadataRoute } from 'next';
 import { getAllSlugs } from '@/lib/blog';
+import { getAllStateIncentiveSlugs } from '@/lib/supabase/queries/incentives';
+import { getAllUtilitySlugs } from '@/lib/supabase/queries/utilities';
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.evrangetools.com';
 
@@ -78,7 +80,7 @@ const BRAND_SLUGS = [
   'tesla', 'hyundai', 'kia', 'ford', 'chevrolet', 'bmw',
   'rivian', 'mercedes-benz', 'volkswagen', 'nissan', 'polestar',
   'audi', 'lucid', 'volvo', 'cadillac', 'genesis', 'honda',
-  'toyota', 'subaru', 'porsche', 'byd', 'rivian',
+  'toyota', 'subaru', 'porsche', 'byd',
 ];
 
 /**
@@ -99,7 +101,7 @@ export async function generateSitemaps() {
   ];
 }
 
-export default function sitemap({ id }: { id: string }): MetadataRoute.Sitemap {
+export default async function sitemap({ id }: { id: string }): Promise<MetadataRoute.Sitemap> {
   const now = new Date().toISOString();
 
   switch (id) {
@@ -206,7 +208,21 @@ export default function sitemap({ id }: { id: string }): MetadataRoute.Sitemap {
         priority: 0.75,
       }));
 
-      return [...vehiclePages, ...comparisonPages];
+      const towingPages: MetadataRoute.Sitemap = VEHICLE_SLUGS.map((slug) => ({
+        url: `${SITE_URL}/vehicles/${slug}/towing`,
+        lastModified: now,
+        changeFrequency: 'monthly' as const,
+        priority: 0.65,
+      }));
+
+      const leaseDealsPages: MetadataRoute.Sitemap = VEHICLE_SLUGS.map((slug) => ({
+        url: `${SITE_URL}/vehicles/${slug}/lease-deals`,
+        lastModified: now,
+        changeFrequency: 'weekly' as const,
+        priority: 0.65,
+      }));
+
+      return [...vehiclePages, ...comparisonPages, ...towingPages, ...leaseDealsPages];
     }
 
     case 'content': {
@@ -239,7 +255,37 @@ export default function sitemap({ id }: { id: string }): MetadataRoute.Sitemap {
         priority: 0.7,
       }));
 
-      return [...useCasePages, ...statePages, ...blogPages];
+      let incentiveSlugs: string[] = [];
+      try {
+        const rows = await getAllStateIncentiveSlugs();
+        incentiveSlugs = rows.map((r) => r.slug);
+      } catch {
+        // Build-time safety — DB may not be available
+      }
+
+      let utilitySlugs: string[] = [];
+      try {
+        const rows = await getAllUtilitySlugs();
+        utilitySlugs = rows.map((r) => r.slug);
+      } catch {
+        // Build-time safety — DB may not be available
+      }
+
+      const incentivePages: MetadataRoute.Sitemap = incentiveSlugs.map((slug) => ({
+        url: `${SITE_URL}/ev-incentives/${slug}`,
+        lastModified: now,
+        changeFrequency: 'monthly' as const,
+        priority: 0.7,
+      }));
+
+      const rebatePages: MetadataRoute.Sitemap = utilitySlugs.map((slug) => ({
+        url: `${SITE_URL}/ev-rebates/${slug}`,
+        lastModified: now,
+        changeFrequency: 'monthly' as const,
+        priority: 0.65,
+      }));
+
+      return [...useCasePages, ...statePages, ...blogPages, ...incentivePages, ...rebatePages];
     }
 
     case 'locations': {

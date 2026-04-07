@@ -5,6 +5,7 @@ import { getComparisonBySlug } from '@/lib/supabase/queries/comparisons';
 import { getVehicles } from '@/lib/supabase/queries/vehicles';
 import { calculateRange } from '@/lib/calculations/range';
 import { generateMetadata as genMeta, generateBreadcrumbSchema } from '@/lib/utils/seo';
+import { SITE_URL } from '@/lib/utils/constants';
 import { SchemaMarkup } from '@/components/seo/SchemaMarkup';
 import { FAQSection } from '@/components/seo/FAQSection';
 import nextDynamic from 'next/dynamic';
@@ -16,7 +17,21 @@ const ComparisonRadar = nextDynamic(
   { ssr: false }
 );
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 604800; // 7 days
+
+export async function generateStaticParams() {
+  const COMPARISON_SLUGS = [
+    'tesla-model-3-vs-hyundai-ioniq-5',
+    'tesla-model-y-vs-kia-ev6',
+    'tesla-model-y-vs-ford-mustang-mach-e',
+    'hyundai-ioniq-5-vs-kia-ev6',
+    'tesla-model-3-vs-chevrolet-equinox-ev',
+    'rivian-r1s-vs-tesla-model-x',
+    'bmw-ix-vs-mercedes-eqe',
+    'volkswagen-id4-vs-nissan-ariya',
+  ];
+  return COMPARISON_SLUGS.map((slug) => ({ slug }));
+}
 
 function vName(v: Vehicle): string {
   return `${v.year} ${v.make} ${v.model}${v.trim ? ` ${v.trim}` : ''}`;
@@ -184,9 +199,22 @@ export default async function ComparisonDetailPage({
     ? (vehicleA.msrp_usd <= vehicleB.msrp_usd ? 'A' : 'B')
     : null;
 
+  const itemListSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: `${shortA} vs ${shortB} Comparison`,
+    itemListElement: [vehicleA, vehicleB].map((v, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: vName(v),
+      url: `${SITE_URL}/vehicles/${v.slug}`,
+    })),
+  };
+
   return (
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
       <SchemaMarkup schema={breadcrumbs} />
+      <SchemaMarkup schema={itemListSchema} />
 
       {/* Breadcrumbs */}
       <nav className="mb-6 flex items-center gap-2 text-sm text-text-tertiary">
