@@ -3,7 +3,7 @@ import { Suspense } from 'react';
 import { CalculatorContent } from './CalculatorContent';
 import { SchemaMarkup } from '@/components/seo/SchemaMarkup';
 import { FAQSection } from '@/components/seo/FAQSection';
-import { generateWebApplicationSchema, generateBreadcrumbSchema } from '@/lib/utils/seo';
+import { generateWebApplicationSchema, generateBreadcrumbSchema, generateHowToSchema } from '@/lib/utils/seo';
 import { RelatedTools } from '@/components/ui/RelatedTools';
 
 export const metadata: Metadata = {
@@ -37,6 +37,16 @@ export default function CalculatorPage() {
             'EV Range Calculator',
             "Calculate your EV's real-world range adjusted for temperature, speed, terrain, HVAC, and battery health.",
             '/calculator'
+          ),
+          generateHowToSchema(
+            'How to Calculate Your EV Real-World Range',
+            "Use our calculator to find your EV's real-world range adjusted for temperature, speed, terrain, and battery health.",
+            [
+              { name: 'Select your vehicle', text: 'Choose your EV make, model, year, and trim from the dropdown.' },
+              { name: 'Set temperature', text: 'Enter the outside temperature in °F or °C for your driving conditions.' },
+              { name: 'Set driving conditions', text: 'Adjust speed, terrain type (city/highway/hilly), and HVAC mode.' },
+              { name: 'View your range', text: 'See your adjusted real-world range and a breakdown of how each factor affects your battery.' },
+            ]
           ),
           generateBreadcrumbSchema([
             { name: 'Home', href: '/' },

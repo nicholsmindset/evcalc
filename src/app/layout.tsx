@@ -4,7 +4,7 @@ import Script from 'next/script';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { SchemaMarkup } from '@/components/seo/SchemaMarkup';
-import { generateOrganizationSchema } from '@/lib/utils/seo';
+import { generateOrganizationSchema, generateWebSiteSchema } from '@/lib/utils/seo';
 import { SITE_NAME, SITE_DESCRIPTION } from '@/lib/utils/constants';
 import './globals.css';
 
@@ -73,7 +73,7 @@ export default function RootLayout({
       className={`dark ${plusJakarta.variable} ${instrumentSans.variable} ${jetbrainsMono.variable}`}
     >
       <body>
-        <SchemaMarkup schema={generateOrganizationSchema()} />
+        <SchemaMarkup schema={[generateOrganizationSchema(), generateWebSiteSchema()]} />
         <Header />
         <main className="min-h-screen">{children}</main>
         <Footer />

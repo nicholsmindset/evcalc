@@ -20,7 +20,7 @@ export const metadata: Metadata = genMeta({
   path: '/compare',
 });
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 604800; // 7 days
 
 export default async function ComparePage() {
   const [comparisons, topVehicles] = await Promise.all([

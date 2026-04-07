@@ -6,7 +6,17 @@ import { generateMetadata as genMeta, generateBreadcrumbSchema } from '@/lib/uti
 import { SchemaMarkup } from '@/components/seo/SchemaMarkup';
 import { FAQSection } from '@/components/seo/FAQSection';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 2592000; // 30 days — electricity rates update monthly
+
+const STATES = [
+  'california', 'texas', 'florida', 'new-york', 'washington',
+  'colorado', 'oregon', 'arizona', 'illinois', 'georgia',
+  'massachusetts', 'new-jersey', 'virginia', 'north-carolina', 'pennsylvania',
+];
+
+export async function generateStaticParams() {
+  return STATES.map((state) => ({ state }));
+}
 
 function stateSlug(name: string): string {
   return name.toLowerCase().replace(/\s+/g, '-');

@@ -3,14 +3,23 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getVehicleBySlug, getVehicles } from '@/lib/supabase/queries/vehicles';
 import { calculateRange, calculateRangeBySpeed } from '@/lib/calculations/range';
-import { generateMetadata as genMeta, generateVehicleSchema, generateBreadcrumbSchema } from '@/lib/utils/seo';
+import { generateMetadata as genMeta, generateVehicleSchema, generateBreadcrumbSchema, generateProductSchema } from '@/lib/utils/seo';
 import { SchemaMarkup } from '@/components/seo/SchemaMarkup';
 import { FAQSection } from '@/components/seo/FAQSection';
 
 import Image from 'next/image';
 import type { Vehicle } from '@/lib/supabase/types';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 604800; // 7 days
+
+export async function generateStaticParams() {
+  try {
+    const vehicles = await getVehicles();
+    return vehicles.map((v) => ({ slug: v.slug }));
+  } catch {
+    return [];
+  }
+}
 
 export async function generateMetadata({
   params,
@@ -23,8 +32,9 @@ export async function generateMetadata({
   if (!vehicle) return {};
 
   const name = `${vehicle.year} ${vehicle.make} ${vehicle.model}${vehicle.trim ? ` ${vehicle.trim}` : ''}`;
+  const hasRange = name.toLowerCase().includes('range');
   return genMeta({
-    title: `${name} Range, Specs & Charging — EV Range Tools`,
+    title: `${name}${hasRange ? '' : ' Range'} — Specs & Charging | EV Range Tools`,
     description: `${name}: ${vehicle.epa_range_mi} miles EPA range, ${vehicle.battery_kwh} kWh battery, ${vehicle.efficiency_kwh_per_100mi} kWh/100mi. See real-world range under different conditions.`,
     path: `/vehicles/${slug}`,
   });
@@ -154,10 +164,20 @@ export default async function VehicleDetailPage({
     imageUrl: vehicle.image_url,
   });
 
+  const productDescription = `${name}: ${vehicle.epa_range_mi} miles EPA range, ${vehicle.battery_kwh} kWh battery, ${vehicle.efficiency_kwh_per_100mi} kWh/100mi efficiency.`;
+  const productSchema = generateProductSchema({
+    name,
+    description: productDescription,
+    slug: vehicle.slug,
+    msrp: vehicle.msrp_usd,
+    imageUrl: vehicle.image_url,
+  });
+
   return (
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
       <SchemaMarkup schema={breadcrumbs} />
       <SchemaMarkup schema={vehicleSchema} />
+      <SchemaMarkup schema={productSchema} />
 
       {/* Breadcrumbs */}
       <nav className="mb-6 flex items-center gap-2 text-sm text-text-tertiary">
@@ -227,7 +247,7 @@ export default async function VehicleDetailPage({
           {vehicle.image_url ? (
             <Image
               src={vehicle.image_url}
-              alt={`${name} — AI-generated press photo`}
+              alt={`${name} electric vehicle`}
               width={800}
               height={450}
               className="w-full object-cover"
