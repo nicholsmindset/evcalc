@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
+import type { Vehicle } from '@/lib/supabase/types';
 import { getVehicles, getVehicleMakes } from '@/lib/supabase/queries/vehicles';
 import { generateMetadata as genMeta } from '@/lib/utils/seo';
 import { SchemaMarkup } from '@/components/seo/SchemaMarkup';
@@ -16,10 +17,13 @@ export const metadata: Metadata = genMeta({
 export const revalidate = 604800; // 7 days
 
 export default async function VehiclesPage() {
-  const [vehicles, makes] = await Promise.all([
-    getVehicles(),
-    getVehicleMakes(),
-  ]);
+  let vehicles: Vehicle[] = [];
+  let makes: string[] = [];
+  try {
+    [vehicles, makes] = await Promise.all([getVehicles(), getVehicleMakes()]);
+  } catch {
+    // DB unavailable — renders empty state rather than 500
+  }
 
   const breadcrumbs = generateBreadcrumbSchema([
     { name: 'Home', href: '/' },

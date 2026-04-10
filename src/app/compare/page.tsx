@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import nextDynamic from 'next/dynamic';
+import type { Vehicle } from '@/lib/supabase/types';
 import { getAllComparisons } from '@/lib/supabase/queries/comparisons';
 import { getVehiclesByRange } from '@/lib/supabase/queries/vehicles';
 import { generateMetadata as genMeta, generateBreadcrumbSchema } from '@/lib/utils/seo';
@@ -23,10 +24,16 @@ export const metadata: Metadata = genMeta({
 export const revalidate = 604800; // 7 days
 
 export default async function ComparePage() {
-  const [comparisons, topVehicles] = await Promise.all([
-    getAllComparisons(),
-    getVehiclesByRange(12),
-  ]);
+  let comparisons: Awaited<ReturnType<typeof getAllComparisons>> = [];
+  let topVehicles: Vehicle[] = [];
+  try {
+    [comparisons, topVehicles] = await Promise.all([
+      getAllComparisons(),
+      getVehiclesByRange(12),
+    ]);
+  } catch {
+    // DB unavailable — renders empty state rather than 500
+  }
 
   const breadcrumbs = generateBreadcrumbSchema([
     { name: 'Home', href: '/' },
