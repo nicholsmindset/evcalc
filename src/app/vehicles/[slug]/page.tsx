@@ -12,13 +12,51 @@ import type { Vehicle } from '@/lib/supabase/types';
 
 export const revalidate = 604800; // 7 days
 
+// Hardcoded list matches 002_seed_vehicles.sql — used as build-time fallback if
+// Supabase is unavailable so all vehicle pages are always pre-rendered at deploy.
+const STATIC_VEHICLE_SLUGS = [
+  'tesla-model-3-standard-range-2025',
+  'tesla-model-3-long-range-2025',
+  'tesla-model-3-performance-2025',
+  'tesla-model-y-long-range-2025',
+  'tesla-model-y-performance-2025',
+  'tesla-model-s-dual-motor-2025',
+  'tesla-cybertruck-dual-motor-2025',
+  'hyundai-ioniq-5-se-standard-range-2025',
+  'hyundai-ioniq-5-sel-long-range-2025',
+  'hyundai-ioniq-6-se-long-range-rwd-2025',
+  'kia-ev6-light-long-range-rwd-2025',
+  'kia-ev9-light-long-range-rwd-2025',
+  'ford-mustang-mach-e-select-rwd-2025',
+  'ford-f-150-lightning-extended-range-2025',
+  'chevrolet-equinox-ev-lt-fwd-2025',
+  'chevrolet-blazer-ev-lt-fwd-2025',
+  'rivian-r1s-dual-motor-large-pack-2025',
+  'rivian-r1t-dual-motor-large-pack-2025',
+  'bmw-ix-xdrive50-2025',
+  'bmw-i4-edrive40-2025',
+  'mercedes-benz-eqe-350-plus-2025',
+  'mercedes-benz-eqs-450-plus-2025',
+  'volkswagen-id4-standard-2025',
+  'volkswagen-id-buzz-pro-s-2025',
+  'nissan-ariya-engage-fwd-2025',
+  'polestar-2-long-range-single-motor-2025',
+  'polestar-4-long-range-dual-motor-2025',
+  'lucid-air-grand-touring-2025',
+  'audi-q4-e-tron-premium-2025',
+  'cadillac-lyriq-tech-2025',
+];
+
 export async function generateStaticParams() {
   try {
     const vehicles = await getVehicles();
-    return vehicles.map((v) => ({ slug: v.slug }));
+    if (vehicles.length > 0) {
+      return vehicles.map((v) => ({ slug: v.slug }));
+    }
   } catch {
-    return [];
+    // Supabase unavailable at build time — fall through to hardcoded list
   }
+  return STATIC_VEHICLE_SLUGS.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({
