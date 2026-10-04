@@ -5,12 +5,12 @@ import InstallationCalcContent from './InstallationCalcContent';
 import { RelatedTools } from '@/components/ui/RelatedTools';
 
 export const metadata: Metadata = {
-  title: 'EV Charger Installation Cost Calculator 2025 | How Much Does It Cost?',
+  title: 'EV Charger Installation Cost Calculator | Itemized Estimate',
   description:
     'Calculate EV charger installation costs by state. Get itemized estimates for labor, wire, breaker, permit, and panel upgrade. Average cost: $300–$1,200.',
   alternates: { canonical: '/charger-installation-cost' },
   openGraph: {
-    title: 'EV Charger Installation Cost Calculator 2025',
+    title: 'EV Charger Installation Cost Calculator',
     description:
       'Get an accurate cost estimate for Level 2 EV charger installation by state — labor, wire, permit, and panel upgrade included.',
     url: '/charger-installation-cost',
@@ -91,7 +91,7 @@ const jsonLd = {
           name: 'Can I get a tax credit for EV charger installation?',
           acceptedAnswer: {
             '@type': 'Answer',
-            text: 'Yes. The federal §30C Alternative Fuel Vehicle Refueling Property Credit covers 30% of both the charger and installation cost, up to $1,000 for homeowners. File IRS Form 8911 with your tax return.',
+            text: 'The federal residential §30C credit applied only to qualifying property placed in service by June 30, 2026. Check the IRS rules for an earlier installation; this calculator does not deduct a federal credit.',
           },
         },
         {
@@ -159,7 +159,7 @@ export default function ChargerInstallationCostPage() {
               'All 50 States',
               'Itemized Breakdown',
               'Electrician Guidance',
-              'Federal Credit Estimate',
+              'Utility Rebate Guidance',
             ].map((badge) => (
               <span
                 key={badge}
@@ -233,7 +233,7 @@ export default function ChargerInstallationCostPage() {
               },
               {
                 q: 'What is the cheapest way to install an EV charger at home?',
-                a: 'The cheapest option is if you already have a NEMA 14-50 outlet in your garage — installation takes 1–2 hours and costs $150–$300. Otherwise, compare quotes from at least 3 licensed electricians. Check for utility rebates (up to $1,000) and the federal 30% tax credit to reduce your out-of-pocket cost.',
+                a: 'Using a suitable existing 240V outlet may reduce installation cost. Compare quotes from licensed electricians and check your utility for any current rebate. Federal residential charger credits ended for property placed in service after June 30, 2026.',
               },
               {
                 q: 'Can I install an EV charger myself?',

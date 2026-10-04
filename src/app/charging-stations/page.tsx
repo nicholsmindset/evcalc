@@ -4,12 +4,12 @@ import { StationFinder } from './components/StationFinder';
 import { RelatedTools } from '@/components/ui/RelatedTools';
 
 export const metadata: Metadata = {
-  title: 'EV Charging Station Finder — 85,000+ US Stations on a Live Map',
+  title: 'EV Charging Station Finder | Search a Map by Connector',
   description:
     'Find EV charging stations near you from Tesla Supercharger, ChargePoint, Electrify America, EVgo, and more. Filter by network, connector type, and power level.',
   alternates: { canonical: '/charging-stations' },
   openGraph: {
-    title: 'EV Charging Station Finder — 85,000+ US Stations on a Live Map',
+    title: 'EV Charging Station Finder | Search a Map by Connector',
     description:
       'Find EV charging stations near you from Tesla Supercharger, ChargePoint, Electrify America, EVgo, and more. Filter by network, connector type, and power level.',
     url: '/charging-stations',
@@ -18,23 +18,23 @@ export const metadata: Metadata = {
 };
 
 const NETWORKS = [
-  { name: 'Tesla Supercharger', stations: '2,500+', speed: 'Up to 250 kW', connector: 'NACS', color: 'text-error' },
-  { name: 'ChargePoint', stations: '30,000+', speed: 'Up to 350 kW', connector: 'CCS / J1772', color: 'text-accent' },
-  { name: 'Electrify America', stations: '900+', speed: 'Up to 350 kW', connector: 'CCS', color: 'text-info' },
-  { name: 'EVgo', stations: '1,000+', speed: 'Up to 350 kW', connector: 'CCS / CHAdeMO', color: 'text-warning' },
-  { name: 'Blink', stations: '4,000+', speed: 'Up to 150 kW', connector: 'CCS / J1772', color: 'text-success' },
-  { name: 'FLO', stations: '5,000+', speed: 'Up to 320 kW', connector: 'CCS / J1772', color: 'text-text-secondary' },
+  { name: 'Tesla Supercharger', connector: 'NACS', color: 'text-error' },
+  { name: 'ChargePoint', connector: 'Varies by location', color: 'text-accent' },
+  { name: 'Electrify America', connector: 'CCS / NACS at select sites', color: 'text-info' },
+  { name: 'EVgo', connector: 'Varies by location', color: 'text-warning' },
+  { name: 'Blink', connector: 'Varies by location', color: 'text-success' },
+  { name: 'FLO', connector: 'Varies by location', color: 'text-text-secondary' },
 ];
 
 const POPULAR_REGIONS = [
-  { name: 'California', slug: 'us/california', count: '16,000+' },
-  { name: 'Texas', slug: 'us/texas', count: '5,500+' },
-  { name: 'Florida', slug: 'us/florida', count: '5,000+' },
-  { name: 'New York', slug: 'us/new-york', count: '4,500+' },
-  { name: 'Washington', slug: 'us/washington', count: '3,000+' },
-  { name: 'Colorado', slug: 'us/colorado', count: '2,500+' },
-  { name: 'United Kingdom', slug: 'uk/nationwide', count: '12,000+' },
-  { name: 'Norway', slug: 'no/nationwide', count: '9,000+' },
+  { name: 'California', slug: 'us/california' },
+  { name: 'Texas', slug: 'us/texas' },
+  { name: 'Florida', slug: 'us/florida' },
+  { name: 'New York', slug: 'us/new-york' },
+  { name: 'Washington', slug: 'us/washington' },
+  { name: 'Colorado', slug: 'us/colorado' },
+  { name: 'United Kingdom', slug: 'uk/nationwide' },
+  { name: 'Norway', slug: 'no/nationwide' },
 ];
 
 const CONNECTOR_TYPES = [
@@ -55,7 +55,7 @@ export default function ChargingStationsPage() {
         </h1>
         <p className="mt-2 max-w-2xl text-text-secondary">
           Find charging stations near you from all major networks. Browse by location, network,
-          connector type, and power level across 85,000+ US stations and global coverage.
+          connector type, and power level. Confirm availability and pricing in the network app before driving.
         </p>
       </div>
 
@@ -73,15 +73,7 @@ export default function ChargingStationsPage() {
               <h3 className={`font-display font-semibold ${network.color}`}>{network.name}</h3>
               <div className="mt-3 space-y-2 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-text-tertiary">Locations</span>
-                  <span className="font-mono font-semibold text-text-primary">{network.stations}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-text-tertiary">Max Speed</span>
-                  <span className="font-mono text-text-secondary">{network.speed}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-text-tertiary">Connector</span>
+                  <span className="text-text-tertiary">Typical connector</span>
                   <span className="text-text-secondary">{network.connector}</span>
                 </div>
               </div>
@@ -105,7 +97,7 @@ export default function ChargingStationsPage() {
               <h3 className="font-display font-semibold text-text-primary group-hover:text-accent transition-colors">
                 {region.name}
               </h3>
-              <p className="mt-1 font-mono text-sm text-accent">{region.count} stations</p>
+              <p className="mt-1 text-sm text-accent">Browse stations →</p>
             </Link>
           ))}
         </div>
@@ -138,16 +130,12 @@ export default function ChargingStationsPage() {
         </h2>
         <div className="max-w-3xl space-y-3 text-sm text-text-secondary">
           <p>
-            The US electric vehicle charging network has grown to over 85,000 locations with
-            273,000+ individual charging ports. Major networks including Tesla Supercharger,
-            ChargePoint, Electrify America, and EVgo continue to expand rapidly, with 30%+
-            annual growth in new station installations.
+            Public charging coverage changes as stations open, close, or go temporarily offline.
+            Search the map by location and connector, then confirm the station status in the operator&apos;s app.
           </p>
           <p>
-            DC fast chargers along major highways are typically spaced every 25-50 miles,
-            making long-distance EV travel practical for modern electric vehicles with 250+ miles
-            of range. Our station finder uses data from NREL and OpenChargeMap to provide
-            comprehensive coverage across the US and internationally.
+            Our station finder uses NREL and OpenChargeMap data. Check connector compatibility,
+            reported power, hours, and current pricing before planning a charging stop.
           </p>
         </div>
       </section>

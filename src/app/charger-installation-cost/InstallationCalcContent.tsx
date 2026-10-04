@@ -194,8 +194,6 @@ export default function InstallationCalcContent() {
   const costs = useMemo(() => calcCosts(inputs), [inputs]);
   const guidance = useMemo(() => getElectricianGuidance(inputs.chargerAmperage), [inputs.chargerAmperage]);
 
-  const federalCredit = Math.min(Math.round((costs.total.low + costs.total.high) / 2 * 0.3), 1000);
-
   const ELECTRICAL_OPTIONS: { value: ExistingElectrical; label: string; desc: string }[] = [
     { value: 'has_240v_outlet', label: 'I have a 240V outlet in my garage', desc: 'Fastest/cheapest — plug-in install only' },
     { value: 'has_200a_panel', label: '200A panel, no 240V outlet yet', desc: 'New circuit needed, most common' },
@@ -350,9 +348,7 @@ export default function InstallationCalcContent() {
             <div className="mt-1 font-display text-4xl font-bold text-accent">
               {fmt(costs.total.low)} – {fmt(costs.total.high)}
             </div>
-            <div className="mt-2 text-xs text-text-tertiary">
-              After 30% federal tax credit: ~{fmt(costs.total.low - federalCredit)} – {fmt(costs.total.high - federalCredit)}
-            </div>
+            <div className="mt-2 text-xs text-text-tertiary">Before any current utility rebate; confirm offers with your utility.</div>
           </div>
 
           {/* Breakdown */}
@@ -398,18 +394,10 @@ export default function InstallationCalcContent() {
             </p>
           </div>
 
-          {/* Federal credit callout */}
+          {/* Federal credit deadline */}
           <div className="rounded-xl border border-accent/20 bg-accent/5 p-4">
-            <div className="flex items-center justify-between">
-              <div>
-                <div className="text-sm font-semibold text-text-primary">Federal §30C Tax Credit</div>
-                <div className="text-xs text-text-secondary mt-0.5">30% of charger + installation (up to $1,000)</div>
-              </div>
-              <div className="text-right">
-                <div className="font-display text-xl font-bold text-accent">~{fmt(federalCredit)}</div>
-                <div className="text-xs text-text-tertiary">estimated credit</div>
-              </div>
-            </div>
+            <div className="text-sm font-semibold text-text-primary">Federal charger credit deadline</div>
+            <p className="mt-1 text-xs text-text-secondary">The residential §30C credit applied only to qualifying property placed in service by June 30, 2026. No federal credit is included in this estimate.</p>
             <a
               href="https://www.irs.gov/credits-deductions/alternative-fuel-vehicle-refueling-property-credit"
               target="_blank"
