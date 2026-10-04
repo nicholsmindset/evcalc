@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { notFound } from 'next/navigation';
+import { notFound, permanentRedirect } from 'next/navigation';
 import type { Metadata } from 'next';
 import { getVehicles } from '@/lib/supabase/queries/vehicles';
 import { SchemaMarkup } from '@/components/seo/SchemaMarkup';
@@ -251,6 +251,7 @@ export default async function BrandPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+  if (slug === 'mercedes-benz') permanentRedirect('/brand/mercedes');
   const brand = BRANDS[slug];
 
   if (!brand) notFound();

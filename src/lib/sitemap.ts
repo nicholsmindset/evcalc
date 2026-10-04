@@ -77,7 +77,7 @@ const CATEGORIES = [
 // Brand pages — slugs must match BRANDS config in src/app/brand/[slug]/page.tsx
 const BRAND_SLUGS = [
   'tesla', 'hyundai', 'kia', 'ford', 'chevrolet', 'bmw',
-  'rivian', 'mercedes-benz', 'volkswagen', 'nissan', 'polestar',
+  'rivian', 'mercedes', 'volkswagen', 'nissan', 'polestar',
   'audi', 'lucid', 'volvo', 'cadillac', 'genesis', 'honda',
   'toyota', 'subaru', 'porsche', 'byd',
 ];
