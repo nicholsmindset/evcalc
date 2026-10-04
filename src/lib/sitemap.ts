@@ -94,20 +94,18 @@ const BRAND_SLUGS = [
 export const SITEMAP_IDS = ['core-tools', 'vehicles', 'content', 'locations'] as const;
 
 export async function getSitemap(id: string): Promise<MetadataRoute.Sitemap> {
-  const now = new Date().toISOString();
-
   switch (id) {
     case 'core-tools': {
       // Core pages + Tool pages
       const corePages: MetadataRoute.Sitemap = [
-        { url: SITE_URL, lastModified: now, changeFrequency: 'weekly', priority: 1.0 },
-        { url: `${SITE_URL}/calculator`, lastModified: now, changeFrequency: 'monthly', priority: 0.95 },
-        { url: `${SITE_URL}/vehicles`, lastModified: now, changeFrequency: 'weekly', priority: 0.9 },
-        { url: `${SITE_URL}/compare`, lastModified: now, changeFrequency: 'weekly', priority: 0.9 },
-        { url: `${SITE_URL}/charging-stations`, lastModified: now, changeFrequency: 'weekly', priority: 0.9 },
-        { url: `${SITE_URL}/about`, lastModified: now, changeFrequency: 'monthly', priority: 0.6 },
-        { url: `${SITE_URL}/contact`, lastModified: now, changeFrequency: 'monthly', priority: 0.5 },
-        { url: `${SITE_URL}/blog`, lastModified: now, changeFrequency: 'weekly', priority: 0.8 },
+        { url: SITE_URL, changeFrequency: 'weekly', priority: 1.0 },
+        { url: `${SITE_URL}/calculator`, changeFrequency: 'monthly', priority: 0.95 },
+        { url: `${SITE_URL}/vehicles`, changeFrequency: 'weekly', priority: 0.9 },
+        { url: `${SITE_URL}/compare`, changeFrequency: 'weekly', priority: 0.9 },
+        { url: `${SITE_URL}/charging-stations`, changeFrequency: 'weekly', priority: 0.9 },
+        { url: `${SITE_URL}/about`, changeFrequency: 'monthly', priority: 0.6 },
+        { url: `${SITE_URL}/contact`, changeFrequency: 'monthly', priority: 0.5 },
+        { url: `${SITE_URL}/blog`, changeFrequency: 'weekly', priority: 0.8 },
       ];
 
       const toolPages: MetadataRoute.Sitemap = [
@@ -150,7 +148,6 @@ export async function getSitemap(id: string): Promise<MetadataRoute.Sitemap> {
         '/calculators',
       ].map((path) => ({
         url: `${SITE_URL}${path}`,
-        lastModified: now,
         changeFrequency: 'monthly' as const,
         priority: 0.85,
       }));
@@ -163,7 +160,6 @@ export async function getSitemap(id: string): Promise<MetadataRoute.Sitemap> {
         '/best-ev-chargers/tesla',
       ].map((path) => ({
         url: `${SITE_URL}${path}`,
-        lastModified: now,
         changeFrequency: 'monthly' as const,
         priority: 0.8,
       }));
@@ -176,7 +172,6 @@ export async function getSitemap(id: string): Promise<MetadataRoute.Sitemap> {
         '/calculators/amp-to-kwh',
       ].map((path) => ({
         url: `${SITE_URL}${path}`,
-        lastModified: now,
         changeFrequency: 'monthly' as const,
         priority: 0.75,
       }));
@@ -188,7 +183,6 @@ export async function getSitemap(id: string): Promise<MetadataRoute.Sitemap> {
       // Vehicle pages + Comparison pages
       const vehiclePages: MetadataRoute.Sitemap = VEHICLE_SLUGS.map((slug) => ({
         url: `${SITE_URL}/vehicles/${slug}`,
-        lastModified: now,
         changeFrequency: 'monthly' as const,
         priority: 0.8,
       }));
@@ -198,14 +192,12 @@ export async function getSitemap(id: string): Promise<MetadataRoute.Sitemap> {
         .filter((slug) => slug !== 'bmw-ix-vs-mercedes-eqe')
         .map((slug) => ({
           url: `${SITE_URL}/compare/${slug}`,
-          lastModified: now,
           changeFrequency: 'monthly' as const,
           priority: 0.75,
         }));
 
       const leaseDealsPages: MetadataRoute.Sitemap = VEHICLE_SLUGS.map((slug) => ({
         url: `${SITE_URL}/vehicles/${slug}/lease-deals`,
-        lastModified: now,
         changeFrequency: 'weekly' as const,
         priority: 0.65,
       }));
@@ -219,14 +211,12 @@ export async function getSitemap(id: string): Promise<MetadataRoute.Sitemap> {
       // Content: use cases, state pages, blog posts
       const useCasePages: MetadataRoute.Sitemap = USE_CASES.map((usecase) => ({
         url: `${SITE_URL}/best-ev-for/${usecase}`,
-        lastModified: now,
         changeFrequency: 'monthly' as const,
         priority: 0.7,
       }));
 
       const statePages: MetadataRoute.Sitemap = STATES.map((state) => ({
         url: `${SITE_URL}/ev-charging-cost/${state}`,
-        lastModified: now,
         changeFrequency: 'monthly' as const,
         priority: 0.7,
       }));
@@ -240,7 +230,6 @@ export async function getSitemap(id: string): Promise<MetadataRoute.Sitemap> {
 
       const blogPages: MetadataRoute.Sitemap = blogSlugs.map((slug) => ({
         url: `${SITE_URL}/blog/${slug}`,
-        lastModified: now,
         changeFrequency: 'monthly' as const,
         priority: 0.7,
       }));
@@ -263,14 +252,12 @@ export async function getSitemap(id: string): Promise<MetadataRoute.Sitemap> {
 
       const incentivePages: MetadataRoute.Sitemap = incentiveSlugs.map((slug) => ({
         url: `${SITE_URL}/ev-incentives/${slug}`,
-        lastModified: now,
         changeFrequency: 'monthly' as const,
         priority: 0.7,
       }));
 
       const rebatePages: MetadataRoute.Sitemap = utilitySlugs.map((slug) => ({
         url: `${SITE_URL}/ev-rebates/${slug}`,
-        lastModified: now,
         changeFrequency: 'monthly' as const,
         priority: 0.65,
       }));
@@ -282,21 +269,18 @@ export async function getSitemap(id: string): Promise<MetadataRoute.Sitemap> {
       // Locations & Categories
       const stationPages: MetadataRoute.Sitemap = STATION_REGIONS.map((region) => ({
         url: `${SITE_URL}/charging-stations/${region}`,
-        lastModified: now,
         changeFrequency: 'weekly' as const,
         priority: 0.7,
       }));
 
       const categoryPages: MetadataRoute.Sitemap = CATEGORIES.map((cat) => ({
         url: `${SITE_URL}/category/${cat}`,
-        lastModified: now,
         changeFrequency: 'monthly' as const,
         priority: 0.75,
       }));
 
       const brandPages: MetadataRoute.Sitemap = BRAND_SLUGS.map((brand) => ({
         url: `${SITE_URL}/brand/${brand}`,
-        lastModified: now,
         changeFrequency: 'monthly' as const,
         priority: 0.75,
       }));

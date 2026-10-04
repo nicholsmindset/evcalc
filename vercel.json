@@ -12,6 +12,11 @@
   ],
   "redirects": [
     {
+      "source": "/brand/mercedes-benz",
+      "destination": "/brand/mercedes",
+      "permanent": true
+    },
+    {
       "source": "/(.*)",
       "has": [{ "type": "host", "value": "evrangetools.com" }],
       "destination": "https://www.evrangetools.com/$1",
