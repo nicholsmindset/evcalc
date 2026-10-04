@@ -18,21 +18,21 @@ interface EVOption {
 }
 
 const EVS: EVOption[] = [
-  { make: 'Chevrolet', model: 'Equinox EV', year: 2024, msrp: 34995, federal_credit: 7500, range_mi: 319, efficiency_kwh_per_100mi: 28, vehicle_class: 'suv', slug: 'chevrolet-equinox-ev-2024' },
-  { make: 'Hyundai', model: 'Ioniq 6', year: 2024, msrp: 38615, federal_credit: 7500, range_mi: 361, efficiency_kwh_per_100mi: 26, vehicle_class: 'sedan', slug: 'hyundai-ioniq-6-2024' },
+  { make: 'Chevrolet', model: 'Equinox EV', year: 2024, msrp: 34995, federal_credit: 0, range_mi: 319, efficiency_kwh_per_100mi: 28, vehicle_class: 'suv', slug: 'chevrolet-equinox-ev-2024' },
+  { make: 'Hyundai', model: 'Ioniq 6', year: 2024, msrp: 38615, federal_credit: 0, range_mi: 361, efficiency_kwh_per_100mi: 26, vehicle_class: 'sedan', slug: 'hyundai-ioniq-6-2024' },
   { make: 'Tesla', model: 'Model 3', year: 2024, msrp: 38990, federal_credit: 0, range_mi: 272, efficiency_kwh_per_100mi: 25, vehicle_class: 'sedan', slug: 'tesla-model-3-2024' },
-  { make: 'Nissan', model: 'Leaf', year: 2024, msrp: 28040, federal_credit: 7500, range_mi: 212, efficiency_kwh_per_100mi: 31, vehicle_class: 'sedan', slug: 'nissan-leaf-2024' },
-  { make: 'Volkswagen', model: 'ID.4', year: 2024, msrp: 38995, federal_credit: 7500, range_mi: 291, efficiency_kwh_per_100mi: 29, vehicle_class: 'suv', slug: 'volkswagen-id4-2024' },
-  { make: 'Tesla', model: 'Model Y', year: 2024, msrp: 42990, federal_credit: 7500, range_mi: 320, efficiency_kwh_per_100mi: 27, vehicle_class: 'suv', slug: 'tesla-model-y-2024' },
-  { make: 'Ford', model: 'Mustang Mach-E', year: 2024, msrp: 42995, federal_credit: 3750, range_mi: 312, efficiency_kwh_per_100mi: 29, vehicle_class: 'suv', slug: 'ford-mustang-mach-e-2024' },
-  { make: 'Hyundai', model: 'Ioniq 5', year: 2024, msrp: 41450, federal_credit: 7500, range_mi: 303, efficiency_kwh_per_100mi: 28, vehicle_class: 'suv', slug: 'hyundai-ioniq-5-2024' },
-  { make: 'Kia', model: 'EV6', year: 2024, msrp: 42600, federal_credit: 7500, range_mi: 310, efficiency_kwh_per_100mi: 26, vehicle_class: 'suv', slug: 'kia-ev6-2024' },
+  { make: 'Nissan', model: 'Leaf', year: 2024, msrp: 28040, federal_credit: 0, range_mi: 212, efficiency_kwh_per_100mi: 31, vehicle_class: 'sedan', slug: 'nissan-leaf-2024' },
+  { make: 'Volkswagen', model: 'ID.4', year: 2024, msrp: 38995, federal_credit: 0, range_mi: 291, efficiency_kwh_per_100mi: 29, vehicle_class: 'suv', slug: 'volkswagen-id4-2024' },
+  { make: 'Tesla', model: 'Model Y', year: 2024, msrp: 42990, federal_credit: 0, range_mi: 320, efficiency_kwh_per_100mi: 27, vehicle_class: 'suv', slug: 'tesla-model-y-2024' },
+  { make: 'Ford', model: 'Mustang Mach-E', year: 2024, msrp: 42995, federal_credit: 0, range_mi: 312, efficiency_kwh_per_100mi: 29, vehicle_class: 'suv', slug: 'ford-mustang-mach-e-2024' },
+  { make: 'Hyundai', model: 'Ioniq 5', year: 2024, msrp: 41450, federal_credit: 0, range_mi: 303, efficiency_kwh_per_100mi: 28, vehicle_class: 'suv', slug: 'hyundai-ioniq-5-2024' },
+  { make: 'Kia', model: 'EV6', year: 2024, msrp: 42600, federal_credit: 0, range_mi: 310, efficiency_kwh_per_100mi: 26, vehicle_class: 'suv', slug: 'kia-ev6-2024' },
   { make: 'Tesla', model: 'Model 3 Long Range', year: 2024, msrp: 45990, federal_credit: 0, range_mi: 341, efficiency_kwh_per_100mi: 24, vehicle_class: 'sedan', slug: 'tesla-model-3-long-range-2024' },
-  { make: 'Tesla', model: 'Model Y Long Range', year: 2024, msrp: 48490, federal_credit: 7500, range_mi: 330, efficiency_kwh_per_100mi: 27, vehicle_class: 'suv', slug: 'tesla-model-y-long-range-2024' },
+  { make: 'Tesla', model: 'Model Y Long Range', year: 2024, msrp: 48490, federal_credit: 0, range_mi: 330, efficiency_kwh_per_100mi: 27, vehicle_class: 'suv', slug: 'tesla-model-y-long-range-2024' },
   { make: 'BMW', model: 'i4 eDrive40', year: 2024, msrp: 56395, federal_credit: 0, range_mi: 301, efficiency_kwh_per_100mi: 28, vehicle_class: 'sedan', slug: 'bmw-i4-edrive40-2024' },
-  { make: 'Rivian', model: 'R1S Dual', year: 2024, msrp: 75900, federal_credit: 3750, range_mi: 410, efficiency_kwh_per_100mi: 38, vehicle_class: 'suv', slug: 'rivian-r1s-2024' },
-  { make: 'Ford', model: 'F-150 Lightning Pro', year: 2024, msrp: 49995, federal_credit: 7500, range_mi: 240, efficiency_kwh_per_100mi: 46, vehicle_class: 'truck', slug: 'ford-f-150-lightning-pro-2024' },
-  { make: 'Chevrolet', model: 'Blazer EV', year: 2024, msrp: 44995, federal_credit: 7500, range_mi: 320, efficiency_kwh_per_100mi: 29, vehicle_class: 'suv', slug: 'chevrolet-blazer-ev-2024' },
+  { make: 'Rivian', model: 'R1S Dual', year: 2024, msrp: 75900, federal_credit: 0, range_mi: 410, efficiency_kwh_per_100mi: 38, vehicle_class: 'suv', slug: 'rivian-r1s-2024' },
+  { make: 'Ford', model: 'F-150 Lightning Pro', year: 2024, msrp: 49995, federal_credit: 0, range_mi: 240, efficiency_kwh_per_100mi: 46, vehicle_class: 'truck', slug: 'ford-f-150-lightning-pro-2024' },
+  { make: 'Chevrolet', model: 'Blazer EV', year: 2024, msrp: 44995, federal_credit: 0, range_mi: 320, efficiency_kwh_per_100mi: 29, vehicle_class: 'suv', slug: 'chevrolet-blazer-ev-2024' },
 ];
 
 // Static insurance estimates (annual, by class)
@@ -302,12 +302,9 @@ export default function AffordabilityContent() {
                     </span>
                   )}
                 </div>
-                <Link
-                  href={`/vehicles/${ev.slug}`}
-                  className="mt-1 block font-display text-lg font-semibold text-text-primary hover:text-accent transition-colors"
-                >
+                <span className="mt-1 block font-display text-lg font-semibold text-text-primary">
                   {ev.year} {ev.make} {ev.model}
-                </Link>
+                </span>
                 <div className="text-sm text-text-secondary">
                   MSRP ${ev.msrp.toLocaleString()}
                   {ev.federal_credit > 0 && (
@@ -361,10 +358,10 @@ export default function AffordabilityContent() {
       {/* Methodology note */}
       <div className="rounded-xl border border-border bg-bg-secondary p-4 text-xs text-text-tertiary">
         <strong className="text-text-secondary">Methodology:</strong> Monthly total = loan payment + estimated insurance + charging cost − maintenance savings ($50/mo).
-        Electricity at ${electricityRate}/kWh. Gas at ${gasPrice}/gal with {gasMpg} mpg. Federal tax credit applied to purchase price where eligible.
+        Electricity at ${electricityRate}/kWh. Gas at ${gasPrice}/gal with {gasMpg} mpg. These 2024 vehicle prices are illustrative; no expired federal vehicle credit is applied.
         Insurance estimates from national averages by vehicle class. Individual rates vary.
         <Link href="/tax-credit-checker" className="ml-1 text-accent hover:underline">
-          Verify your tax credit eligibility →
+          Check the federal credit deadline →
         </Link>
       </div>
     </div>

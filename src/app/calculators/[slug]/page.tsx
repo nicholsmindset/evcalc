@@ -51,7 +51,7 @@ export default async function CalculatorPage({ params }: PageProps) {
       {
         '@type': 'WebApplication',
         name: config.title,
-        url: `https://evrangetools.com/calculators/${slug}`,
+        url: `https://www.evrangetools.com/calculators/${slug}`,
         description: config.tagline,
         applicationCategory: 'UtilityApplication',
         operatingSystem: 'Any',
@@ -60,9 +60,9 @@ export default async function CalculatorPage({ params }: PageProps) {
       {
         '@type': 'BreadcrumbList',
         itemListElement: [
-          { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://evrangetools.com' },
-          { '@type': 'ListItem', position: 2, name: 'Calculators', item: 'https://evrangetools.com/calculators' },
-          { '@type': 'ListItem', position: 3, name: config.title, item: `https://evrangetools.com/calculators/${slug}` },
+          { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.evrangetools.com' },
+          { '@type': 'ListItem', position: 2, name: 'Calculators', item: 'https://www.evrangetools.com/calculators' },
+          { '@type': 'ListItem', position: 3, name: config.title, item: `https://www.evrangetools.com/calculators/${slug}` },
         ],
       },
       {

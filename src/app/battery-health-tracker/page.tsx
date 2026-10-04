@@ -23,7 +23,7 @@ const jsonLd = {
     {
       '@type': 'WebApplication',
       name: 'EV Battery Health Tracker',
-      url: 'https://evrangetools.com/battery-health-tracker',
+      url: 'https://www.evrangetools.com/battery-health-tracker',
       description: 'Estimate EV battery health percentage based on vehicle model, purchase year, and mileage using fleet degradation data.',
       applicationCategory: 'UtilityApplication',
       operatingSystem: 'Any',
@@ -32,8 +32,8 @@ const jsonLd = {
     {
       '@type': 'BreadcrumbList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://evrangetools.com' },
-        { '@type': 'ListItem', position: 2, name: 'Battery Health Tracker', item: 'https://evrangetools.com/battery-health-tracker' },
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.evrangetools.com' },
+        { '@type': 'ListItem', position: 2, name: 'Battery Health Tracker', item: 'https://www.evrangetools.com/battery-health-tracker' },
       ],
     },
     {

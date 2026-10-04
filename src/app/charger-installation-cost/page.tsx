@@ -24,7 +24,7 @@ const jsonLd = {
     {
       '@type': 'WebApplication',
       name: 'EV Charger Installation Cost Calculator',
-      url: 'https://evrangetools.com/charger-installation-cost',
+      url: 'https://www.evrangetools.com/charger-installation-cost',
       description:
         'Calculate the cost to install a Level 2 EV charger at home, including labor, materials, permits, and optional panel upgrades.',
       applicationCategory: 'UtilityApplication',
@@ -115,12 +115,12 @@ const jsonLd = {
     {
       '@type': 'BreadcrumbList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://evrangetools.com' },
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.evrangetools.com' },
         {
           '@type': 'ListItem',
           position: 2,
           name: 'EV Charger Installation Cost Calculator',
-          item: 'https://evrangetools.com/charger-installation-cost',
+          item: 'https://www.evrangetools.com/charger-installation-cost',
         },
       ],
     },

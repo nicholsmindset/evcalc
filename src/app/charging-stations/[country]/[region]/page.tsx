@@ -41,6 +41,7 @@ export async function generateMetadata({
   return {
     title: `EV Charging Stations in ${data.displayName} — ${data.stationCount} Locations`,
     description: `Find ${data.stationCount} EV charging stations in ${data.displayName}. Browse by network, connector type, and power level. ${data.networks.join(', ')} and more.`,
+    alternates: { canonical: `/charging-stations/${country}/${region}` },
   };
 }
 

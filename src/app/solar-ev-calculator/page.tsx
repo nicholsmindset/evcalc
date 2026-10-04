@@ -23,7 +23,7 @@ const jsonLd = {
     {
       '@type': 'WebApplication',
       name: 'Solar + EV Charging Calculator',
-      url: 'https://evrangetools.com/solar-ev-calculator',
+      url: 'https://www.evrangetools.com/solar-ev-calculator',
       description:
         'Calculate solar panel system size, cost, and payback period for powering your electric vehicle with solar energy.',
       applicationCategory: 'UtilityApplication',
@@ -33,12 +33,12 @@ const jsonLd = {
     {
       '@type': 'BreadcrumbList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://evrangetools.com' },
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.evrangetools.com' },
         {
           '@type': 'ListItem',
           position: 2,
           name: 'Solar + EV Calculator',
-          item: 'https://evrangetools.com/solar-ev-calculator',
+          item: 'https://www.evrangetools.com/solar-ev-calculator',
         },
       ],
     },

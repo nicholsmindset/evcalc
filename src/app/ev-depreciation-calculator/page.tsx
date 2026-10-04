@@ -23,7 +23,7 @@ const jsonLd = {
     {
       '@type': 'WebApplication',
       name: 'EV Depreciation Calculator',
-      url: 'https://evrangetools.com/ev-depreciation-calculator',
+      url: 'https://www.evrangetools.com/ev-depreciation-calculator',
       description: 'Estimate electric vehicle resale value based on model, purchase year, and original price using real depreciation curve data.',
       applicationCategory: 'UtilityApplication',
       operatingSystem: 'Any',
@@ -32,8 +32,8 @@ const jsonLd = {
     {
       '@type': 'BreadcrumbList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://evrangetools.com' },
-        { '@type': 'ListItem', position: 2, name: 'EV Depreciation Calculator', item: 'https://evrangetools.com/ev-depreciation-calculator' },
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.evrangetools.com' },
+        { '@type': 'ListItem', position: 2, name: 'EV Depreciation Calculator', item: 'https://www.evrangetools.com/ev-depreciation-calculator' },
       ],
     },
     {

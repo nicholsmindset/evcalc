@@ -22,7 +22,7 @@ const jsonLd = {
     {
       '@type': 'WebApplication',
       name: 'EV vs Gas Car Cost Comparison',
-      url: 'https://evrangetools.com/ev-vs-gas/compare',
+      url: 'https://www.evrangetools.com/ev-vs-gas/compare',
       description:
         'Compare any electric vehicle against any gas car using EPA fuel economy data. Calculates annual fuel savings, maintenance cost difference, payback period, and 10-year cumulative cost.',
       applicationCategory: 'UtilityApplication',
@@ -32,8 +32,8 @@ const jsonLd = {
     {
       '@type': 'BreadcrumbList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://evrangetools.com' },
-        { '@type': 'ListItem', position: 2, name: 'EV vs Gas', item: 'https://evrangetools.com/ev-vs-gas/compare' },
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.evrangetools.com' },
+        { '@type': 'ListItem', position: 2, name: 'EV vs Gas', item: 'https://www.evrangetools.com/ev-vs-gas/compare' },
       ],
     },
     {

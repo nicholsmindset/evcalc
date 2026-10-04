@@ -6,13 +6,13 @@ import { RelatedTools } from '@/components/ui/RelatedTools';
 export const revalidate = 2592000; // 30 days
 
 export const metadata: Metadata = {
-  title: 'State EV Incentives, Tax Credits & Rebates 2025 | All 50 States',
+  title: 'State EV Incentives & Rebates 2026 | All 50 States',
   description:
-    'Find state EV incentives, rebates, and tax credits for all 50 states in 2025. Stack state incentives with the $7,500 federal EV tax credit for maximum savings.',
+    'Explore state EV incentives and rebates. Check each program source for current funding, eligibility, and deadlines; federal vehicle purchase credits ended after September 30, 2025.',
   alternates: { canonical: '/ev-incentives' },
   openGraph: {
-    title: 'State EV Incentives & Rebates 2025',
-    description: 'EV rebates and incentives for all 50 states — stack with the $7,500 federal tax credit.',
+    title: 'State EV Incentives & Rebates 2026',
+    description: 'Explore state EV programs and verify current terms with each program administrator.',
     url: '/ev-incentives',
     type: 'website',
   },
@@ -92,11 +92,11 @@ export default async function EVIncentivesIndexPage() {
           <span className="text-text-primary">EV Incentives by State</span>
         </nav>
         <h1 className="font-display text-3xl font-bold tracking-tight text-text-primary sm:text-4xl">
-          State EV Incentives &amp; Rebates 2025
+          State EV Incentives &amp; Rebates
         </h1>
         <p className="mt-3 max-w-2xl text-text-secondary">
           Find electric vehicle rebates, tax credits, and charger incentives for your state.
-          Stack with the <span className="font-semibold text-accent">$7,500 federal EV credit</span> for maximum savings.
+          Program amounts and funding can change. Confirm current eligibility and availability with the program administrator before making a purchase.
         </p>
       </div>
 
@@ -105,11 +105,10 @@ export default async function EVIncentivesIndexPage() {
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h2 className="font-display text-lg font-bold text-text-primary">
-              Start with the Federal $7,500 Credit
+              Federal vehicle purchase credits have ended
             </h2>
             <p className="mt-1 text-sm text-text-secondary">
-              Before checking state incentives, verify your federal credit eligibility.
-              Income limit: $150k single / $300k joint. MSRP caps: $55k car / $80k SUV.
+              The federal new and used clean vehicle credits generally do not apply to vehicles acquired after September 30, 2025. Earlier acquisitions may still qualify under IRS rules.
             </p>
           </div>
           <div className="flex gap-2">
@@ -117,13 +116,13 @@ export default async function EVIncentivesIndexPage() {
               href="/tax-credit-checker"
               className="whitespace-nowrap rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-bg-primary transition-all hover:bg-accent-dim"
             >
-              Check Eligibility
+              Check Acquisition Date
             </Link>
             <Link
               href="/lease-vs-buy"
               className="whitespace-nowrap rounded-lg border border-border px-4 py-2 text-sm font-semibold text-text-secondary transition-all hover:border-accent/30 hover:text-accent"
             >
-              Leasing Strategy
+              Compare Lease and Buy
             </Link>
           </div>
         </div>
@@ -132,7 +131,7 @@ export default async function EVIncentivesIndexPage() {
       {/* Top states */}
       {TOP_STATES.length > 0 && (
         <section className="mb-10">
-          <h2 className="mb-4 font-display text-xl font-bold text-text-primary">Best State EV Incentives</h2>
+          <h2 className="mb-4 font-display text-xl font-bold text-text-primary">Explore State EV Programs</h2>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {TOP_STATES.map((state) => (
               <Link
@@ -151,7 +150,7 @@ export default async function EVIncentivesIndexPage() {
                     <div className="font-display text-xl font-bold text-green-400">
                       {state.max_amount ? `$${state.max_amount.toLocaleString()}` : 'Varies'}
                     </div>
-                    <div className="text-xs text-text-tertiary">state savings</div>
+                    <div className="text-xs text-text-tertiary">listed amount; verify terms</div>
                   </div>
                 </div>
               </Link>
@@ -182,8 +181,8 @@ export default async function EVIncentivesIndexPage() {
       </section>
 
       <RelatedTools tools={[
-        { href: '/tax-credit-checker', emoji: '✅', label: 'Tax Credit Checker', desc: 'Check your federal $7,500 eligibility in 60 seconds' },
-        { href: '/ev-rebates', emoji: '💵', label: 'Utility Rebates', desc: 'Stack utility rebates on top of your state and federal savings' },
+        { href: '/tax-credit-checker', emoji: '✅', label: 'Tax Credit Checker', desc: 'Check the federal acquisition deadline' },
+        { href: '/ev-rebates', emoji: '💵', label: 'Utility Rebates', desc: 'Explore utility charger rebate programs' },
         { href: '/lease-vs-buy', emoji: '📋', label: 'Lease vs Buy Calculator', desc: 'See how incentives change your monthly payment calculation' },
       ]} />
     </div>

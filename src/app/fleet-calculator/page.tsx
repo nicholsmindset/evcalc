@@ -36,12 +36,12 @@ const jsonLd = {
     {
       '@type': 'BreadcrumbList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://evrangetools.com' },
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.evrangetools.com' },
         {
           '@type': 'ListItem',
           position: 2,
           name: 'Fleet EV ROI Calculator',
-          item: 'https://evrangetools.com/fleet-calculator',
+          item: 'https://www.evrangetools.com/fleet-calculator',
         },
       ],
     },
@@ -61,7 +61,7 @@ const jsonLd = {
           name: 'What federal tax credits are available for fleet EVs?',
           acceptedAnswer: {
             '@type': 'Answer',
-            text: 'The §30D Commercial Clean Vehicle Credit provides up to $7,500 per passenger vehicle and up to $40,000 per heavy vehicle (GVW >14,000 lbs) — typically limited to the lesser of 30% of vehicle cost or the §30D cap.',
+            text: 'The federal §45W commercial clean vehicle credit is unavailable for vehicles acquired after September 30, 2025. This calculator does not assume a federal vehicle credit for a current fleet purchase.',
           },
         },
         {
@@ -96,6 +96,14 @@ export default function FleetCalculatorPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+      <header className="mx-auto max-w-7xl px-4 pt-10 pb-6 sm:px-6 lg:px-8">
+        <h1 className="font-display text-3xl font-bold text-text-primary sm:text-4xl">
+          Fleet EV ROI Calculator
+        </h1>
+        <p className="mt-2 max-w-2xl text-text-secondary">
+          Compare the purchase, fuel, and operating costs of electric and gas fleets.
+        </p>
+      </header>
       <FleetCalcContent />
 
       {/* FAQ Section */}

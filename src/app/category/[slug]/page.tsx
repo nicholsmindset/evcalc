@@ -112,6 +112,7 @@ export async function generateMetadata({
   return {
     title: `${category.title} — Compare Range, Price & Specs`,
     description: category.metaDescription,
+    alternates: { canonical: `/category/${slug}` },
   };
 }
 

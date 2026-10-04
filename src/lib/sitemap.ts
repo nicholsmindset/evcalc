@@ -2,8 +2,7 @@ import type { MetadataRoute } from 'next';
 import { getAllSlugs } from '@/lib/blog';
 import { getAllStateIncentiveSlugs } from '@/lib/supabase/queries/incentives';
 import { getAllUtilitySlugs } from '@/lib/supabase/queries/utilities';
-
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.evrangetools.com';
+import { SITE_URL } from '@/lib/utils/constants';
 
 // Static vehicle slugs — matches 002_seed_vehicles.sql (2025 model year)
 const VEHICLE_SLUGS = [
@@ -54,7 +53,7 @@ const COMPARISON_SLUGS = [
 // Best EV for use cases — must match keys in src/app/best-ev-for/[usecase]/page.tsx
 const USE_CASES = [
   'long-range', 'budget', 'road-trips', 'families',
-  'commuting', 'cold-weather', 'towing', 'fast-charging',
+  'commuting', 'cold-weather', 'suvs', 'sedans', 'trucks', 'fast-charging',
 ];
 
 // US states for charging cost pages
@@ -90,18 +89,11 @@ const BRAND_SLUGS = [
  *   /sitemap/content.xml    — Content (use cases, states, blog)
  *   /sitemap/locations.xml  — Locations & Categories
  *
- * Next.js auto-generates a sitemap index at /sitemap.xml pointing to all 4.
+ * The sitemap index and child XML routes are served explicitly from src/app.
  */
-export async function generateSitemaps() {
-  return [
-    { id: 'core-tools' },
-    { id: 'vehicles' },
-    { id: 'content' },
-    { id: 'locations' },
-  ];
-}
+export const SITEMAP_IDS = ['core-tools', 'vehicles', 'content', 'locations'] as const;
 
-export default async function sitemap({ id }: { id: string }): Promise<MetadataRoute.Sitemap> {
+export async function getSitemap(id: string): Promise<MetadataRoute.Sitemap> {
   const now = new Date().toISOString();
 
   switch (id) {
@@ -201,19 +193,15 @@ export default async function sitemap({ id }: { id: string }): Promise<MetadataR
         priority: 0.8,
       }));
 
-      const comparisonPages: MetadataRoute.Sitemap = COMPARISON_SLUGS.map((slug) => ({
-        url: `${SITE_URL}/compare/${slug}`,
-        lastModified: now,
-        changeFrequency: 'monthly' as const,
-        priority: 0.75,
-      }));
-
-      const towingPages: MetadataRoute.Sitemap = VEHICLE_SLUGS.map((slug) => ({
-        url: `${SITE_URL}/vehicles/${slug}/towing`,
-        lastModified: now,
-        changeFrequency: 'monthly' as const,
-        priority: 0.65,
-      }));
+      // Only include comparisons that resolve with the current vehicle data.
+      const comparisonPages: MetadataRoute.Sitemap = COMPARISON_SLUGS
+        .filter((slug) => slug !== 'bmw-ix-vs-mercedes-eqe')
+        .map((slug) => ({
+          url: `${SITE_URL}/compare/${slug}`,
+          lastModified: now,
+          changeFrequency: 'monthly' as const,
+          priority: 0.75,
+        }));
 
       const leaseDealsPages: MetadataRoute.Sitemap = VEHICLE_SLUGS.map((slug) => ({
         url: `${SITE_URL}/vehicles/${slug}/lease-deals`,
@@ -222,7 +210,9 @@ export default async function sitemap({ id }: { id: string }): Promise<MetadataR
         priority: 0.65,
       }));
 
-      return [...vehiclePages, ...comparisonPages, ...towingPages, ...leaseDealsPages];
+      // Towing detail routes use a separate set of 2024 slugs. The 2025
+      // vehicle-derived towing URLs above rendered noindex/404 responses.
+      return [...vehiclePages, ...comparisonPages, ...leaseDealsPages];
     }
 
     case 'content': {

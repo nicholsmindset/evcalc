@@ -23,14 +23,14 @@ const jsonLd = {
       '@type': 'Article',
       headline: 'Apartment EV Charging Guide — Right-to-Charge Laws, Options, and Costs',
       description: 'Complete guide covering right-to-charge laws by state, 5 EV charging options for apartment dwellers, cost comparisons, and landlord request templates.',
-      url: 'https://evrangetools.com/apartment-ev-charging',
+      url: 'https://www.evrangetools.com/apartment-ev-charging',
       author: { '@type': 'Organization', name: 'EV Range Tools' },
     },
     {
       '@type': 'BreadcrumbList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://evrangetools.com' },
-        { '@type': 'ListItem', position: 2, name: 'Apartment EV Charging', item: 'https://evrangetools.com/apartment-ev-charging' },
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.evrangetools.com' },
+        { '@type': 'ListItem', position: 2, name: 'Apartment EV Charging', item: 'https://www.evrangetools.com/apartment-ev-charging' },
       ],
     },
     {

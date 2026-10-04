@@ -19,7 +19,7 @@ const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'WebApplication',
   name: 'EV Readiness Quiz',
-  url: 'https://evrangetools.com/ev-quiz',
+  url: 'https://www.evrangetools.com/ev-quiz',
   description: '10-question quiz that determines EV readiness across 5 dimensions: Readiness, Financial Fit, Charging Access, Range Confidence, and Environmental Impact.',
   applicationCategory: 'UtilityApplication',
   operatingSystem: 'Any',

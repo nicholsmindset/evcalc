@@ -23,7 +23,7 @@ const jsonLd = {
     {
       '@type': 'WebApplication',
       name: 'Winter EV Range Calculator',
-      url: 'https://evrangetools.com/winter-ev-range',
+      url: 'https://www.evrangetools.com/winter-ev-range',
       description:
         'Calculate how cold temperatures affect your electric vehicle range. Compares heat pump vs resistive heating impact for any EV in any US city.',
       applicationCategory: 'UtilityApplication',
@@ -33,8 +33,8 @@ const jsonLd = {
     {
       '@type': 'BreadcrumbList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://evrangetools.com' },
-        { '@type': 'ListItem', position: 2, name: 'Winter EV Range Calculator', item: 'https://evrangetools.com/winter-ev-range' },
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.evrangetools.com' },
+        { '@type': 'ListItem', position: 2, name: 'Winter EV Range Calculator', item: 'https://www.evrangetools.com/winter-ev-range' },
       ],
     },
     {

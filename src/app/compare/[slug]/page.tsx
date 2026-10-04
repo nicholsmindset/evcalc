@@ -41,14 +41,45 @@ function shortName(v: Vehicle): string {
   return `${v.make} ${v.model}`;
 }
 
+async function resolveComparison(slug: string) {
+  try {
+    const result = await getComparisonBySlug(slug);
+    if (result) return result;
+  } catch {
+    // The static comparison can still resolve from the vehicle list.
+  }
+
+  const parts = slug.split('-vs-');
+  if (parts.length !== 2) return null;
+  try {
+    const allVehicles = await getVehicles();
+    const [prefixA, prefixB] = parts;
+    const vehicleA = allVehicles
+      .filter((v) => v.slug.startsWith(prefixA + '-') || v.slug === prefixA)
+      .sort((a, b) => b.epa_range_mi - a.epa_range_mi)[0];
+    const vehicleB = allVehicles
+      .filter((v) => v.slug.startsWith(prefixB + '-') || v.slug === prefixB)
+      .sort((a, b) => b.epa_range_mi - a.epa_range_mi)[0];
+    if (vehicleA && vehicleB) {
+      return {
+        comparison: { id: '', vehicle_a_id: vehicleA.id, vehicle_b_id: vehicleB.id, slug, generated_content: null, created_at: '', updated_at: '' },
+        vehicleA,
+        vehicleB,
+      };
+    }
+  } catch {
+    // Missing vehicle data should make this URL a 404, not a partial page.
+  }
+  return null;
+}
+
 export async function generateMetadata({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
-  let result = null;
-  try { result = await getComparisonBySlug(slug); } catch { return {}; }
+  const result = await resolveComparison(slug);
   if (!result) return {};
 
   const { vehicleA, vehicleB } = result;
@@ -140,34 +171,7 @@ export default async function ComparisonDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  let result: Awaited<ReturnType<typeof getComparisonBySlug>> = null;
-  try {
-    result = await getComparisonBySlug(slug);
-  } catch {
-    // DB error — try slug-based fallback
-  }
-
-  // Fallback: parse slug like "tesla-model-3-vs-hyundai-ioniq-5" and look up vehicles
-  if (!result) {
-    const parts = slug.split('-vs-');
-    if (parts.length === 2) {
-      try {
-        const allVehicles = await getVehicles();
-        const [prefixA, prefixB] = parts;
-        const vehicleA = allVehicles
-          .filter((v) => v.slug.startsWith(prefixA + '-') || v.slug === prefixA)
-          .sort((a, b) => b.epa_range_mi - a.epa_range_mi)[0];
-        const vehicleB = allVehicles
-          .filter((v) => v.slug.startsWith(prefixB + '-') || v.slug === prefixB)
-          .sort((a, b) => b.epa_range_mi - a.epa_range_mi)[0];
-        if (vehicleA && vehicleB) {
-          result = { comparison: { id: '', vehicle_a_id: vehicleA.id, vehicle_b_id: vehicleB.id, slug, generated_content: null, created_at: '', updated_at: '' }, vehicleA, vehicleB };
-        }
-      } catch {
-        // ignore
-      }
-    }
-  }
+  const result = await resolveComparison(slug);
 
   if (!result) notFound();
 

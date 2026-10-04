@@ -241,6 +241,7 @@ export async function generateMetadata({
   return {
     title: `${brand.displayName} Electric Vehicles — Range, Specs & Pricing`,
     description: `Browse all ${brand.displayName} electric vehicles. Compare EPA range, charging speeds, pricing, and specs across the full ${brand.displayName} EV lineup.`,
+    alternates: { canonical: `/brand/${slug}` },
   };
 }
 
