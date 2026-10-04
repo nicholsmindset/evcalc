@@ -122,7 +122,7 @@ export default function LeaseVsBuyContent() {
   const [financeTerm, setFinanceTerm] = useState(60);
   const [creditTier, setCreditTier] = useState<CreditTier>('good');
   const [state, setState] = useState('California');
-  const [applyTaxCredit, setApplyTaxCredit] = useState(true);
+  const [applyTaxCredit, setApplyTaxCredit] = useState(false);
 
   // --- Results ---
   const [leaseResult, setLeaseResult] = useState<LeaseResult | null>(null);
@@ -184,7 +184,8 @@ export default function LeaseVsBuyContent() {
   // Calculate whenever inputs change
   const recalculate = useCallback(() => {
     const salesTaxRate = STATE_SALES_TAX[state] ?? 0.0725;
-    const creditAmount = leaseData?.taxCredit?.credit_amount ?? 0;
+    // The federal vehicle credits ended for vehicles acquired after 2025-09-30.
+    const creditAmount = 0;
 
     // Lease
     const leaseEst = leaseData?.leaseEstimate;
@@ -256,7 +257,7 @@ export default function LeaseVsBuyContent() {
     updateUrl();
   }, [updateUrl]);
 
-  const taxCreditAmount = leaseData?.taxCredit?.credit_amount ?? 0;
+  const taxCreditAmount = 0;
   const leaseEst = leaseData?.leaseEstimate;
 
   // Determine best option

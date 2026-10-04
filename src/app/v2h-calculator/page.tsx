@@ -22,7 +22,7 @@ const jsonLd = {
     {
       '@type': 'WebApplication',
       name: 'V2H & V2L EV Backup Power Calculator',
-      url: 'https://evrangetools.com/v2h-calculator',
+      url: 'https://www.evrangetools.com/v2h-calculator',
       description:
         'Calculate how long a V2H or V2L capable electric vehicle can power home appliances during a power outage.',
       applicationCategory: 'UtilityApplication',
@@ -32,12 +32,12 @@ const jsonLd = {
     {
       '@type': 'BreadcrumbList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://evrangetools.com' },
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.evrangetools.com' },
         {
           '@type': 'ListItem',
           position: 2,
           name: 'V2H Calculator',
-          item: 'https://evrangetools.com/v2h-calculator',
+          item: 'https://www.evrangetools.com/v2h-calculator',
         },
       ],
     },

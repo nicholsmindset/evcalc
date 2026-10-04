@@ -22,7 +22,7 @@ const jsonLd = {
     {
       '@type': 'WebApplication',
       name: 'Optimal EV Charging Schedule Calculator',
-      url: 'https://evrangetools.com/charging-schedule',
+      url: 'https://www.evrangetools.com/charging-schedule',
       description:
         'Calculate the optimal time to charge your electric vehicle based on your utility\'s time-of-use (TOU) rates. Shows 24-hour rate timeline and monthly savings.',
       applicationCategory: 'UtilityApplication',
@@ -32,8 +32,8 @@ const jsonLd = {
     {
       '@type': 'BreadcrumbList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://evrangetools.com' },
-        { '@type': 'ListItem', position: 2, name: 'Charging Schedule', item: 'https://evrangetools.com/charging-schedule' },
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.evrangetools.com' },
+        { '@type': 'ListItem', position: 2, name: 'Charging Schedule', item: 'https://www.evrangetools.com/charging-schedule' },
       ],
     },
     {

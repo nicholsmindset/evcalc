@@ -23,15 +23,15 @@ const jsonLd = {
       headline: 'Best Credit Cards for EV Charging 2025',
       description:
         'A comparison of the best credit cards for EV owners, focusing on reward rates for EV charging, electricity, and related categories.',
-      url: 'https://evrangetools.com/best-credit-card-ev-charging',
+      url: 'https://www.evrangetools.com/best-credit-card-ev-charging',
       datePublished: '2025-01-01',
       dateModified: '2026-03-01',
     },
     {
       '@type': 'BreadcrumbList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://evrangetools.com' },
-        { '@type': 'ListItem', position: 2, name: 'Best Credit Cards for EV Charging', item: 'https://evrangetools.com/best-credit-card-ev-charging' },
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.evrangetools.com' },
+        { '@type': 'ListItem', position: 2, name: 'Best Credit Cards for EV Charging', item: 'https://www.evrangetools.com/best-credit-card-ev-charging' },
       ],
     },
     {

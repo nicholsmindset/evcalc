@@ -197,14 +197,14 @@ const jsonLd = {
     {
       '@type': 'Article',
       headline: 'EV Charging Network Comparison 2026 — Pricing, Coverage & Reliability',
-      url: 'https://evrangetools.com/charging-networks',
+      url: 'https://www.evrangetools.com/charging-networks',
       author: { '@type': 'Organization', name: 'EV Range Tools' },
     },
     {
       '@type': 'BreadcrumbList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://evrangetools.com' },
-        { '@type': 'ListItem', position: 2, name: 'Charging Networks', item: 'https://evrangetools.com/charging-networks' },
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.evrangetools.com' },
+        { '@type': 'ListItem', position: 2, name: 'Charging Networks', item: 'https://www.evrangetools.com/charging-networks' },
       ],
     },
   ],

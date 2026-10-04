@@ -5,13 +5,13 @@ import { getAllUtilityRebates } from '@/lib/supabase/queries/utilities';
 export const revalidate = 2592000; // 30 days
 
 export const metadata: Metadata = {
-  title: 'EV Charger Rebates by Utility 2025 | Find Your Utility Rebate',
+  title: 'EV Charger Rebates by Utility 2026 | Find Your Utility',
   description:
-    'Find EV charger rebates from your electric utility. 35+ major US utilities offer $200–$1,000 rebates for Level 2 home charger installation.',
+    'Explore listed EV charger rebates by utility. Verify current funding and eligibility directly with your utility before purchasing equipment.',
   alternates: { canonical: '/ev-rebates' },
   openGraph: {
-    title: 'EV Charger Rebates by Utility 2025',
-    description: 'Find your utility\'s EV charger rebate — up to $1,000 for Level 2 home charging installation.',
+    title: 'EV Charger Rebates by Utility 2026',
+    description: 'Explore listed utility charger rebates and confirm current terms with your utility.',
     url: '/ev-rebates',
     type: 'website',
   },
@@ -75,12 +75,11 @@ export default async function EvRebatesIndexPage() {
           <span className="text-text-primary">EV Charger Rebates by Utility</span>
         </nav>
         <h1 className="font-display text-3xl font-bold tracking-tight text-text-primary sm:text-4xl">
-          EV Charger Rebates by Utility 2025
+          EV Charger Rebates by Utility
         </h1>
         <p className="mt-3 max-w-2xl text-text-secondary">
-          Your electric utility may pay for your Level 2 charger installation.
-          Find rebates from <span className="font-semibold text-accent">{utilities.length}+ major US utilities</span>{' '}
-          worth $100–$1,000.
+          Explore charger programs listed for {utilities.length} utilities. Funding and eligibility change;
+          confirm the current offer directly with your utility.
         </p>
       </div>
 
@@ -89,11 +88,11 @@ export default async function EvRebatesIndexPage() {
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h2 className="font-display font-semibold text-text-primary">
-              Stack Utility + Federal 30% Charger Tax Credit
+              Federal charger credit deadline
             </h2>
             <p className="mt-1 text-sm text-text-secondary">
-              The federal §30C credit covers 30% of charger + installation costs (up to $1,000).
-              Combine it with your utility rebate for maximum savings.
+              The federal residential charger credit applied only to qualifying property placed in service by June 30, 2026.
+              Check your utility for any current rebate.
             </p>
           </div>
           <Link
@@ -108,7 +107,7 @@ export default async function EvRebatesIndexPage() {
       {/* Top rebates */}
       {topUtilities.length > 0 && (
         <section className="mb-10">
-          <h2 className="mb-4 font-display text-xl font-bold text-text-primary">Highest Utility Rebates</h2>
+          <h2 className="mb-4 font-display text-xl font-bold text-text-primary">Explore Utility Rebates</h2>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {topUtilities.map((u) => (
               <Link
@@ -127,7 +126,7 @@ export default async function EvRebatesIndexPage() {
                     <div className="font-display text-xl font-bold text-green-400">
                       ${u.amount?.toLocaleString() ?? '—'}
                     </div>
-                    <div className="text-xs text-text-tertiary">rebate</div>
+                    <div className="text-xs text-text-tertiary">listed amount; verify</div>
                   </div>
                 </div>
               </Link>

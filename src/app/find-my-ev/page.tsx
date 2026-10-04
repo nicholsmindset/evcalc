@@ -23,7 +23,7 @@ const jsonLd = {
     {
       '@type': 'WebApplication',
       name: 'EV Recommendation Engine',
-      url: 'https://evrangetools.com/find-my-ev',
+      url: 'https://www.evrangetools.com/find-my-ev',
       description:
         'Personalized EV recommendation tool that scores all electric vehicles against your priorities to find your perfect match.',
       applicationCategory: 'UtilityApplication',
@@ -33,12 +33,12 @@ const jsonLd = {
     {
       '@type': 'BreadcrumbList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://evrangetools.com' },
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.evrangetools.com' },
         {
           '@type': 'ListItem',
           position: 2,
           name: 'Find My EV',
-          item: 'https://evrangetools.com/find-my-ev',
+          item: 'https://www.evrangetools.com/find-my-ev',
         },
       ],
     },

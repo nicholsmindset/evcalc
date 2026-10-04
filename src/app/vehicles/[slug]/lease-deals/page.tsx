@@ -2,10 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getVehicleBySlug, getAllVehicleSlugs } from '@/lib/supabase/queries/vehicles';
-import {
-  getVehicleTaxCredit,
-  getAllLeaseEstimates,
-} from '@/lib/supabase/queries/lease';
+import { getAllLeaseEstimates } from '@/lib/supabase/queries/lease';
 import {
   calculateLease,
   calculateFinance,
@@ -34,7 +31,7 @@ export async function generateMetadata({
   const name = `${vehicle.year} ${vehicle.make} ${vehicle.model}${vehicle.trim ? ` ${vehicle.trim}` : ''}`;
   return {
     title: `${name} Lease Deals & Calculator ${vehicle.year} | EV Range Tools`,
-    description: `Compare ${name} lease vs. buy options. See estimated monthly payments, the $7,500 federal tax credit breakdown, and money factor details.`,
+    description: `Compare estimated ${name} lease and purchase payments, residual values, and money factors without an expired federal vehicle credit.`,
     openGraph: {
       title: `${name} Lease Deals ${vehicle.year}`,
       description: `Find the best ${name} lease deal. Estimated payments, residual value, money factor, and full lease vs. buy comparison.`,
@@ -54,15 +51,12 @@ export default async function VehicleLeasePage({
   const vehicle = await getVehicleBySlug(slug);
   if (!vehicle) notFound();
 
-  const [taxCredit, allLeaseTerms] = await Promise.all([
-    getVehicleTaxCredit(vehicle.make, vehicle.model, vehicle.year),
-    getAllLeaseEstimates(vehicle.make, vehicle.model, vehicle.year),
-  ]);
+  const allLeaseTerms = await getAllLeaseEstimates(vehicle.make, vehicle.model, vehicle.year);
 
   const msrp = vehicle.msrp_usd ?? 50000;
   const downPayment = 2000;
   const salesTaxRate = STATE_SALES_TAX['California'] ?? 0.0725; // example state for display
-  const creditAmount = taxCredit?.credit_amount ?? 0;
+  const creditAmount = 0;
 
   // Pre-calculate 36-month lease as primary example
   const lease36 = allLeaseTerms.find((t) => t.lease_term_months === 36)
@@ -109,18 +103,16 @@ export default async function VehicleLeasePage({
     {
       q: `What is the monthly lease payment on a ${name}?`,
       a: leaseResult
-        ? `A ${name} with $${downPayment.toLocaleString()} down and the $${creditAmount.toLocaleString()} federal tax credit applied costs approximately $${leaseResult.monthlyPayment.toLocaleString()}/month on a ${lease36!.lease_term_months}-month lease in California (before local taxes). Your actual payment will vary based on your state, negotiated selling price, and current manufacturer incentives.`
+        ? `A ${name} with $${downPayment.toLocaleString()} down costs approximately $${leaseResult.monthlyPayment.toLocaleString()}/month on a ${lease36!.lease_term_months}-month lease in California (before local taxes). This estimate excludes manufacturer incentives; your actual payment will vary.`
         : `Monthly lease payments for a ${name} depend on the current money factor and residual value offered by the manufacturer. Use our calculator above for an estimate based on your state and down payment.`,
     },
     {
-      q: `Can I get the $7,500 federal tax credit when leasing a ${vehicle.make} ${vehicle.model}?`,
-      a: creditAmount > 0
-        ? `Yes — when you lease a ${name}, the dealer typically applies the full $${creditAmount.toLocaleString()} IRS §45W Commercial Clean Vehicle Credit as a capital cost reduction, lowering your monthly payment. There is no income limit on you as the lessee. When purchasing, the §30D credit is limited to buyers earning under $150,000 (single) or $300,000 (married filing jointly).`
-        : `The ${name} may not currently qualify for the federal clean vehicle tax credit. Check IRS.gov or fueleconomy.gov for current eligibility, as the list of qualified vehicles changes when manufacturer volumes exceed thresholds.`,
+      q: `Is a federal clean vehicle tax credit included for a ${vehicle.make} ${vehicle.model} lease?`,
+      a: `No. Federal commercial and consumer clean vehicle credits generally do not apply to vehicles acquired after September 30, 2025. This estimate does not include a federal credit. Check any current manufacturer offer separately.`,
     },
     {
       q: `Should I lease or buy the ${vehicle.make} ${vehicle.model}?`,
-      a: `Leasing makes sense if you want lower monthly payments, prefer to drive a new EV every 2–3 years as technology advances, or want the simplest path to the $7,500 tax credit (no income limit). Buying makes more sense if you drive high mileage (>15,000/yr), plan to keep the vehicle 5+ years, or want to maximize equity. Our break-even calculator shows exactly when buying becomes cheaper.`,
+      a: `Leasing may make sense if you prefer lower monthly payments or a new vehicle every few years. Buying may make sense if you drive high mileage or plan to keep the vehicle for many years. Compare actual current offers and total costs.`,
     },
     {
       q: `What mileage limits apply to a ${vehicle.make} ${vehicle.model} lease?`,
@@ -196,8 +188,7 @@ export default async function VehicleLeasePage({
           </h1>
           <p className="mt-2 max-w-2xl text-text-secondary">
             Compare leasing vs. buying the {name}. See estimated monthly payments,
-            how the ${creditAmount > 0 ? creditAmount.toLocaleString() : '7,500'} federal tax credit applies,
-            and a full break-even analysis.
+            residual values, money factors, and a full cost comparison. Federal vehicle purchase credits are not included for current acquisitions.
           </p>
         </div>
 
@@ -215,7 +206,7 @@ export default async function VehicleLeasePage({
                   Payment Estimates — {name}
                 </h2>
                 <p className="mb-4 text-xs text-text-tertiary">
-                  Based on ${downPayment.toLocaleString()} down · California (7.25% tax) · Good credit (7% APR) · {creditAmount > 0 ? `$${creditAmount.toLocaleString()} tax credit applied` : 'no federal credit'}
+                  Based on ${downPayment.toLocaleString()} down · California (7.25% tax) · Good credit (7% APR) · no federal credit
                 </p>
                 <div className="grid gap-4 sm:grid-cols-3">
                   {/* Lease */}
@@ -227,7 +218,7 @@ export default async function VehicleLeasePage({
                       ${leaseResult.monthlyPayment.toLocaleString()}<span className="text-sm text-text-tertiary">/mo</span>
                     </p>
                     <p className="mt-1 text-xs text-text-tertiary">Total: ${leaseResult.totalCost.toLocaleString()}</p>
-                    <p className="mt-0.5 text-xs text-success">No income limit for tax credit</p>
+                    <p className="mt-0.5 text-xs text-text-tertiary">Manufacturer offers excluded</p>
                   </div>
 
                   {/* Finance */}

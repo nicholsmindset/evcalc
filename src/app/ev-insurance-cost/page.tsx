@@ -28,14 +28,14 @@ const jsonLd = {
       headline: 'EV Insurance Cost Guide — Which Electric Cars Are Cheapest to Insure?',
       description:
         'Compare annual insurance costs for 30 electric vehicles. See cheapest and most expensive EVs to insure, state-by-state estimates, and tips to lower your premium.',
-      url: 'https://evrangetools.com/ev-insurance-cost',
+      url: 'https://www.evrangetools.com/ev-insurance-cost',
       author: { '@type': 'Organization', name: 'EV Range Tools' },
     },
     {
       '@type': 'BreadcrumbList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://evrangetools.com' },
-        { '@type': 'ListItem', position: 2, name: 'EV Insurance Cost', item: 'https://evrangetools.com/ev-insurance-cost' },
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.evrangetools.com' },
+        { '@type': 'ListItem', position: 2, name: 'EV Insurance Cost', item: 'https://www.evrangetools.com/ev-insurance-cost' },
       ],
     },
   ],

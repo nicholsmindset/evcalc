@@ -21,7 +21,7 @@ const jsonLd = {
     {
       '@type': 'WebApplication',
       name: 'AI EV Advisor',
-      url: 'https://evrangetools.com/advisor',
+      url: 'https://www.evrangetools.com/advisor',
       description:
         'Ask our AI expert about EV range, charging, costs, and buying advice. Get instant, personalized answers powered by EPA data and real-world EV knowledge.',
       applicationCategory: 'UtilityApplication',
@@ -31,8 +31,8 @@ const jsonLd = {
     {
       '@type': 'BreadcrumbList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://evrangetools.com' },
-        { '@type': 'ListItem', position: 2, name: 'AI EV Advisor', item: 'https://evrangetools.com/advisor' },
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.evrangetools.com' },
+        { '@type': 'ListItem', position: 2, name: 'AI EV Advisor', item: 'https://www.evrangetools.com/advisor' },
       ],
     },
   ],

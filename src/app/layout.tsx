@@ -5,7 +5,7 @@ import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { SchemaMarkup } from '@/components/seo/SchemaMarkup';
 import { generateOrganizationSchema, generateWebSiteSchema } from '@/lib/utils/seo';
-import { SITE_NAME, SITE_DESCRIPTION } from '@/lib/utils/constants';
+import { SITE_NAME, SITE_DESCRIPTION, SITE_URL } from '@/lib/utils/constants';
 import './globals.css';
 
 const plusJakarta = Plus_Jakarta_Sans({
@@ -39,7 +39,7 @@ export const metadata: Metadata = {
   },
   description: SITE_DESCRIPTION,
   manifest: '/manifest.json',
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://www.evrangetools.com'),
+  metadataBase: new URL(SITE_URL),
   openGraph: {
     type: 'website',
     siteName: SITE_NAME,

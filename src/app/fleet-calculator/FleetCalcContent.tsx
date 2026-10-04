@@ -76,9 +76,8 @@ export default function FleetCalcContent() {
     // Capital costs
     const gasFleetCapitalCost = vt.gasMsrp * fleetSize;
     const evFleetCapitalCost = vt.evMsrp * fleetSize;
-    // Federal Section 179 + Commercial EV credit (up to $7,500 per vehicle for vehicles < 14,000 lbs)
-    const federalCreditPerVehicle = vehicleTypeId === 'bus' ? 40000 : 7500;
-    const federalCreditTotal = federalCreditPerVehicle * fleetSize;
+    // §45W ended for vehicles acquired after September 30, 2025.
+    const federalCreditTotal = 0;
     const evNetCapitalCost = evFleetCapitalCost - federalCreditTotal;
     const capitalDifference = evNetCapitalCost - gasFleetCapitalCost;
 
@@ -320,7 +319,7 @@ export default function FleetCalcContent() {
           {[
             { label: 'Gas Fleet Purchase', value: `$${fmt(results.gasFleetCapitalCost)}`, sub: `${fleetSize} × $${fmt(vt.gasMsrp)}` },
             { label: 'EV Fleet (gross)', value: `$${fmt(results.evFleetCapitalCost)}`, sub: `${fleetSize} × $${fmt(vt.evMsrp)}` },
-            { label: 'EV Fleet (after credits)', value: `$${fmt(results.evNetCapitalCost)}`, sub: `$${fmt(results.federalCreditTotal)} federal credit` },
+            { label: 'EV Fleet (estimated)', value: `$${fmt(results.evNetCapitalCost)}`, sub: 'No expired federal vehicle credit applied' },
           ].map((s) => (
             <div key={s.label} className="rounded-lg bg-bg-tertiary p-4">
               <div className="font-display text-xl font-bold text-text-primary">{s.value}</div>
@@ -339,7 +338,7 @@ export default function FleetCalcContent() {
           </div>
         )}
         <p className="mt-3 text-xs text-text-tertiary">
-          Federal commercial EV credit: up to $7,500/vehicle (cars &lt;14,000 lbs) or $40,000/vehicle (heavy vehicles) under IRS Section 30D/45W. State incentives not included. Consult a tax advisor.
+          The federal §45W commercial clean vehicle credit ended for vehicles acquired after September 30, 2025. State, utility, and dealer incentives are not included.
         </p>
       </div>
 

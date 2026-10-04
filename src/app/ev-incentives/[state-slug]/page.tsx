@@ -30,15 +30,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!meta) return {};
 
   const { state_name } = meta;
-  const year = 2025;
+  const year = 2026;
 
   return {
     title: `${state_name} EV Incentives, Tax Credits & Rebates ${year} | EV Range Tools`,
-    description: `Complete guide to ${state_name} electric vehicle incentives in ${year}. State EV rebates, tax credits, charger rebates, HOV access, and how to stack them with the $7,500 federal credit.`,
+    description: `Explore listed ${state_name} electric vehicle incentives, rebates, and charger programs. Verify current funding and eligibility with each program administrator.`,
     alternates: { canonical: `/ev-incentives/${slug}` },
     openGraph: {
       title: `${state_name} EV Incentives ${year}`,
-      description: `${state_name} EV rebates, tax credits, and charger incentives — stacked with federal $7,500 credit.`,
+      description: `Explore ${state_name} EV rebates and charger programs; verify current terms at the source.`,
       url: `/ev-incentives/${slug}`,
       type: 'article',
     },
@@ -143,7 +143,7 @@ export default async function StateIncentivesPage({ params }: Props) {
   if (!meta) notFound();
 
   const { state_name } = meta;
-  const year = 2025;
+  const year = 2026;
 
   // Separate by type
   const purchaseIncentives = incentives.filter(
@@ -153,10 +153,6 @@ export default async function StateIncentivesPage({ params }: Props) {
   const otherIncentives = incentives.filter(
     (i) => !['purchase_rebate', 'income_tax_credit', 'tax_credit', 'sales_tax_exemption', 'charger_rebate'].includes(i.incentive_type),
   );
-
-  const totalStateSavings = incentives
-    .filter((i) => i.funding_status === 'active' && i.amount_usd)
-    .reduce((sum, i) => sum + (i.amount_usd ?? 0), 0);
 
   // Schema markup
   const breadcrumb = {
@@ -175,18 +171,18 @@ export default async function StateIncentivesPage({ params }: Props) {
     mainEntity: [
       {
         '@type': 'Question',
-        name: `What EV incentives are available in ${state_name} in ${year}?`,
+        name: `Where can I check EV incentives in ${state_name} in ${year}?`,
         acceptedAnswer: {
           '@type': 'Answer',
-          text: `${state_name} offers ${incentives.length} EV incentives in ${year}, including ${purchaseIncentives.length > 0 ? `vehicle purchase rebates/credits` : 'utility and charger programs'}${chargerIncentives.length > 0 ? ` and charger installation rebates` : ''}.`,
+          text: `This directory lists ${incentives.length} ${state_name} programs. Check the linked program administrators for current funding, eligibility, and deadlines.`,
         },
       },
       {
         '@type': 'Question',
-        name: `Can I combine ${state_name} EV incentives with the federal $7,500 tax credit?`,
+        name: `Is the federal EV purchase credit still available in ${year}?`,
         acceptedAnswer: {
           '@type': 'Answer',
-          text: `Yes — ${state_name} incentives can be stacked on top of the federal §30D $7,500 New Clean Vehicle Credit. The federal credit has income limits ($150k single / $300k joint). ${state_name} incentives may have separate eligibility requirements.`,
+          text: `Federal new and used clean vehicle credits generally do not apply to vehicles acquired after September 30, 2025. Earlier acquisitions may still qualify under IRS rules. State and utility programs have separate terms.`,
         },
       },
     ],
@@ -213,33 +209,14 @@ export default async function StateIncentivesPage({ params }: Props) {
             {state_name} EV Incentives {year}
           </h1>
           <p className="mt-3 max-w-2xl text-text-secondary">
-            Complete guide to {state_name} electric vehicle rebates, tax credits, charger incentives, and how to
-            stack them with the{' '}
-            <span className="font-semibold text-accent">$7,500 federal EV credit</span>.
+            Explore listed electric vehicle rebates, tax credits, and charger programs in {state_name}.
+            Verify availability and terms directly with each program administrator before purchasing.
           </p>
         </div>
 
-        {/* Savings summary */}
-        <div className="mb-10 grid gap-4 sm:grid-cols-3">
-          <div className="rounded-xl border border-accent/20 bg-accent/5 p-5">
-            <div className="text-sm text-text-secondary">Federal Credit</div>
-            <div className="font-display text-3xl font-bold text-accent">$7,500</div>
-            <div className="mt-1 text-xs text-text-tertiary">§30D New EV (income-limited)</div>
-          </div>
-          <div className="rounded-xl border border-border bg-bg-secondary p-5">
-            <div className="text-sm text-text-secondary">{state_name} Max Incentives</div>
-            <div className="font-display text-3xl font-bold text-text-primary">
-              {totalStateSavings > 0 ? `$${totalStateSavings.toLocaleString()}` : 'Varies'}
-            </div>
-            <div className="mt-1 text-xs text-text-tertiary">{incentives.length} program{incentives.length !== 1 ? 's' : ''} available</div>
-          </div>
-          <div className="rounded-xl border border-border bg-bg-secondary p-5">
-            <div className="text-sm text-text-secondary">Combined Potential</div>
-            <div className="font-display text-3xl font-bold text-green-400">
-              {totalStateSavings > 0 ? `$${(7500 + totalStateSavings).toLocaleString()}` : 'Up to $7,500+'}
-            </div>
-            <div className="mt-1 text-xs text-text-tertiary">Federal + {state_name} stacked</div>
-          </div>
+        <div className="mb-10 rounded-xl border border-accent/20 bg-accent/5 p-5 text-sm text-text-secondary">
+          Federal new and used vehicle purchase credits generally ended for vehicles acquired after September 30, 2025.
+          Listed {state_name} programs may have changed since collection; check each program source before relying on an amount.
         </div>
 
         {/* Purchase incentives */}
@@ -256,47 +233,8 @@ export default async function StateIncentivesPage({ params }: Props) {
           </section>
         )}
 
-        {/* Federal credit reminder */}
-        <section className="mb-10 rounded-xl border border-accent/20 bg-accent/5 p-6">
-          <h2 className="mb-2 font-display text-lg font-bold text-text-primary">
-            Federal §30D New Clean Vehicle Credit
-          </h2>
-          <p className="mb-4 text-sm text-text-secondary">
-            Stackable with all {state_name} incentives above. Up to{' '}
-            <span className="font-semibold text-accent">$7,500</span> for qualifying new EVs.
-          </p>
-          <div className="mb-4 grid gap-3 text-sm sm:grid-cols-2">
-            <div className="rounded-lg bg-bg-primary/50 px-3 py-2">
-              <span className="text-text-tertiary">Income limit (single): </span>
-              <span className="font-semibold text-text-primary">$150,000 AGI</span>
-            </div>
-            <div className="rounded-lg bg-bg-primary/50 px-3 py-2">
-              <span className="text-text-tertiary">Income limit (joint): </span>
-              <span className="font-semibold text-text-primary">$300,000 AGI</span>
-            </div>
-            <div className="rounded-lg bg-bg-primary/50 px-3 py-2">
-              <span className="text-text-tertiary">Car MSRP cap: </span>
-              <span className="font-semibold text-text-primary">$55,000</span>
-            </div>
-            <div className="rounded-lg bg-bg-primary/50 px-3 py-2">
-              <span className="text-text-tertiary">SUV/truck MSRP cap: </span>
-              <span className="font-semibold text-text-primary">$80,000</span>
-            </div>
-          </div>
-          <div className="flex flex-wrap gap-3">
-            <Link
-              href="/tax-credit-checker"
-              className="rounded-lg bg-accent px-4 py-2 text-sm font-semibold text-bg-primary transition-all hover:bg-accent-dim"
-            >
-              Check Your Eligibility
-            </Link>
-            <Link
-              href="/lease-vs-buy"
-              className="rounded-lg border border-border px-4 py-2 text-sm font-semibold text-text-secondary transition-all hover:border-accent/30 hover:text-accent"
-            >
-              Leasing Gets Credit with No Income Limit
-            </Link>
-          </div>
+        <section className="mb-10 text-sm">
+          <Link href="/tax-credit-checker" className="text-accent hover:underline">Check the federal acquisition deadline →</Link>
         </section>
 
         {/* Charger rebates */}
@@ -311,9 +249,7 @@ export default async function StateIncentivesPage({ params }: Props) {
               ))}
             </div>
             <div className="mt-4 rounded-xl border border-border bg-bg-secondary p-4 text-sm text-text-secondary">
-              Also claim the federal{' '}
-              <span className="font-semibold text-accent">30% tax credit (up to $1,000)</span> on charger purchase
-              and installation (IRS Form 8911). No income limit.{' '}
+              The federal residential charger credit applied only to qualifying property placed in service by June 30, 2026. Check current utility rebates and their terms.{' '}
               <Link href="/home-charger-wizard" className="text-accent hover:underline">
                 Find the best charger for your home →
               </Link>
@@ -339,12 +275,10 @@ export default async function StateIncentivesPage({ params }: Props) {
         {incentives.length === 0 && (
           <section className="mb-10 rounded-xl border border-border bg-bg-secondary p-6 text-center">
             <p className="text-text-secondary">
-              {state_name} doesn&apos;t currently have state-level EV purchase incentives, but you can still qualify
-              for the federal <span className="font-semibold text-accent">$7,500 §30D credit</span> and the{' '}
-              <span className="font-semibold">30% charger installation credit</span>.
+              No {state_name} programs are listed in our database. Check state and utility websites for current offers.
             </p>
             <Link href="/tax-credit-checker" className="mt-4 inline-block text-sm text-accent hover:underline">
-              Check federal credit eligibility →
+              Check the federal acquisition deadline →
             </Link>
           </section>
         )}
@@ -380,8 +314,7 @@ export default async function StateIncentivesPage({ params }: Props) {
             Calculate Your {state_name} EV Savings
           </h2>
           <p className="mb-4 text-sm text-text-secondary">
-            Use our Total Cost of Ownership calculator to see exactly how much you&apos;ll save after federal
-            + {state_name} incentives vs. your current gas car.
+            Compare estimated EV ownership costs with your current gas car. Verify any local incentive before including it in your estimate.
           </p>
           <div className="flex flex-wrap gap-3">
             <Link

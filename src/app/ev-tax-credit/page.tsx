@@ -5,14 +5,14 @@ import { FAQSection } from '@/components/seo/FAQSection';
 import { generateBreadcrumbSchema } from '@/lib/utils/seo';
 
 export const metadata: Metadata = {
-  title: 'EV Tax Credit 2025 — How to Claim Up to $7,500 Federal Credit',
+  title: 'EV Tax Credit 2025: Historical Rules and 2026 Deadline Update',
   description:
-    "Complete guide to the 2025 federal EV tax credit. Which cars qualify, income limits, how to claim it, and state rebates that stack on top. Updated for 2025.",
+    "Historical guide to the 2025 federal EV tax credit. New and used vehicle purchase credits generally ended for vehicles acquired after September 30, 2025.",
   alternates: { canonical: '/ev-tax-credit' },
   openGraph: {
-    title: 'EV Tax Credit 2025 — How to Claim Up to $7,500 Federal Credit',
+    title: 'EV Tax Credit 2025: Historical Rules and Deadline Update',
     description:
-      "Which EVs qualify for the $7,500 federal tax credit in 2025, income limits, and how to claim it.",
+      "Historical 2025 vehicle credit rules and the September 30, 2025 acquisition deadline.",
     url: '/ev-tax-credit',
     type: 'website',
   },
@@ -51,16 +51,15 @@ export default function EvTaxCreditPage() {
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <div className="mb-10">
           <h1 className="text-3xl font-display font-bold tracking-tight text-text-primary sm:text-4xl">
-            EV Tax Credit 2025 — Complete Guide to the $7,500 Federal Credit
+            EV Tax Credit 2025 — Historical Guide
           </h1>
           <p className="mt-3 max-w-2xl text-text-secondary">
-            Everything you need to know about claiming the federal EV tax credit in 2025: which
-            vehicles qualify, income limits, how to claim it at the dealer, and state rebates that
-            stack on top.
+            Historical rules for vehicles acquired by September 30, 2025. Federal new and used
+            vehicle purchase credits generally do not apply to later acquisitions.
           </p>
           <div className="mt-4 inline-flex items-center gap-2 rounded-full bg-warning/10 px-4 py-1.5 text-sm text-warning">
             <span>⚠</span>
-            <span>Vehicle eligibility changes frequently. Verify with the IRS Clean Vehicle Credit tool before purchasing.</span>
+            <span>This page describes 2025 rules. Verify a historical claim and acquisition date with the IRS.</span>
           </div>
         </div>
 

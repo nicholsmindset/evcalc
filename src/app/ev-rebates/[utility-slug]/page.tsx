@@ -23,8 +23,8 @@ export async function generateMetadata({
   const utility = await getUtilityRebateBySlug(slug);
   if (!utility) return { title: 'Utility Rebate Not Found' };
 
-  const title = `${utility.utility_name} EV Charger Rebate 2025: Get $${utility.amount?.toLocaleString() ?? utility.amount_text} Back`;
-  const description = `${utility.utility_name} offers a ${utility.amount_text} rebate for Level 2 home EV charger installation. ${utility.service_area_description ?? ''} Stack with the federal 30% charger tax credit.`;
+  const title = `${utility.utility_name} EV Charger Rebate: Program Details`;
+  const description = `Explore the listed ${utility.utility_name} EV charger rebate and verify current funding, amount, and eligibility directly with the utility. ${utility.service_area_description ?? ''}`;
 
   return {
     title,
@@ -111,7 +111,7 @@ export default async function UtilityRebatePage({
         name: 'Can I stack this utility rebate with the federal tax credit?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Yes. The federal §30C Alternative Fuel Vehicle Refueling Property Credit covers 30% of EV charger and installation costs (up to $1,000 for homeowners). You can claim this federal credit AND your utility rebate together for maximum savings.',
+          text: 'The federal residential charger credit applied only to qualifying property placed in service by June 30, 2026. Check the utility for its current rebate terms.',
         },
       },
     ],
@@ -312,7 +312,7 @@ export default async function UtilityRebatePage({
               },
               {
                 q: 'Can I stack this rebate with the federal charger tax credit?',
-                a: 'Yes. The federal §30C credit covers 30% of EV charger + installation costs (up to $1,000). You can claim both — the utility rebate reduces your out-of-pocket cost, and you claim the federal credit on the net amount paid.',
+                a: 'The federal residential charger credit applied only to qualifying property placed in service by June 30, 2026. Confirm the current utility rebate with the program administrator.',
               },
             ].map(({ q, a }) => (
               <div key={q} className="rounded-xl border border-border bg-bg-secondary p-5">

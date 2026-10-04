@@ -77,15 +77,15 @@ export default async function VehicleTowingPage({
         '@type': 'Article',
         headline: `${name} Towing Capacity & Range Guide`,
         description: `Detailed towing range analysis for the ${name}, including range at different trailer weights, payload capacity, and charging strategy.`,
-        url: `https://evrangetools.com/vehicles/${slug}/towing`,
-        mainEntityOfPage: { '@type': 'WebPage', '@id': `https://evrangetools.com/vehicles/${slug}/towing` },
+        url: `https://www.evrangetools.com/vehicles/${slug}/towing`,
+        mainEntityOfPage: { '@type': 'WebPage', '@id': `https://www.evrangetools.com/vehicles/${slug}/towing` },
       },
       {
         '@type': 'BreadcrumbList',
         itemListElement: [
-          { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://evrangetools.com' },
-          { '@type': 'ListItem', position: 2, name: 'EV Towing', item: 'https://evrangetools.com/ev-towing' },
-          { '@type': 'ListItem', position: 3, name: `${name} Towing`, item: `https://evrangetools.com/vehicles/${slug}/towing` },
+          { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.evrangetools.com' },
+          { '@type': 'ListItem', position: 2, name: 'EV Towing', item: 'https://www.evrangetools.com/ev-towing' },
+          { '@type': 'ListItem', position: 3, name: `${name} Towing`, item: `https://www.evrangetools.com/vehicles/${slug}/towing` },
         ],
       },
       {

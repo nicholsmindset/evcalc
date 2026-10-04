@@ -23,7 +23,7 @@ const articleSchema = {
   '@context': 'https://schema.org',
   '@type': 'Article',
   headline: 'Best Electric Trucks and SUVs for Towing 2026 — EV Towing Capacity Guide',
-  url: 'https://evrangetools.com/ev-towing',
+  url: 'https://www.evrangetools.com/ev-towing',
   author: { '@type': 'Organization', name: 'EV Range Tools' },
 };
 

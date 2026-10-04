@@ -22,7 +22,7 @@ const jsonLd = {
     {
       '@type': 'WebApplication',
       name: 'EV Affordability Calculator',
-      url: 'https://evrangetools.com/can-i-afford-an-ev',
+      url: 'https://www.evrangetools.com/can-i-afford-an-ev',
       description:
         'Calculate which electric vehicles fit your monthly budget, including payment, insurance, and charging costs minus fuel savings.',
       applicationCategory: 'UtilityApplication',
@@ -32,12 +32,12 @@ const jsonLd = {
     {
       '@type': 'BreadcrumbList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://evrangetools.com' },
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.evrangetools.com' },
         {
           '@type': 'ListItem',
           position: 2,
           name: 'Can I Afford an EV?',
-          item: 'https://evrangetools.com/can-i-afford-an-ev',
+          item: 'https://www.evrangetools.com/can-i-afford-an-ev',
         },
       ],
     },
@@ -49,7 +49,7 @@ const jsonLd = {
           name: 'What is included in the monthly EV cost estimate?',
           acceptedAnswer: {
             '@type': 'Answer',
-            text: 'The estimate includes: monthly loan payment (based on vehicle price minus federal tax credit, your down payment, and credit score), estimated insurance, home charging electricity cost, and subtracts ~$50/month in average maintenance savings compared to a gas car.',
+            text: 'The estimate includes the monthly loan payment, estimated insurance, home charging electricity cost, and an illustrative maintenance savings assumption. Prices shown are 2024 reference data; obtain a current quote before buying.',
           },
         },
         {
@@ -57,7 +57,7 @@ const jsonLd = {
           name: 'Does the calculator include the federal EV tax credit?',
           acceptedAnswer: {
             '@type': 'Answer',
-            text: 'Yes. The $7,500 federal EV tax credit (or $4,000 for used vehicles) is automatically applied to reduce the vehicle price before calculating your monthly payment. Eligibility depends on your income, vehicle MSRP, and whether you buy or lease.',
+            text: 'No. Federal clean vehicle purchase credits ended for vehicles acquired after September 30, 2025, so this calculator does not subtract one from current purchase costs.',
           },
         },
         {
@@ -106,6 +106,10 @@ export default function CanIAffordAnEVPage() {
             charging, and what you&apos;ll save on gas.
           </p>
         </div>
+
+        <p className="mb-6 rounded-lg border border-border bg-bg-secondary p-4 text-sm text-text-secondary">
+          These are illustrative 2024 vehicle prices and financing estimates. Federal vehicle purchase credits are not applied because they ended for vehicles acquired after September 30, 2025. Get a current vehicle and insurance quote before deciding what fits your budget.
+        </p>
 
         <AffordabilityContent />
 

@@ -1,5 +1,9 @@
 export const SITE_NAME = 'EV Range Tools';
-export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.evrangetools.com';
+// Normalize the configured origin once. A trailing newline in this environment
+// previously ended up inside sitemap <loc> values and structured-data URLs.
+export const SITE_URL = new URL(
+  (process.env.NEXT_PUBLIC_SITE_URL || 'https://www.evrangetools.com').trim()
+).origin;
 export const SITE_DESCRIPTION =
   'The most comprehensive EV tools on the internet. Calculate real-world electric vehicle range, compare EVs, find charging stations, and plan road trips — free tools powered by EPA data.';
 
@@ -14,7 +18,7 @@ export const NAV_LINKS = [
   { href: '/lease-vs-buy', label: 'Lease vs Buy' },
   { href: '/ev-incentives', label: 'State Incentives' },
   { href: '/home-charger-wizard', label: 'Charger Wizard' },
-  { href: '/tax-credit-checker', label: 'Tax Credit Checker' },
+  { href: '/tax-credit-checker', label: 'Tax Credit Deadline' },
 ] as const;
 
 // Grouped nav for mega-menu
@@ -27,7 +31,7 @@ export const NAV_GROUPS = [
       { href: '/ev-vs-gas', label: 'EV vs Gas Savings', desc: '5–10 year savings analysis' },
       { href: '/ev-vs-hybrid', label: 'EV vs Hybrid', desc: 'Full cost & emissions comparison', badge: 'New' },
       { href: '/tco-calculator', label: 'Total Cost of Ownership', desc: 'Full lifetime cost comparison' },
-      { href: '/lease-vs-buy', label: 'Lease vs Buy', desc: 'Payment & tax credit analysis' },
+      { href: '/lease-vs-buy', label: 'Lease vs Buy', desc: 'Payment and total cost analysis' },
       { href: '/ev-carbon-footprint', label: 'Carbon Footprint', desc: 'CO₂ savings vs gas car' },
       { href: '/ev-depreciation-calculator', label: 'Depreciation Calculator', desc: 'Resale value projections' },
       { href: '/ev-charging-time-calculator', label: 'Charging Time Calculator', desc: 'Time to charge by charger level' },
@@ -39,9 +43,9 @@ export const NAV_GROUPS = [
     label: 'Buying',
     items: [
       { href: '/find-my-ev', label: 'EV Finder Quiz', desc: 'Get matched to the right EV', badge: 'New' },
-      { href: '/can-i-afford-an-ev', label: 'Affordability Calculator', desc: 'Monthly payment with tax credits' },
+      { href: '/can-i-afford-an-ev', label: 'Affordability Calculator', desc: 'Illustrative monthly payment estimates' },
       { href: '/compare', label: 'Compare EVs', desc: 'Side-by-side specs & range' },
-      { href: '/tax-credit-checker', label: 'Tax Credit Checker', desc: '$7,500 eligibility in 60 sec' },
+      { href: '/tax-credit-checker', label: 'Tax Credit Deadline', desc: 'Federal credit acquisition-date rule' },
       { href: '/ev-incentives', label: 'State Incentives', desc: 'All 50 states + DC rebates' },
       { href: '/ev-tax-credit', label: 'Tax Credit Guide', desc: 'Full IRA rules explained' },
       { href: '/ev-quiz', label: 'EV Readiness Quiz', desc: 'Is an EV right for you?' },

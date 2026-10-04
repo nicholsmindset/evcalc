@@ -5,13 +5,13 @@ import LeaseVsBuyContent from './LeaseVsBuyContent';
 import { RelatedTools } from '@/components/ui/RelatedTools';
 
 export const metadata: Metadata = {
-  title: 'EV Lease vs Buy Calculator 2025 | Compare Monthly Payments & Total Cost',
+  title: 'EV Lease vs Buy Calculator | Compare Monthly Payments & Total Cost',
   description:
-    'Should you lease or buy an electric vehicle? Compare monthly payments, total cost, and break-even analysis. See how the $7,500 federal tax credit applies differently to leasing vs. purchasing.',
+    'Compare EV lease, finance, and cash costs without assuming an expired federal vehicle tax credit.',
   openGraph: {
-    title: 'EV Lease vs Buy Calculator 2025',
+    title: 'EV Lease vs Buy Calculator',
     description:
-      'Compare leasing vs. financing vs. cash purchase for any EV. Includes $7,500 IRA tax credit, break-even analysis, and real lease money factors.',
+      'Compare leasing vs. financing vs. cash purchase for any EV, including break-even analysis and lease money factors.',
     url: '/lease-vs-buy',
     type: 'website',
   },
@@ -24,8 +24,8 @@ const FAQ_ITEMS = [
     a: 'It depends on your situation. Leasing typically offers lower monthly payments and allows you to upgrade to a newer EV every 2–3 years as technology improves. Buying builds equity and can be cheaper long-term if you keep the vehicle 5+ years. Our calculator shows exactly when buying becomes cheaper (break-even month).',
   },
   {
-    q: 'How does the $7,500 federal tax credit work for leasing?',
-    a: 'When you lease an EV, the dealer (as the commercial buyer) claims the IRS §45W Commercial Clean Vehicle Credit and typically passes the full $7,500 as a capital cost reduction — lowering your monthly payment. There is no income limit on you as the lessee. When you purchase, the §30D New Clean Vehicle Credit is income-limited: $150,000 single / $300,000 married filing jointly.',
+    q: 'Does a federal tax credit reduce a new EV lease or purchase in 2026?',
+    a: 'No. The federal new, used, and commercial clean vehicle credits ended for vehicles acquired after September 30, 2025. A current manufacturer or dealer lease offer can still provide a discount, but it is separate from those credits.',
   },
   {
     q: 'What is a money factor in a lease?',
@@ -46,11 +46,10 @@ const SCHEMA = {
   '@type': 'WebApplication',
   name: 'EV Lease vs Buy Calculator',
   applicationCategory: 'FinanceApplication',
-  description: 'Compare leasing vs. buying an electric vehicle with break-even analysis and tax credit optimization.',
+  description: 'Compare leasing vs. buying an electric vehicle with break-even analysis.',
   offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
   featureList: [
     'Lease vs finance vs cash comparison',
-    'Federal EV tax credit ($7,500) optimization',
     'Break-even analysis chart',
     'Real lease money factor and residual data',
     'State sales tax rates',
@@ -93,8 +92,7 @@ export default function LeaseVsBuyPage() {
           </h1>
           <p className="mt-2 max-w-2xl text-text-secondary">
             Compare monthly payments, total cost, and break-even timelines for any electric vehicle.
-            Includes the <span className="font-medium text-accent">$7,500 federal tax credit</span> and
-            real lease money factors from manufacturer programs.
+            Federal vehicle purchase credits are not applied to current transactions because they ended for vehicles acquired after September 30, 2025.
           </p>
         </div>
 
@@ -119,7 +117,7 @@ export default function LeaseVsBuyPage() {
         </section>
 
         <RelatedTools tools={[
-          { href: '/tax-credit-checker', emoji: '✅', label: 'Tax Credit Checker', desc: 'Check your $7,500 federal eligibility before you sign anything' },
+          { href: '/tax-credit-checker', emoji: '✅', label: 'Tax Credit Deadline', desc: 'Review the federal acquisition-date rule' },
           { href: '/tco-calculator', emoji: '📈', label: 'Total Cost of Ownership', desc: 'Full lifetime cost comparison including fuel and maintenance' },
           { href: '/can-i-afford-an-ev', emoji: '💰', label: 'Can I Afford an EV?', desc: 'Monthly budget tool with all costs factored in' },
         ]} />

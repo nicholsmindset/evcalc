@@ -23,7 +23,7 @@ const jsonLd = {
     {
       '@type': 'WebApplication',
       name: 'EV Carbon Footprint Calculator',
-      url: 'https://evrangetools.com/ev-carbon-footprint',
+      url: 'https://www.evrangetools.com/ev-carbon-footprint',
       description:
         'Calculate the lifetime CO₂ footprint of your electric vehicle vs a gas car, accounting for your state\'s grid intensity, driving habits, and manufacturing emissions.',
       applicationCategory: 'UtilityApplication',
@@ -33,8 +33,8 @@ const jsonLd = {
     {
       '@type': 'BreadcrumbList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://evrangetools.com' },
-        { '@type': 'ListItem', position: 2, name: 'EV Carbon Footprint Calculator', item: 'https://evrangetools.com/ev-carbon-footprint' },
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.evrangetools.com' },
+        { '@type': 'ListItem', position: 2, name: 'EV Carbon Footprint Calculator', item: 'https://www.evrangetools.com/ev-carbon-footprint' },
       ],
     },
     {
