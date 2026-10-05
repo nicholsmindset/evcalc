@@ -1,3 +1,4 @@
+import { reviewedVehicle } from '@/lib/data/reviewed-vehicles';
 import { createClient } from '@/lib/supabase/server';
 import type { VehicleComparison, Vehicle } from '@/lib/supabase/types';
 
@@ -42,7 +43,7 @@ export async function getComparisonBySlug(
 
   if (vError) throw vError;
 
-  const vehicleList = vehicles as Vehicle[];
+  const vehicleList = (vehicles as Vehicle[]).map(reviewedVehicle);
   const vehicleA = vehicleList.find((v) => v.id === comparison.vehicle_a_id);
   const vehicleB = vehicleList.find((v) => v.id === comparison.vehicle_b_id);
 
@@ -79,13 +80,13 @@ export async function getAllComparisons(): Promise<
 
   const { data: vehicles, error: vError } = await supabase
     .from('vehicles')
-    .select('id, make, model, year, trim, epa_range_mi, slug')
+    .select('*')
     .in('id', vehicleIds);
 
   if (vError) throw vError;
 
   const vehicleMap = new Map(
-    (vehicles as Pick<Vehicle, 'id' | 'make' | 'model' | 'year' | 'trim' | 'epa_range_mi' | 'slug'>[]).map((v) => [v.id, v])
+    (vehicles as Vehicle[]).map(reviewedVehicle).map((v) => [v.id, v])
   );
 
   return compList

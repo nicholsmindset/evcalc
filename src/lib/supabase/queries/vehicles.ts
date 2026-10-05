@@ -1,3 +1,4 @@
+import { reviewedVehicle } from '@/lib/data/reviewed-vehicles';
 import { createClient } from '@/lib/supabase/server';
 import { createStaticClient } from '@/lib/supabase/static';
 import type { Vehicle } from '@/lib/supabase/types';
@@ -22,7 +23,7 @@ export async function getVehicles(make?: string): Promise<Vehicle[]> {
 
   const { data, error } = await query;
   if (error) throw error;
-  return data as Vehicle[];
+  return (data as Vehicle[]).map(reviewedVehicle);
 }
 
 /**
@@ -39,7 +40,7 @@ export async function getVehicleBySlug(slug: string): Promise<Vehicle | null> {
     .single();
 
   if (error && error.code !== 'PGRST116') throw error;
-  return data ? (data as Vehicle) : null;
+  return data ? reviewedVehicle(data as Vehicle) : null;
 }
 
 /**
@@ -55,7 +56,7 @@ export async function getVehicleById(id: string): Promise<Vehicle | null> {
     .single();
 
   if (error && error.code !== 'PGRST116') throw error;
-  return data ? (data as Vehicle) : null;
+  return data ? reviewedVehicle(data as Vehicle) : null;
 }
 
 /**
@@ -138,7 +139,7 @@ export async function getVehicleTrims(
     .order('trim');
 
   if (error) throw error;
-  return data as Vehicle[];
+  return (data as Vehicle[]).map(reviewedVehicle);
 }
 
 /**
@@ -159,7 +160,7 @@ export async function searchVehicles(query: string): Promise<Vehicle[]> {
     .limit(20);
 
   if (error) throw error;
-  return data as Vehicle[];
+  return (data as Vehicle[]).map(reviewedVehicle);
 }
 
 /**
@@ -192,7 +193,7 @@ export async function getVehiclesByRange(limit = 10): Promise<Vehicle[]> {
     .limit(limit);
 
   if (error) throw error;
-  return data as Vehicle[];
+  return (data as Vehicle[]).map(reviewedVehicle);
 }
 
 /**
@@ -213,5 +214,5 @@ export async function getVehiclesByPrice(
     .limit(limit);
 
   if (error) throw error;
-  return data as Vehicle[];
+  return (data as Vehicle[]).map(reviewedVehicle);
 }

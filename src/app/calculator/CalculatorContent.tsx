@@ -80,16 +80,6 @@ export function CalculatorContent() {
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-      {/* Page Header */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-display font-bold tracking-tight text-text-primary sm:text-4xl">
-          EV Range Calculator — How Far Can Your Electric Car Go?
-        </h1>
-        <p className="mt-2 text-text-secondary">
-          Calculate real-world range adjusted for temperature, speed, terrain, and driving conditions.
-        </p>
-      </div>
-
       {/* Vehicle Selector */}
       <VehicleSelector
         onVehicleSelect={setSelectedVehicle}
@@ -168,31 +158,6 @@ export function CalculatorContent() {
         </div>
       </div>
 
-      {/* SEO Content */}
-      <section className="mt-16 border-t border-border pt-12">
-        <h2 className="text-2xl font-display font-bold text-text-primary">
-          How Does Temperature Affect EV Range?
-        </h2>
-        <div className="mt-4 max-w-3xl space-y-4 text-text-secondary">
-          <p>
-            Temperature is the single biggest factor affecting electric vehicle range.
-            In extreme cold (below 20°F), EVs can lose 25-40% of their rated range due
-            to increased battery resistance and cabin heating demands. Heat pumps reduce
-            this impact significantly compared to resistive heaters.
-          </p>
-          <p>
-            At highway speeds above 55 mph, aerodynamic drag increases exponentially
-            (proportional to the square of velocity). Driving at 75 mph instead of 55 mph
-            can reduce range by 15-20%. City driving actually improves range through
-            regenerative braking.
-          </p>
-          <p>
-            Our calculator uses physics-based modeling calibrated against real-world data
-            from the EPA, including non-linear temperature curves, quadratic aerodynamic
-            drag, and terrain-specific energy recovery factors.
-          </p>
-        </div>
-      </section>
     </div>
   );
 }
