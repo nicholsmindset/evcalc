@@ -21,3 +21,9 @@
 
 ## Limits
 These two EPA records identify specific configurations, not every 2025 production variant. The remaining vehicle catalog needs source verification. Calculator scenarios and local installation defaults are illustrative estimates. Indexing and ranking outcomes require subsequent Google crawling and evaluation.
+
+## Charging network follow-up
+- Removed unsupported reliability scores, app ratings, nationwide fixed tariffs, station counts and a blanket 16% membership discount.
+- Replaced broad model-year connector claims with vehicle/site-specific checks and links to official Tesla, Electrify America, ChargePoint and EVgo guidance.
+- Added an editable two-option price comparison using billed energy, session fees and monthly memberships. Defaults and examples are explicitly hypothetical.
+- Focused checks cover monthly membership inclusion, low-usage reversal, break-even volume, zero sessions and per-session fees.
