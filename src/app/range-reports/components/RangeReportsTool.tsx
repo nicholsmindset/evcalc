@@ -1,5 +1,6 @@
 'use client';
 
+import { reviewedVehicle } from '@/lib/data/reviewed-vehicles';
 import { useState, useEffect, useCallback } from 'react';
 import { useAuth } from '@/lib/hooks/useAuth';
 import { AuthModal } from '@/components/auth/AuthModal';
@@ -77,7 +78,7 @@ export function RangeReportsTool() {
         .select('*')
         .in('id', vehicleIds);
 
-      const vehicleMap = new Map((vehicles || []).map((v: Vehicle) => [v.id, v]));
+      const vehicleMap = new Map((vehicles || []).map((v: Vehicle) => [v.id, reviewedVehicle(v)]));
       const enriched = reportData.map((r) => ({
         ...r,
         vehicle: vehicleMap.get(r.vehicle_id),

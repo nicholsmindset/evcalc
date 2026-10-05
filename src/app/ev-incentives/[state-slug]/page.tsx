@@ -1,3 +1,4 @@
+import { ReviewedIncentives, REVIEWED_STATES } from '@/components/guides/ReviewedIncentives';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -9,7 +10,7 @@ import {
   type StateIncentive,
 } from '@/lib/supabase/queries/incentives';
 
-export const revalidate = 2592000; // 30 days
+export const revalidate = 86400; // Revalidate program information daily
 
 interface Props {
   params: Promise<{ 'state-slug': string }>;
@@ -26,6 +27,11 @@ export async function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { 'state-slug': slug } = await params;
+  if (REVIEWED_STATES[slug]) return {
+    title: `${REVIEWED_STATES[slug].name} EV Incentives & Charging Rebates`,
+    description: REVIEWED_STATES[slug].summary,
+    alternates: { canonical: `/ev-incentives/${slug}` },
+  };
   const meta = await getStateMetaBySlug(slug);
   if (!meta) return {};
 
@@ -135,6 +141,7 @@ function IncentiveCard({ incentive }: { incentive: StateIncentive }) {
 
 export default async function StateIncentivesPage({ params }: Props) {
   const { 'state-slug': slug } = await params;
+  if (REVIEWED_STATES[slug]) return <ReviewedIncentives slug={slug} />;
   const [incentives, meta] = await Promise.all([
     getStateIncentivesBySlug(slug),
     getStateMetaBySlug(slug),
