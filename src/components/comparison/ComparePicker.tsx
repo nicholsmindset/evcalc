@@ -1,5 +1,7 @@
 'use client';
 
+import { reviewedVehicle } from '@/lib/data/reviewed-vehicles';
+import { hasReviewedRangeInput } from '@/lib/data/vehicle-review-inputs';
 import { useState, useRef, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
@@ -39,12 +41,12 @@ export function ComparePicker() {
       debounceRef.current = setTimeout(async () => {
         const { data } = await supabase
           .from('vehicles')
-          .select('id, make, model, year, trim, slug, epa_range_mi, battery_kwh, drivetrain')
+          .select('*')
           .or(`make.ilike.%${value}%,model.ilike.%${value}%,trim.ilike.%${value}%`)
           .eq('is_active', true)
           .order('epa_range_mi', { ascending: false })
           .limit(8);
-        setter((s) => ({ ...s, results: (data as Vehicle[]) ?? [], open: true }));
+        setter((s) => ({ ...s, results: ((data as Vehicle[]) ?? []).map(reviewedVehicle).filter(hasReviewedRangeInput), open: true }));
       }, 250);
     },
     [supabase]

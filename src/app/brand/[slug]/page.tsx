@@ -1,3 +1,4 @@
+import { ReviewedBrand, REVIEWED_BRANDS } from '@/components/guides/ReviewedBrand';
 import Link from 'next/link';
 import { notFound, permanentRedirect } from 'next/navigation';
 import type { Metadata } from 'next';
@@ -235,6 +236,11 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
+  if (REVIEWED_BRANDS[slug]) return {
+    title: `${REVIEWED_BRANDS[slug].name} EVs: Reviewed Range & Buying Guide`,
+    description: `Compare reviewed ${REVIEWED_BRANDS[slug].name} electric vehicle configurations, EPA source references and practical buying checks.`,
+    alternates: { canonical: `/brand/${slug}` },
+  };
   const brand = BRANDS[slug];
   if (!brand) return { title: 'EV Brands' };
 
@@ -252,6 +258,7 @@ export default async function BrandPage({
 }) {
   const { slug } = await params;
   if (slug === 'mercedes-benz') permanentRedirect('/brand/mercedes');
+  if (REVIEWED_BRANDS[slug]) return <ReviewedBrand slug={slug} />;
   const brand = BRANDS[slug];
 
   if (!brand) notFound();

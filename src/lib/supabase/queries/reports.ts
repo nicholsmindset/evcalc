@@ -1,3 +1,4 @@
+import { reviewedVehicle } from '@/lib/data/reviewed-vehicles';
 import { createClient } from '@/lib/supabase/server';
 import type { RangeReport, Vehicle } from '@/lib/supabase/types';
 
@@ -35,7 +36,7 @@ export async function getRecentReports(limit = 20): Promise<RangeReportWithVehic
     .select('*')
     .in('id', vehicleIds);
 
-  const vehicleMap = new Map((vehicles || []).map((v: Vehicle) => [v.id, v]));
+  const vehicleMap = new Map((vehicles || []).map((v: Vehicle) => [v.id, reviewedVehicle(v)]));
 
   return reports.map((r) => ({
     ...r,

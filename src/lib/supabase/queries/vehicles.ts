@@ -1,3 +1,4 @@
+import { hasReviewedRangeInput } from '@/lib/data/vehicle-review-inputs';
 import { reviewedVehicle } from '@/lib/data/reviewed-vehicles';
 import { createClient } from '@/lib/supabase/server';
 import { createStaticClient } from '@/lib/supabase/static';
@@ -189,11 +190,10 @@ export async function getVehiclesByRange(limit = 10): Promise<Vehicle[]> {
     .from('vehicles')
     .select('*')
     .eq('is_active', true)
-    .order('epa_range_mi', { ascending: false })
-    .limit(limit);
+    .order('epa_range_mi', { ascending: false });
 
   if (error) throw error;
-  return (data as Vehicle[]).map(reviewedVehicle);
+  return (data as Vehicle[]).map(reviewedVehicle).filter(hasReviewedRangeInput).sort((a, b) => b.epa_range_mi - a.epa_range_mi).slice(0, limit);
 }
 
 /**

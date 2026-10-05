@@ -81,7 +81,7 @@ const BRAND_SLUGS = [
   'tesla', 'hyundai', 'kia', 'ford', 'chevrolet', 'bmw',
   'rivian', 'mercedes', 'volkswagen', 'nissan', 'polestar',
   'audi', 'lucid', 'volvo', 'cadillac', 'genesis', 'honda',
-  'toyota', 'subaru', 'porsche', 'byd',
+  'toyota', 'subaru', 'porsche', 'byd', 'vinfast',
 ];
 
 /**
@@ -103,7 +103,7 @@ export async function getSitemap(id: string): Promise<MetadataRoute.Sitemap> {
         { url: SITE_URL, changeFrequency: 'weekly', priority: 1.0 },
         { url: `${SITE_URL}/calculator`, changeFrequency: 'monthly', priority: 0.95 },
         { url: `${SITE_URL}/vehicles`, changeFrequency: 'weekly', priority: 0.9 },
-        { url: `${SITE_URL}/compare`, changeFrequency: 'weekly', priority: 0.9 },
+        { url: `${SITE_URL}/compare`, lastModified: '2026-10-06', changeFrequency: 'weekly', priority: 0.9 },
         { url: `${SITE_URL}/charging-stations`, changeFrequency: 'weekly', priority: 0.9 },
         { url: `${SITE_URL}/about`, changeFrequency: 'monthly', priority: 0.6 },
         { url: `${SITE_URL}/contact`, changeFrequency: 'monthly', priority: 0.5 },
@@ -255,8 +255,9 @@ export async function getSitemap(id: string): Promise<MetadataRoute.Sitemap> {
         // Build-time safety — DB may not be available
       }
 
-      const incentivePages: MetadataRoute.Sitemap = incentiveSlugs.map((slug) => ({
+      const incentivePages: MetadataRoute.Sitemap = Array.from(new Set([...incentiveSlugs, 'alabama', 'delaware', 'mississippi'])).map((slug) => ({
         url: `${SITE_URL}/ev-incentives/${slug}`,
+        ...(['alabama', 'delaware', 'mississippi'].includes(slug) ? { lastModified: '2026-10-06' } : {}),
         changeFrequency: 'monthly' as const,
         priority: 0.7,
       }));
@@ -286,6 +287,7 @@ export async function getSitemap(id: string): Promise<MetadataRoute.Sitemap> {
 
       const brandPages: MetadataRoute.Sitemap = BRAND_SLUGS.map((brand) => ({
         url: `${SITE_URL}/brand/${brand}`,
+        ...(['subaru', 'vinfast'].includes(brand) ? { lastModified: '2026-10-06' } : {}),
         changeFrequency: 'monthly' as const,
         priority: 0.75,
       }));

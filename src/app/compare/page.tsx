@@ -1,9 +1,8 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import nextDynamic from 'next/dynamic';
-import type { Vehicle } from '@/lib/supabase/types';
+import { VEHICLE_REVIEWS } from '@/lib/data/vehicle-reviews';
 import { getAllComparisons } from '@/lib/supabase/queries/comparisons';
-import { getVehiclesByRange } from '@/lib/supabase/queries/vehicles';
 import { generateMetadata as genMeta, generateBreadcrumbSchema } from '@/lib/utils/seo';
 import { SchemaMarkup } from '@/components/seo/SchemaMarkup';
 
@@ -17,7 +16,7 @@ const ComparePicker = nextDynamic(
 export const metadata: Metadata = genMeta({
   title: 'Compare Electric Vehicles — Side-by-Side EV Specs & Range',
   description:
-    'Compare any two electric vehicles side by side. See range, battery, efficiency, charging speed, and pricing differences at a glance.',
+    'Compare EV configurations with reviewed range references. Learn how to compare EPA ratings, charging needs and written purchase or lease quotes.',
   path: '/compare',
 });
 
@@ -25,15 +24,12 @@ export const revalidate = 604800; // 7 days
 
 export default async function ComparePage() {
   let comparisons: Awaited<ReturnType<typeof getAllComparisons>> = [];
-  let topVehicles: Vehicle[] = [];
   try {
-    [comparisons, topVehicles] = await Promise.all([
-      getAllComparisons(),
-      getVehiclesByRange(12),
-    ]);
+    comparisons = await getAllComparisons();
   } catch {
-    // DB unavailable — renders empty state rather than 500
+    // Reviewed guides remain available if the catalog cannot be reached.
   }
+  const reviewedGuides = Object.entries(VEHICLE_REVIEWS).filter(([, review]) => review.correction).slice(0, 12);
 
   const breadcrumbs = generateBreadcrumbSchema([
     { name: 'Home', href: '/' },
@@ -50,18 +46,18 @@ export default async function ComparePage() {
           Compare Electric Vehicles
         </h1>
         <p className="mt-2 text-text-secondary">
-          Side-by-side comparisons of range, battery, efficiency, charging, and pricing.
+          Compare the exact model year and configuration, then check how each vehicle fits your driving and charging needs.
         </p>
       </div>
 
       {/* Interactive Picker */}
       <ComparePicker />
 
-      {/* Popular Comparisons */}
+      {/* Browse comparisons */}
       {comparisons.length > 0 && (
         <section className="mb-12">
           <h2 className="mb-6 text-xl font-display font-bold text-text-primary">
-            Popular Comparisons
+            Browse comparisons
           </h2>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {comparisons.map((comp) => {
@@ -78,14 +74,14 @@ export default async function ComparePage() {
                       <p className="truncate font-display font-semibold text-text-primary group-hover:text-accent transition-colors">
                         {nameA}
                       </p>
-                      <p className="font-mono text-sm text-accent">{comp.vehicleA.epa_range_mi} mi</p>
+                      <p className="font-mono text-sm text-accent">{comp.vehicleA.year} · {comp.vehicleA.trim}</p>
                     </div>
                     <span className="shrink-0 text-sm font-bold text-text-tertiary">VS</span>
                     <div className="min-w-0 flex-1 text-right">
                       <p className="truncate font-display font-semibold text-text-primary group-hover:text-accent transition-colors">
                         {nameB}
                       </p>
-                      <p className="font-mono text-sm text-accent">{comp.vehicleB.epa_range_mi} mi</p>
+                      <p className="font-mono text-sm text-accent">{comp.vehicleB.year} · {comp.vehicleB.trim}</p>
                     </div>
                   </div>
                 </Link>
@@ -95,54 +91,10 @@ export default async function ComparePage() {
         </section>
       )}
 
-      {/* Build Your Own Comparison */}
       <section className="mb-12">
-        <h2 className="mb-6 text-xl font-display font-bold text-text-primary">
-          Top EVs by Range
-        </h2>
-        <p className="mb-4 text-sm text-text-secondary">
-          Pick any two vehicles to compare. Click a vehicle to see its detail page.
-        </p>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {topVehicles.map((v) => (
-            <Link
-              key={v.id}
-              href={`/vehicles/${v.slug}`}
-              className="group rounded-xl border border-border bg-bg-secondary p-5 transition-all hover:border-accent/30 hover:shadow-lg hover:shadow-accent/5"
-            >
-              <div className="flex items-start justify-between">
-                <div>
-                  <h3 className="font-display font-semibold text-text-primary group-hover:text-accent transition-colors">
-                    {v.make} {v.model}
-                  </h3>
-                  <p className="text-xs text-text-tertiary">
-                    {v.year} {v.trim || ''}
-                  </p>
-                </div>
-                <div className="rounded-lg bg-accent/10 px-2 py-1">
-                  <span className="font-mono text-sm font-bold text-accent">{v.epa_range_mi}</span>
-                  <span className="ml-0.5 text-[10px] text-accent/70">mi</span>
-                </div>
-              </div>
-              <div className="mt-3 grid grid-cols-3 gap-2 text-xs">
-                <div className="rounded bg-bg-tertiary px-2 py-1.5 text-center">
-                  <p className="text-text-tertiary">Battery</p>
-                  <p className="font-mono font-semibold text-text-primary">{v.battery_kwh} kWh</p>
-                </div>
-                <div className="rounded bg-bg-tertiary px-2 py-1.5 text-center">
-                  <p className="text-text-tertiary">Efficiency</p>
-                  <p className="font-mono font-semibold text-text-primary">{v.efficiency_kwh_per_100mi}</p>
-                </div>
-                <div className="rounded bg-bg-tertiary px-2 py-1.5 text-center">
-                  <p className="text-text-tertiary">{v.msrp_usd ? 'MSRP' : 'Drive'}</p>
-                  <p className="font-mono font-semibold text-text-primary">
-                    {v.msrp_usd ? `$${(v.msrp_usd / 1000).toFixed(0)}k` : v.drivetrain || '—'}
-                  </p>
-                </div>
-              </div>
-            </Link>
-          ))}
-        </div>
+        <h2 className="mb-4 text-2xl font-bold text-text-primary">Start with a reviewed configuration</h2>
+        <p className="mb-5 text-text-secondary">These guides identify their source, market and test standard. They are a selection of reviewed configurations, not a ranking of every EV.</p>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{reviewedGuides.map(([slug, review]) => <Link key={slug} href={`/vehicles/${slug}`} className="space-y-3 rounded-xl border border-border bg-bg-secondary p-5 hover:border-accent"><h3 className="font-semibold text-text-primary">{review.variants[0].name}</h3><p className="text-sm text-text-secondary">{review.summary}</p><p className="text-sm text-accent">Read the configuration and sources →</p></Link>)}</div>
       </section>
 
       {/* SEO Content */}
@@ -150,42 +102,23 @@ export default async function ComparePage() {
         <h2 className="text-2xl font-display font-bold text-text-primary">
           How to Compare Electric Vehicles
         </h2>
-        <div className="mt-4 max-w-3xl space-y-4 text-text-secondary">
-          <p>
-            Choosing between EVs comes down to a few key factors: range, charging speed,
-            efficiency, price, and how well the vehicle fits your daily needs. Our comparison
-            tool puts these metrics side by side so you can make an informed decision.
-          </p>
-          <p>
-            <strong className="text-text-primary">Range</strong> is the most talked-about spec,
-            but efficiency (kWh per 100 miles) often matters more — a more efficient EV costs less
-            to charge and performs better in cold weather. DC fast charging speed determines how
-            quickly you can add range on road trips.
-          </p>
-          <p>
-            Don&apos;t forget to factor in total cost of ownership. A higher MSRP may be offset by
-            lower fuel costs, tax credits, and reduced maintenance over 5+ years. Use our{' '}
-            <Link href="/ev-vs-gas" className="text-accent hover:underline">
-              EV vs Gas calculator
-            </Link>{' '}
-            and{' '}
-            <Link href="/charging-cost-calculator" className="text-accent hover:underline">
-              Charging Cost calculator
-            </Link>{' '}
-            for the full picture.
-          </p>
+        <div className="mt-4 max-w-3xl space-y-5 text-text-secondary">
+          <h3 className="text-xl font-semibold text-text-primary">1. Match the configuration and test standard</h3>
+          <p>Record model year, trim, wheels and drivetrain for both vehicles. Keep EPA and WLTP ratings separate. A rating for another trim or another market is not a like-for-like comparison. Our reviewed guides explain when a catalog name is too broad for one definitive rating.</p>
+          <p><a className="text-accent underline" href="https://www.fueleconomy.gov/feg/Find.do?action=sbsSelect">Check configurations in the EPA/FuelEconomy.gov comparison tool</a>.</p>
+          <h3 className="text-xl font-semibold text-text-primary">2. Compare your actual charging routine</h3>
+          <p>List your daily distance, available overnight charging time and frequent road trips. For home charging, confirm your circuit and the vehicle’s AC charging capability. For travel, compare connector compatibility and the time needed to add useful range; peak charging power alone does not describe a full stop.</p>
+          <h3 className="text-xl font-semibold text-text-primary">3. Use consistent energy-cost assumptions</h3>
+          <p>Use the same mileage and electricity price for both vehicles. For example, at 12,000 miles per year and $0.20/kWh, consumption of 30 kWh/100 miles gives an estimated $720 annual electricity cost. At 35 kWh/100 miles the same calculation gives $840. These are illustrative inputs, not a quote for any listed vehicle.</p>
+          <p><Link className="text-accent underline" href="/charging-cost-calculator">Try your electricity price in the charging cost calculator</Link>.</p>
+          <h3 className="text-xl font-semibold text-text-primary">4. Compare complete purchase or lease quotes</h3>
+          <p>Use out-the-door prices with the same tax and fee assumptions. For leases, compare total payments, upfront costs, mileage allowance and end-of-term charges. Treat catalog MSRP as historical reference until a dealer confirms the current offer. Verify any incentive separately before subtracting it.</p>
+          <p><Link className="text-accent underline" href="/ev-vs-gas">Estimate EV versus gasoline costs</Link> · <Link className="text-accent underline" href="/ev-incentives">Check incentive eligibility</Link></p>
+          <h3 className="text-xl font-semibold text-text-primary">Why might a vehicle be missing from the picker?</h3>
+          <p>Reviewed entries with ambiguous configurations or a non-EPA test standard are excluded from the EPA-based picker. Their individual vehicle guides explain the available evidence and the details needed to make a fair comparison. Some catalog entries still await a detailed source review; verify critical specifications before a purchase.</p>
         </div>
       </section>
 
-      {/* Empty state */}
-      {comparisons.length === 0 && topVehicles.length === 0 && (
-        <div className="flex flex-col items-center justify-center py-20 text-center">
-          <p className="text-lg font-semibold text-text-primary">No comparisons available</p>
-          <p className="mt-2 text-sm text-text-tertiary">
-            Comparison data will appear once the database is seeded.
-          </p>
-        </div>
-      )}
     </div>
   );
 }
