@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getVehicleBySlug, getVehicles } from '@/lib/supabase/queries/vehicles';
 import { calculateRange, calculateRangeBySpeed } from '@/lib/calculations/range';
-import { generateMetadata as genMeta, generateVehicleSchema, generateBreadcrumbSchema, generateProductSchema } from '@/lib/utils/seo';
+import { generateMetadata as genMeta, generateVehicleSchema, generateBreadcrumbSchema } from '@/lib/utils/seo';
 import { SchemaMarkup } from '@/components/seo/SchemaMarkup';
 import { FAQSection } from '@/components/seo/FAQSection';
 
@@ -205,20 +205,11 @@ export default async function VehicleDetailPage({
     imageUrl: vehicle.image_url,
   });
 
-  const productDescription = `${name}: ${vehicle.epa_range_mi} miles EPA range, ${vehicle.battery_kwh} kWh catalog battery estimate, ${vehicle.efficiency_kwh_per_100mi} kWh/100mi efficiency.`;
-  const productSchema = generateProductSchema({
-    name,
-    description: productDescription,
-    slug: vehicle.slug,
-    msrp: null,
-    imageUrl: vehicle.image_url,
-  });
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
       <SchemaMarkup schema={breadcrumbs} />
       <SchemaMarkup schema={vehicleSchema} />
-      <SchemaMarkup schema={productSchema} />
 
       {/* Breadcrumbs */}
       <nav className="mb-6 flex items-center gap-2 text-sm text-text-tertiary">
