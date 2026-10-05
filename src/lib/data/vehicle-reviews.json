@@ -834,7 +834,7 @@
     "standard": "EPA",
     "summary": "The 2025 US EPA VF 9 Plus entry is rated at 287 miles. Match the model year as well as the Plus trim; an older specification sheet or an Eco range figure does not describe this certification.",
     "decision": "The catalog name includes Extended Range, while EPA names this configuration VF 9 Plus. Verify the 2025 model-year label on the actual vehicle. Check seating, battery documentation and warranty terms separately from the certified range.",
-    "charging": "EPA lists a 240V charge time of 12 hours for this configuration. Charging time depends on the onboard charger and available supply; this rating does not establish a DC fast-charging curve or usable battery capacity.",
+    "charging": "The EPA 240V charging time is shown in the table for this configuration. Charging time depends on the onboard charger and available supply; this rating does not establish a DC fast-charging curve or usable battery capacity.",
     "variants": [
       {
         "name": "VF 9 Plus",
