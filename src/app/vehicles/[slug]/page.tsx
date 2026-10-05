@@ -1,3 +1,4 @@
+import { REVIEWED_VEHICLES } from '@/lib/data/reviewed-vehicles';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -70,10 +71,11 @@ export async function generateMetadata({
   if (!vehicle) return {};
 
   const name = `${vehicle.year} ${vehicle.make} ${vehicle.model}${vehicle.trim ? ` ${vehicle.trim}` : ''}`;
+  const reference = REVIEWED_VEHICLES[slug];
   const hasRange = name.toLowerCase().includes('range');
   return genMeta({
-    title: `${name}${hasRange ? '' : ' Range'} — Specs & Charging | EV Range Tools`,
-    description: `${name}: ${vehicle.epa_range_mi} miles EPA range, ${vehicle.battery_kwh} kWh battery, ${vehicle.efficiency_kwh_per_100mi} kWh/100mi. See real-world range under different conditions.`,
+    title: reference ? `${name} AWD: ${reference.range}-Mile EPA Range & Charging` : `${name}${hasRange ? '' : ' Range'} — Specs & Charging`,
+    description: `${name}: ${vehicle.epa_range_mi}-mile EPA range. Compare calculated highway and winter range, charging information, and battery capacity notes.`,
     path: `/vehicles/${slug}`,
   });
 }
@@ -116,16 +118,16 @@ function generateVehicleFAQs(vehicle: Vehicle, name: string) {
     },
     {
       question: `How does cold weather affect the ${name}'s range?`,
-      answer: `At 30°F (-1°C) with heating on, the ${name} can lose approximately 25-35% of its EPA range, bringing real-world range to roughly ${Math.round(vehicle.epa_range_mi * 0.68)} miles. Pre-conditioning the battery while plugged in helps minimize cold-weather range loss.`,
+      answer: `Cold weather can reduce range through battery conditioning and cabin heating. The table on this page shows a simplified calculated scenario, not a measured result for the ${name}. Use the range calculator to compare assumptions and follow the vehicle manual for preconditioning.`,
     },
     {
       question: `What is the battery size of the ${name}?`,
-      answer: `The ${name} has a ${vehicle.battery_kwh} kWh battery pack with an efficiency rating of ${vehicle.efficiency_kwh_per_100mi} kWh per 100 miles.`,
+      answer: `Our catalog lists ${vehicle.battery_kwh} kWh. This is a catalog estimate, not a verified usable-capacity figure for every battery variant. kWh measures energy; kW measures charging power. EPA wall-energy consumption includes charging losses and cannot be used to infer exact pack capacity.`,
     },
     {
       question: `How much does the ${name} cost?`,
       answer: vehicle.msrp_usd
-        ? `The ${name} starts at $${vehicle.msrp_usd.toLocaleString()} MSRP before any federal or state EV tax credits. Check with local dealers for current pricing and available incentives.`
+        ? `The ${name} has a historical catalog MSRP of $${vehicle.msrp_usd.toLocaleString()}. This is not a current offer. Check the seller for current vehicle condition, configuration, price and local incentives.`
         : `Pricing for the ${name} varies by configuration and dealer. Check the manufacturer's website or local dealers for current MSRP.`,
     },
     {
@@ -158,6 +160,7 @@ export default async function VehicleDetailPage({
   if (!vehicle) notFound();
 
   const name = `${vehicle.year} ${vehicle.make} ${vehicle.model}${vehicle.trim ? ` ${vehicle.trim}` : ''}`;
+  const reference = REVIEWED_VEHICLES[slug];
   const competitors = getCompetitors(vehicle, allVehicles);
   const faqs = generateVehicleFAQs(vehicle, name);
 
@@ -198,16 +201,16 @@ export default async function VehicleDetailPage({
     year: vehicle.year,
     slug: vehicle.slug,
     epaRangeMi: vehicle.epa_range_mi,
-    msrp: vehicle.msrp_usd,
+    msrp: null,
     imageUrl: vehicle.image_url,
   });
 
-  const productDescription = `${name}: ${vehicle.epa_range_mi} miles EPA range, ${vehicle.battery_kwh} kWh battery, ${vehicle.efficiency_kwh_per_100mi} kWh/100mi efficiency.`;
+  const productDescription = `${name}: ${vehicle.epa_range_mi} miles EPA range, ${vehicle.battery_kwh} kWh catalog battery estimate, ${vehicle.efficiency_kwh_per_100mi} kWh/100mi efficiency.`;
   const productSchema = generateProductSchema({
     name,
     description: productDescription,
     slug: vehicle.slug,
-    msrp: vehicle.msrp_usd,
+    msrp: null,
     imageUrl: vehicle.image_url,
   });
 
@@ -234,7 +237,7 @@ export default async function VehicleDetailPage({
             {name}
           </h1>
           <p className="mt-3 text-lg text-text-secondary">
-            {vehicle.epa_range_mi} miles EPA range &middot; {vehicle.battery_kwh} kWh battery
+            {vehicle.epa_range_mi} miles EPA range &middot; {vehicle.battery_kwh} kWh catalog battery estimate
             {vehicle.drivetrain ? ` \u00B7 ${vehicle.drivetrain}` : ''}
           </p>
 
@@ -246,7 +249,7 @@ export default async function VehicleDetailPage({
               <p className="text-xs text-text-tertiary">miles</p>
             </div>
             <div className="rounded-xl border border-border bg-bg-secondary p-4 text-center">
-              <p className="text-xs text-text-tertiary">Battery</p>
+              <p className="text-xs text-text-tertiary">Battery estimate</p>
               <p className="mt-1 font-mono text-2xl font-bold text-text-primary">{vehicle.battery_kwh}</p>
               <p className="text-xs text-text-tertiary">kWh</p>
             </div>
@@ -264,7 +267,7 @@ export default async function VehicleDetailPage({
             )}
             {vehicle.msrp_usd && (
               <div className="rounded-xl border border-border bg-bg-secondary p-4 text-center">
-                <p className="text-xs text-text-tertiary">MSRP</p>
+                <p className="text-xs text-text-tertiary">Historical MSRP</p>
                 <p className="mt-1 font-mono text-2xl font-bold text-text-primary">
                   ${(vehicle.msrp_usd / 1000).toFixed(0)}k
                 </p>
@@ -308,6 +311,15 @@ export default async function VehicleDetailPage({
         </div>
       </div>
 
+      <section className="mb-10 rounded-xl border border-border bg-bg-secondary p-6 text-sm text-text-secondary">
+        <h2 className="mb-3 text-xl font-display font-bold text-text-primary">Range, battery capacity and charging: what the numbers mean</h2>
+        {reference && <p className="mb-3">EPA reference checked October 5, 2026: <a href={`https://www.fueleconomy.gov/feg/noframes/${reference.epaId}.shtml`} className="text-accent hover:underline">2025 {vehicle.make} {vehicle.model} Long Range AWD, record {reference.epaId}</a>. It lists {reference.range} miles and {vehicle.efficiency_kwh_per_100mi} kWh/100 miles of combined wall-energy consumption. This is one US configuration; confirm the label for your drivetrain, wheels and production variant.</p>}
+        <p className="mb-3">Battery energy is measured in kWh; charging power is measured in kW. The catalog battery figure is an estimate and may not distinguish gross from usable capacity. EPA energy consumption includes charging losses, so multiplying it by range does not establish pack capacity.</p>
+        <p className="mb-3">Charging speed changes with battery temperature, state of charge, charger capacity and vehicle limits. A peak kW figure does not apply throughout a charging session.</p>
+        <Link href="/calculator" className="font-semibold text-accent hover:underline">Estimate your range by temperature and speed →</Link>
+        <span className="mx-3">·</span><Link href="/calculator#methodology" className="text-accent hover:underline">Read the calculation method</Link>
+      </section>
+
       {/* Full Specs Table */}
       <section className="mb-12">
         <h2 className="mb-6 text-2xl font-display font-bold text-text-primary">
@@ -321,7 +333,7 @@ export default async function VehicleDetailPage({
               <SpecRow label="Year" value={vehicle.year.toString()} />
               {vehicle.trim && <SpecRow label="Trim" value={vehicle.trim} />}
               <SpecRow label="EPA Range" value={`${vehicle.epa_range_mi} mi / ${vehicle.epa_range_km} km`} highlight />
-              <SpecRow label="Battery Capacity" value={`${vehicle.battery_kwh} kWh`} />
+              <SpecRow label="Battery capacity (catalog estimate)" value={`${vehicle.battery_kwh} kWh`} />
               <SpecRow label="Efficiency" value={`${vehicle.efficiency_kwh_per_100mi} kWh/100mi (${vehicle.efficiency_wh_per_km} Wh/km)`} />
               {vehicle.dc_fast_max_kw && <SpecRow label="DC Fast Charging" value={`${vehicle.dc_fast_max_kw} kW max`} />}
               {vehicle.charge_time_dc_fast_mins && <SpecRow label="DC Fast Charge Time" value={`~${vehicle.charge_time_dc_fast_mins} min to 80%`} />}
@@ -332,7 +344,7 @@ export default async function VehicleDetailPage({
               {vehicle.curb_weight_lbs && <SpecRow label="Curb Weight" value={`${vehicle.curb_weight_lbs.toLocaleString()} lbs`} />}
               {vehicle.cargo_volume_cu_ft && <SpecRow label="Cargo Volume" value={`${vehicle.cargo_volume_cu_ft} cu ft`} />}
               {vehicle.seating_capacity && <SpecRow label="Seating" value={`${vehicle.seating_capacity} passengers`} />}
-              {vehicle.msrp_usd && <SpecRow label="MSRP" value={`$${vehicle.msrp_usd.toLocaleString()}`} />}
+              {vehicle.msrp_usd && <SpecRow label="Historical catalog MSRP" value={`$${vehicle.msrp_usd.toLocaleString()}`} />}
             </tbody>
           </table>
         </div>
@@ -344,7 +356,7 @@ export default async function VehicleDetailPage({
           Range Under Different Conditions
         </h2>
         <p className="mb-4 text-sm text-text-secondary">
-          Real-world range varies significantly based on driving conditions. Here&apos;s how the {vehicle.make} {vehicle.model} performs in common scenarios.
+          These are calculated scenarios using shared adjustment factors, not road-test measurements of the {vehicle.make} {vehicle.model}. Results assume a full charge, 100% battery health and no extra cargo.
         </p>
         <div className="overflow-hidden rounded-xl border border-border">
           <table className="w-full">

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import { reviewedVehicle } from '@/lib/data/reviewed-vehicles';
 import { Select } from '@/components/ui/Select';
 import { createClient } from '@/lib/supabase/client';
 import type { Vehicle } from '@/lib/supabase/types';
@@ -115,7 +116,7 @@ export function VehicleSelector({ onVehicleSelect, selectedVehicle }: VehicleSel
       .order('trim');
 
     if (data) {
-      const vehicles = data as Vehicle[];
+      const vehicles = (data as Vehicle[]).map(reviewedVehicle);
       setTrims(vehicles);
 
       // Auto-select if only one trim

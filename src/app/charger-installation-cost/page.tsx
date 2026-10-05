@@ -1,275 +1,76 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { Suspense } from 'react';
 import InstallationCalcContent from './InstallationCalcContent';
 import { RelatedTools } from '@/components/ui/RelatedTools';
+import { FAQSection } from '@/components/seo/FAQSection';
+import { SchemaMarkup } from '@/components/seo/SchemaMarkup';
+import { generateWebApplicationSchema, generateBreadcrumbSchema } from '@/lib/utils/seo';
+import { calcInstallationCosts, type InstallationInputs } from '@/lib/calculations/installation';
 
 export const metadata: Metadata = {
-  title: 'EV Charger Installation Cost Calculator | Itemized Estimate',
-  description:
-    'Calculate EV charger installation costs by state. Get itemized estimates for labor, wire, breaker, permit, and panel upgrade. Average cost: $300–$1,200.',
+  title: 'EV Charger Installation Cost Calculator | Labor, Permit & Panel',
+  description: 'Estimate home EV charger installation costs with editable labor and permit budgets. Compare wiring distance and panel upgrades, with clear hardware exclusions.',
   alternates: { canonical: '/charger-installation-cost' },
   openGraph: {
     title: 'EV Charger Installation Cost Calculator',
-    description:
-      'Get an accurate cost estimate for Level 2 EV charger installation by state — labor, wire, permit, and panel upgrade included.',
+    description: 'Build an itemized installation budget using your electrician rate, wiring distance and electrical setup.',
     url: '/charger-installation-cost',
     type: 'website',
   },
 };
 
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@graph': [
-    {
-      '@type': 'WebApplication',
-      name: 'EV Charger Installation Cost Calculator',
-      url: 'https://www.evrangetools.com/charger-installation-cost',
-      description:
-        'Calculate the cost to install a Level 2 EV charger at home, including labor, materials, permits, and optional panel upgrades.',
-      applicationCategory: 'UtilityApplication',
-      operatingSystem: 'Any',
-      offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
-    },
-    {
-      '@type': 'HowTo',
-      name: 'How to Estimate EV Charger Installation Cost',
-      step: [
-        {
-          '@type': 'HowToStep',
-          position: 1,
-          name: 'Select your state',
-          text: 'Choose your state to get accurate local labor rates and permit costs.',
-        },
-        {
-          '@type': 'HowToStep',
-          position: 2,
-          name: 'Describe your electrical setup',
-          text: 'Tell us whether you have an existing 240V outlet, a 200A panel, or need a panel upgrade.',
-        },
-        {
-          '@type': 'HowToStep',
-          position: 3,
-          name: 'Choose charger amperage',
-          text: 'Select the amperage of the charger you plan to install (32–60A recommended).',
-        },
-        {
-          '@type': 'HowToStep',
-          position: 4,
-          name: 'Enter panel distance',
-          text: 'Estimate how far your electrical panel is from where the charger will be installed.',
-        },
-        {
-          '@type': 'HowToStep',
-          position: 5,
-          name: 'Review your cost estimate',
-          text: 'Get an itemized breakdown of labor, wire, breaker, permit, and total installation cost.',
-        },
-      ],
-    },
-    {
-      '@type': 'FAQPage',
-      mainEntity: [
-        {
-          '@type': 'Question',
-          name: 'How much does it cost to install a Level 2 EV charger?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'The average cost to install a Level 2 EV charger is $300–$1,200 for a straightforward installation. If you need a new 240V circuit, expect $400–$900. A panel upgrade adds $1,500–$3,000. Labor rates vary by state.',
-          },
-        },
-        {
-          '@type': 'Question',
-          name: 'Do I need a permit to install an EV charger?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'Most states and municipalities require an electrical permit for EV charger installation. Permits typically cost $50–$200. Your electrician will usually pull the permit for you as part of the installation.',
-          },
-        },
-        {
-          '@type': 'Question',
-          name: 'Can I get a tax credit for EV charger installation?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'The federal residential §30C credit applied only to qualifying property placed in service by June 30, 2026. Check the IRS rules for an earlier installation; this calculator does not deduct a federal credit.',
-          },
-        },
-        {
-          '@type': 'Question',
-          name: 'What wire gauge do I need for a Level 2 EV charger?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'Per NEC 625.44, the circuit must be rated at 125% of the charger load. For a 40A charger (most common), you need a 50A circuit with 8 AWG wire. For a 48A charger, you need a 60A circuit with 6 AWG wire.',
-          },
-        },
-        {
-          '@type': 'Question',
-          name: 'How long does EV charger installation take?',
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: 'A basic installation with an existing 240V outlet takes 1–2 hours. Installing a new circuit takes 2–4 hours. A panel upgrade adds 4–6 hours. Most installations are completed in a single day.',
-          },
-        },
-      ],
-    },
-    {
-      '@type': 'BreadcrumbList',
-      itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.evrangetools.com' },
-        {
-          '@type': 'ListItem',
-          position: 2,
-          name: 'EV Charger Installation Cost Calculator',
-          item: 'https://www.evrangetools.com/charger-installation-cost',
-        },
-      ],
-    },
-  ],
-};
+const FAQS = [
+  { question: 'How much does home EV charger installation cost?', answer: 'The price depends on the wiring route, available electrical capacity, permits and local labor. Tesla publishes an installation estimate of $750–$1,500 for its Wall Connector, excluding the separately listed charger. Complex work can cost more. This tool produces an illustrative budget; use an electrician quote for your property.' },
+  { question: 'Does this estimate include the charger itself?', answer: 'No. It includes modeled circuit labor, wire and conduit, breaker materials, permits and an optional panel-upgrade allowance. Add charger hardware, sales tax, trenching, wall repairs and any utility service work separately. Check whether these are included in an installer package.' },
+  { question: 'Do I need a 200-amp panel?', answer: 'Panel rating alone does not determine whether an EV charger will fit. An electrician must assess existing loads, service capacity, the charger setting and any approved load-management equipment. A lower charging current may be sufficient for overnight charging.' },
+  { question: 'Can I use an existing 240V outlet?', answer: 'Only if the equipment manufacturer permits that connection and an electrician confirms the outlet, circuit and wiring are suitable. For charger settings above 40A, this estimator budgets new hardwired circuit work instead of a simple plug-in installation.' },
+  { question: 'Is a federal charger credit deducted?', answer: 'No. The residential federal credit applied only to qualifying property placed in service by June 30, 2026. Check the IRS rules for a historical claim, and verify any current utility rebate with the program administrator.' },
+];
+
+const EXAMPLES: Array<{ name: string; inputs: InstallationInputs }> = [
+  { name: 'Short new circuit', inputs: { stateCode: 'TX', laborRate: 85, permitCost: 100, existingElectrical: 'has_200a_panel', garageType: 'attached', panelDistance: 25, chargerAmperage: 40 } },
+  { name: 'Longer wiring run', inputs: { stateCode: 'CA', laborRate: 135, permitCost: 200, existingElectrical: 'has_200a_panel', garageType: 'attached', panelDistance: 75, chargerAmperage: 48 } },
+  { name: 'Confirmed panel upgrade', inputs: { stateCode: 'CA', laborRate: 135, permitCost: 200, existingElectrical: 'needs_panel_upgrade', garageType: 'attached', panelDistance: 25, chargerAmperage: 48 } },
+];
 
 export default function ChargerInstallationCostPage() {
   return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
-
-      <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
-        {/* Breadcrumb */}
-        <nav className="mb-4 flex gap-2 text-xs text-text-tertiary">
-          <Link href="/" className="hover:text-text-secondary">Home</Link>
-          <span>/</span>
-          <span className="text-text-primary">EV Charger Installation Cost Calculator</span>
-        </nav>
-
-        {/* Header */}
-        <div className="mb-8">
-          <h1 className="font-display text-3xl font-bold tracking-tight text-text-primary sm:text-4xl">
-            EV Charger Installation Cost Calculator
-          </h1>
-          <p className="mt-3 max-w-2xl text-text-secondary">
-            Get an accurate, itemized estimate for installing a Level 2 charger at your home —
-            labor, wire, breaker, permit, and panel upgrade by state.
-          </p>
-
-          {/* Feature badges */}
-          <div className="mt-4 flex flex-wrap gap-2">
-            {[
-              'All 50 States',
-              'Itemized Breakdown',
-              'Electrician Guidance',
-              'Utility Rebate Guidance',
-            ].map((badge) => (
-              <span
-                key={badge}
-                className="rounded-full border border-border bg-bg-secondary px-3 py-1 text-xs text-text-secondary"
-              >
-                {badge}
-              </span>
-            ))}
-          </div>
-        </div>
-
-        {/* Calculator */}
-        <Suspense
-          fallback={
-            <div className="h-96 animate-pulse rounded-2xl bg-bg-secondary" />
-          }
-        >
-          <InstallationCalcContent />
-        </Suspense>
-
-        {/* How it works */}
-        <section className="mt-12 border-t border-border pt-8">
-          <h2 className="mb-4 font-display text-xl font-bold text-text-primary">
-            How Installation Costs Are Calculated
-          </h2>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {[
-              {
-                label: 'Labor',
-                desc: 'Hourly rates sourced from HomeAdvisor and Angi averages by state. Typically $75–$130/hr for a licensed electrician.',
-              },
-              {
-                label: 'Wire & Materials',
-                desc: 'Wire cost depends on distance to panel and required AWG gauge. Breaker cost varies by amperage (typically $20–$60).',
-              },
-              {
-                label: 'Permits',
-                desc: 'Most jurisdictions require an electrical permit for 240V circuits. Average permit cost is $50–$200 depending on your city.',
-              },
-              {
-                label: 'Panel Upgrade',
-                desc: 'If your panel is 100A or less, upgrading to 200A costs $1,500–$3,000 for parts and labor. Often required for 48A+ chargers.',
-              },
-              {
-                label: 'Wire Gauge (NEC 625.44)',
-                desc: 'National Electrical Code requires EV circuits to be rated at 125% of continuous load. A 40A charger needs a 50A circuit (8 AWG).',
-              },
-              {
-                label: 'Utility Rebates',
-                desc: 'Many utilities offer $100–$1,000 rebates for Level 2 charger installation. These are deducted from your net cost.',
-              },
-            ].map((item) => (
-              <div key={item.label} className="rounded-xl border border-border bg-bg-secondary p-4">
-                <div className="mb-1 font-semibold text-text-primary">{item.label}</div>
-                <p className="text-sm text-text-secondary">{item.desc}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* FAQ */}
-        <section className="mt-10">
-          <h2 className="mb-4 font-display text-xl font-bold text-text-primary">
-            Frequently Asked Questions
-          </h2>
-          <div className="space-y-4">
-            {[
-              {
-                q: 'How much does Level 2 EV charger installation cost?',
-                a: 'Most homeowners pay $300–$1,200 for a standard installation. If you need a new 240V circuit run from your panel, add $200–$500 in wire and labor. Panel upgrades (if needed) add $1,500–$3,000. The average all-in cost is $500–$900.',
-              },
-              {
-                q: 'What is the cheapest way to install an EV charger at home?',
-                a: 'Using a suitable existing 240V outlet may reduce installation cost. Compare quotes from licensed electricians and check your utility for any current rebate. Federal residential charger credits ended for property placed in service after June 30, 2026.',
-              },
-              {
-                q: 'Can I install an EV charger myself?',
-                a: 'Plugging in a Level 1 charger (standard 120V outlet) requires no installation. For Level 2 hardwired chargers, you need a licensed electrician — DIY electrical work violates most local codes and can void homeowner\'s insurance. Some plug-in Level 2 chargers (like the Grizzl-E or ChargePoint Flex) can use an existing NEMA 14-50 outlet if you have one.',
-              },
-              {
-                q: 'Do I need a 200-amp panel for an EV charger?',
-                a: 'Not always. A 32A charger only uses 40A of capacity, which most 100A panels can accommodate. However, if your panel is already near capacity (running HVAC, electric appliances, etc.), an upgrade to 200A is recommended — especially for 48A+ chargers. An electrician can assess your panel\'s available capacity.',
-              },
-              {
-                q: 'What charger amperage should I choose?',
-                a: 'For most EVs, a 40–48A charger provides 25–35 miles of range per hour of charging — plenty for overnight charging. A 32A charger (most affordable) adds about 20 miles/hour. Only choose 60A+ if you have a large-battery truck or SUV (Rivian, GMC Hummer) that can accept higher charging rates.',
-              },
-            ].map((faq) => (
-              <details
-                key={faq.q}
-                className="group rounded-xl border border-border bg-bg-secondary"
-              >
-                <summary className="flex cursor-pointer list-none items-center justify-between px-5 py-4 font-medium text-text-primary">
-                  {faq.q}
-                  <span className="ml-4 flex-shrink-0 text-text-tertiary transition-transform group-open:rotate-180">
-                    ▾
-                  </span>
-                </summary>
-                <p className="px-5 pb-4 text-sm text-text-secondary">{faq.a}</p>
-              </details>
-            ))}
-          </div>
-        </section>
-
-        <RelatedTools tools={[
-          { href: '/home-charger-wizard', emoji: '🔌', label: 'Charger Setup Wizard', desc: 'Get personalized charger picks before you call an electrician' },
-          { href: '/ev-rebates', emoji: '💵', label: 'Utility Rebates', desc: 'Find rebates from your utility — up to $1,000 back' },
-          { href: '/charging-stations', emoji: '📍', label: 'Charging Station Finder', desc: 'Find nearby public stations as a backup while you set up at home' },
-        ]} />
-      </div>
-    </>
+    <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
+      <SchemaMarkup schema={[
+        generateWebApplicationSchema('EV Charger Installation Cost Calculator', 'Estimate a home charger installation budget with editable local costs.', 'https://www.evrangetools.com/charger-installation-cost'),
+        generateBreadcrumbSchema([{ name: 'Home', href: '/' }, { name: 'EV Charger Installation Cost', href: '/charger-installation-cost' }]),
+      ]} />
+      <nav className="mb-4 text-sm text-text-tertiary"><Link href="/" className="hover:text-accent">Home</Link> / EV Charger Installation Cost</nav>
+      <header className="mb-8">
+        <h1 className="text-3xl font-display font-bold text-text-primary sm:text-4xl">EV Charger Installation Cost Calculator</h1>
+        <p className="mt-3 max-w-3xl text-text-secondary">Build an itemized budget for a home Level 2 charger installation. Set your electrician rate, permit budget, wire distance and electrical setup. Charger hardware is priced separately.</p>
+      </header>
+      <InstallationCalcContent />
+      <section className="my-12 space-y-4 text-text-secondary">
+        <h2 className="text-2xl font-display font-bold text-text-primary">What should you budget?</h2>
+        <p><a href="https://www.tesla.com/support/charging/home-charging" className="text-accent hover:underline">Tesla’s home-charging guide</a> lists $750–$1,500 as an estimated Wall Connector installation cost, with equipment priced separately. This is a manufacturer benchmark, not a national average or a quote for your home. Longer wiring runs, trenching and electrical upgrades can increase the cost.</p>
+        <h2 className="pt-4 text-2xl font-display font-bold text-text-primary">Three example installation budgets</h2>
+        <p>These examples use the calculator’s assumptions and are not completed-project quotes. All assume an attached garage. Each total excludes charger hardware and the additional work listed below.</p>
+        <div className="overflow-x-auto"><table className="w-full text-sm"><thead><tr><th className="py-3 text-left">Scenario</th><th className="text-left">Inputs</th><th className="text-right">Modeled installation</th></tr></thead><tbody>{EXAMPLES.map(({ name, inputs }) => {
+          const cost = calcInstallationCosts(inputs);
+          return <tr key={name} className="border-t border-border"><td className="py-4 pr-4">{name}</td><td className="pr-4">{inputs.panelDistance} ft; ${inputs.laborRate}/hr; ${inputs.permitCost} permit</td><td className="text-right">${cost.total.low.toLocaleString()}–${cost.total.high.toLocaleString()}</td></tr>;
+        })}</tbody></table></div>
+      </section>
+      <section id="methodology" className="my-12 space-y-4 text-text-secondary">
+        <h2 className="text-2xl font-display font-bold text-text-primary">Assumptions and exclusions</h2>
+        <p>State defaults are illustrative budget inputs, not verified local market averages. Replace them with your installer rate and local permit fee. The model allows 2–4 labor hours for a new circuit; unknown electrical setups allow 2–5. A suitable existing connection at up to 40A allows 1–2 hours.</p>
+        <p>Materials start at $2.50 per foot for a wire-and-conduit allowance, with a 20% upper buffer, and $75–$98 for breaker materials. Detached garages add a 30-foot wiring allowance. Actual wire size and routing are determined by your installer; these are budgeting assumptions, not a materials shopping list.</p>
+        <p>A confirmed panel upgrade adds a $1,500–$3,000 allowance to the circuit installation budget. This is not automatically required for a 100A panel. The estimate does not model utility service upgrades, trench excavation, wall repairs, pedestal installation, taxes or charger hardware.</p>
+        <p>Ask for a written quote showing hardware, permits and inspections, the wiring route, electrical capacity assessment, any load management, and the scope of panel work. Compare the same scope across quotes.</p>
+        <p>Electrical compatibility should be checked against the equipment instructions. <a href="https://www.tesla.com/support/charging/wall-connector" className="text-accent hover:underline">Tesla’s Wall Connector table</a>, for example, pairs a 60A circuit with a maximum 48A charging output.</p>
+        <p className="text-sm">Source guidance reviewed October 5, 2026. See <a href="https://www.irs.gov/credits-deductions/alternative-fuel-vehicle-refueling-property-credit" className="text-accent hover:underline">IRS residential charger-credit rules</a> for historical eligibility and deadlines.</p>
+      </section>
+      <FAQSection faqs={FAQS} />
+      <RelatedTools tools={[
+        { href: '/ev-rebates', emoji: '💵', label: 'Utility Rebates', desc: 'Check utility program details and current terms' },
+        { href: '/calculator', emoji: '📊', label: 'EV Range Calculator', desc: 'Estimate driving range under different conditions' },
+        { href: '/charging-cost-calculator', emoji: '🔋', label: 'Charging Cost Calculator', desc: 'Estimate electricity costs for charging' },
+      ]} />
+    </div>
   );
 }

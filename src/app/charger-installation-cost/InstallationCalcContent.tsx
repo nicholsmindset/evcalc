@@ -1,152 +1,10 @@
 'use client';
 
 import { useState, useMemo } from 'react';
-
-const STATES = [
-  { code: 'AL', name: 'Alabama', rate: 75, permit: 75 },
-  { code: 'AK', name: 'Alaska', rate: 100, permit: 150 },
-  { code: 'AZ', name: 'Arizona', rate: 90, permit: 100 },
-  { code: 'AR', name: 'Arkansas', rate: 70, permit: 75 },
-  { code: 'CA', name: 'California', rate: 135, permit: 200 },
-  { code: 'CO', name: 'Colorado', rate: 100, permit: 150 },
-  { code: 'CT', name: 'Connecticut', rate: 110, permit: 175 },
-  { code: 'DE', name: 'Delaware', rate: 95, permit: 125 },
-  { code: 'FL', name: 'Florida', rate: 85, permit: 100 },
-  { code: 'GA', name: 'Georgia', rate: 80, permit: 100 },
-  { code: 'HI', name: 'Hawaii', rate: 130, permit: 200 },
-  { code: 'ID', name: 'Idaho', rate: 80, permit: 75 },
-  { code: 'IL', name: 'Illinois', rate: 105, permit: 150 },
-  { code: 'IN', name: 'Indiana', rate: 80, permit: 100 },
-  { code: 'IA', name: 'Iowa', rate: 75, permit: 75 },
-  { code: 'KS', name: 'Kansas', rate: 75, permit: 75 },
-  { code: 'KY', name: 'Kentucky', rate: 75, permit: 75 },
-  { code: 'LA', name: 'Louisiana', rate: 75, permit: 75 },
-  { code: 'ME', name: 'Maine', rate: 90, permit: 125 },
-  { code: 'MD', name: 'Maryland', rate: 105, permit: 150 },
-  { code: 'MA', name: 'Massachusetts', rate: 115, permit: 175 },
-  { code: 'MI', name: 'Michigan', rate: 90, permit: 125 },
-  { code: 'MN', name: 'Minnesota', rate: 95, permit: 125 },
-  { code: 'MS', name: 'Mississippi', rate: 70, permit: 75 },
-  { code: 'MO', name: 'Missouri', rate: 80, permit: 100 },
-  { code: 'MT', name: 'Montana', rate: 80, permit: 75 },
-  { code: 'NE', name: 'Nebraska', rate: 80, permit: 75 },
-  { code: 'NV', name: 'Nevada', rate: 100, permit: 150 },
-  { code: 'NH', name: 'New Hampshire', rate: 95, permit: 125 },
-  { code: 'NJ', name: 'New Jersey', rate: 110, permit: 175 },
-  { code: 'NM', name: 'New Mexico', rate: 85, permit: 100 },
-  { code: 'NY', name: 'New York', rate: 120, permit: 200 },
-  { code: 'NC', name: 'North Carolina', rate: 80, permit: 100 },
-  { code: 'ND', name: 'North Dakota', rate: 75, permit: 75 },
-  { code: 'OH', name: 'Ohio', rate: 85, permit: 100 },
-  { code: 'OK', name: 'Oklahoma', rate: 75, permit: 75 },
-  { code: 'OR', name: 'Oregon', rate: 100, permit: 150 },
-  { code: 'PA', name: 'Pennsylvania', rate: 95, permit: 125 },
-  { code: 'RI', name: 'Rhode Island', rate: 105, permit: 150 },
-  { code: 'SC', name: 'South Carolina', rate: 75, permit: 100 },
-  { code: 'SD', name: 'South Dakota', rate: 75, permit: 75 },
-  { code: 'TN', name: 'Tennessee', rate: 75, permit: 100 },
-  { code: 'TX', name: 'Texas', rate: 85, permit: 100 },
-  { code: 'UT', name: 'Utah', rate: 85, permit: 100 },
-  { code: 'VT', name: 'Vermont', rate: 95, permit: 125 },
-  { code: 'VA', name: 'Virginia', rate: 95, permit: 125 },
-  { code: 'WA', name: 'Washington', rate: 110, permit: 150 },
-  { code: 'WV', name: 'West Virginia', rate: 75, permit: 75 },
-  { code: 'WI', name: 'Wisconsin', rate: 90, permit: 125 },
-  { code: 'WY', name: 'Wyoming', rate: 80, permit: 75 },
-  { code: 'DC', name: 'District of Columbia', rate: 130, permit: 200 },
-];
-
-// Wire cost per foot (AWG 6 = ~$2.50/ft installed, AWG 8 = ~$2.00/ft)
-const WIRE_COST_PER_FOOT = 2.5;
-const BREAKER_COST = 75;
-
-type ExistingElectrical = 'has_240v_outlet' | 'has_200a_panel' | 'needs_panel_upgrade' | 'unsure';
-type GarageType = 'attached' | 'detached' | 'carport' | 'street';
-type ChargerAmperage = 24 | 32 | 40 | 48 | 60;
-
-interface Inputs {
-  stateCode: string;
-  existingElectrical: ExistingElectrical;
-  garageType: GarageType;
-  panelDistance: number;
-  chargerAmperage: ChargerAmperage;
-}
-
-interface CostBreakdown {
-  labor: { low: number; high: number };
-  wire: { low: number; high: number };
-  breaker: { low: number; high: number };
-  permit: { low: number; high: number };
-  panelUpgrade?: { low: number; high: number };
-  total: { low: number; high: number };
-}
-
-function calcCosts(inputs: Inputs): CostBreakdown {
-  const state = STATES.find((s) => s.code === inputs.stateCode) ?? STATES[4]; // CA default
-  const rate = state.rate;
-  const permit = state.permit;
-
-  const distanceFt = inputs.panelDistance;
-  const wireCost = Math.round(distanceFt * WIRE_COST_PER_FOOT);
-
-  // Detached garage adds 20–50ft wire run estimate
-  const extraWire = inputs.garageType === 'detached' ? Math.round(30 * WIRE_COST_PER_FOOT) : 0;
-
-  let laborHoursLow: number;
-  let laborHoursHigh: number;
-  let needsBreaker = true;
-  let panelUpgrade: { low: number; high: number } | undefined;
-
-  switch (inputs.existingElectrical) {
-    case 'has_240v_outlet':
-      // Plug-in install: just mount charger, no new circuit
-      laborHoursLow = 1;
-      laborHoursHigh = 2;
-      needsBreaker = false;
-      break;
-    case 'has_200a_panel':
-      // New circuit needed, panel has capacity
-      laborHoursLow = 2;
-      laborHoursHigh = 4;
-      break;
-    case 'needs_panel_upgrade':
-      // New circuit + panel upgrade
-      laborHoursLow = 6;
-      laborHoursHigh = 10;
-      panelUpgrade = { low: 1500, high: 3000 };
-      break;
-    case 'unsure':
-    default:
-      // Mid estimate: assume new circuit
-      laborHoursLow = 2;
-      laborHoursHigh = 5;
-      break;
-  }
-
-  const laborLow = Math.round(laborHoursLow * rate);
-  const laborHigh = Math.round(laborHoursHigh * rate);
-  const breakerLow = needsBreaker ? BREAKER_COST : 0;
-  const breakerHigh = needsBreaker ? Math.round(BREAKER_COST * 1.3) : 0;
-  const wireLow = needsBreaker ? wireCost + extraWire : 0;
-  const wireHigh = needsBreaker ? Math.round((wireCost + extraWire) * 1.2) : 0;
-  const permitLow = needsBreaker ? permit : 0;
-  const permitHigh = needsBreaker ? Math.round(permit * 1.3) : 0;
-
-  const panelLow = panelUpgrade?.low ?? 0;
-  const panelHigh = panelUpgrade?.high ?? 0;
-
-  return {
-    labor: { low: laborLow, high: laborHigh },
-    wire: { low: wireLow, high: wireHigh },
-    breaker: { low: breakerLow, high: breakerHigh },
-    permit: { low: permitLow, high: permitHigh },
-    panelUpgrade: panelUpgrade,
-    total: {
-      low: laborLow + wireLow + breakerLow + permitLow + panelLow,
-      high: laborHigh + wireHigh + breakerHigh + permitHigh + panelHigh,
-    },
-  };
-}
+import { INSTALLATION_STATES as STATES, calcInstallationCosts, type InstallationInputs as Inputs } from '@/lib/calculations/installation';
+type ChargerAmperage = Inputs['chargerAmperage'];
+type ExistingElectrical = Inputs['existingElectrical'];
+type GarageType = Inputs['garageType'];
 
 function getElectricianGuidance(amperage: ChargerAmperage): {
   awg: string;
@@ -154,26 +12,12 @@ function getElectricianGuidance(amperage: ChargerAmperage): {
   outlet: string;
   nec: string;
 } {
-  // NEC 625.44: EVSE branch circuit = 125% of continuous load
-  // 40A charger → needs 50A circuit (40 * 1.25 = 50)
   const circuitAmps = Math.ceil(amperage * 1.25 / 10) * 10;
-  let awg = '6 AWG copper';
-  if (circuitAmps <= 30) awg = '10 AWG copper';
-  else if (circuitAmps <= 40) awg = '8 AWG copper';
-  else if (circuitAmps <= 60) awg = '6 AWG copper';
-  else awg = '4 AWG copper';
-
-  let outlet = 'Hardwired (no outlet)';
-  if (amperage <= 24) outlet = 'NEMA 6-20 or hardwired';
-  else if (amperage <= 32) outlet = 'NEMA 14-30 or hardwired';
-  else if (amperage <= 40) outlet = 'NEMA 14-50 or hardwired';
-  else outlet = 'Hardwired recommended';
-
   return {
-    awg,
-    breaker: `${circuitAmps}A double-pole breaker`,
-    outlet,
-    nec: `NEC 625.44 — EVSE branch circuit must be rated at 125% of charger load (${amperage}A × 1.25 = ${amperage * 1.25}A → ${circuitAmps}A circuit)`,
+    awg: 'Installer to size for wire type, terminals and route',
+    breaker: `${circuitAmps}A circuit planning allowance`,
+    outlet: amperage > 40 ? 'Hardwired equipment; confirm manufacturer requirements' : 'Manufacturer-approved connection on a suitably rated circuit',
+    nec: `Planning rule: ${amperage}A charging × 125% = ${amperage * 1.25}A minimum circuit capacity. An electrician must verify the equipment instructions, load calculation and locally adopted code.`,
   };
 }
 
@@ -191,13 +35,13 @@ export default function InstallationCalcContent() {
   });
 
   const [showResults, setShowResults] = useState(false);
-  const costs = useMemo(() => calcCosts(inputs), [inputs]);
+  const costs = useMemo(() => calcInstallationCosts(inputs), [inputs]);
   const guidance = useMemo(() => getElectricianGuidance(inputs.chargerAmperage), [inputs.chargerAmperage]);
 
   const ELECTRICAL_OPTIONS: { value: ExistingElectrical; label: string; desc: string }[] = [
-    { value: 'has_240v_outlet', label: 'I have a 240V outlet in my garage', desc: 'Fastest/cheapest — plug-in install only' },
-    { value: 'has_200a_panel', label: '200A panel, no 240V outlet yet', desc: 'New circuit needed, most common' },
-    { value: 'needs_panel_upgrade', label: 'Need panel upgrade (100A panel or full)', desc: 'Panel upgrade required first' },
+    { value: 'has_240v_outlet', label: 'I have a 240V outlet in my garage', desc: 'Requires installer approval; above 40A budgets a new circuit' },
+    { value: 'has_200a_panel', label: '200A panel, no 240V outlet yet', desc: 'New circuit budget; installer must confirm capacity' },
+    { value: 'needs_panel_upgrade', label: 'Electrician has confirmed a panel upgrade is needed', desc: 'Includes an additional upgrade budget' },
     { value: 'unsure', label: 'Not sure', desc: 'We\'ll estimate the most common scenario' },
   ];
 
@@ -211,9 +55,9 @@ export default function InstallationCalcContent() {
   const AMP_OPTIONS: { value: ChargerAmperage; label: string }[] = [
     { value: 24, label: '24A — 5.7 kW (basic Level 2)' },
     { value: 32, label: '32A — 7.7 kW (popular)' },
-    { value: 40, label: '40A — 9.6 kW (most common)' },
-    { value: 48, label: '48A — 11.5 kW (recommended)' },
-    { value: 60, label: '60A — 14.4 kW (maximum)' },
+    { value: 40, label: '40A — 9.6 kW' },
+    { value: 48, label: '48A — 11.5 kW' },
+    { value: 60, label: '60A — 14.4 kW (compatible equipment only)' },
   ];
 
   return (
@@ -225,8 +69,9 @@ export default function InstallationCalcContent() {
           Your State
         </label>
         <select
+          aria-label="Your State"
           value={inputs.stateCode}
-          onChange={(e) => setInputs({ ...inputs, stateCode: e.target.value })}
+          onChange={(e) => setInputs({ ...inputs, stateCode: e.target.value, laborRate: undefined, permitCost: undefined })}
           className="w-full rounded-lg border border-border bg-bg-tertiary px-3 py-2 text-sm text-text-primary focus:outline-none focus:ring-2 focus:ring-accent/50"
         >
           {STATES.map((s) => (
@@ -234,8 +79,18 @@ export default function InstallationCalcContent() {
           ))}
         </select>
         <p className="mt-1 text-xs text-text-tertiary">
-          Average electrician rate in {STATES.find(s => s.code === inputs.stateCode)?.name}: ${STATES.find(s => s.code === inputs.stateCode)?.rate}/hr
+          Budget assumption for {STATES.find(s => s.code === inputs.stateCode)?.name}: ${STATES.find(s => s.code === inputs.stateCode)?.rate}/hr
         </p>
+      </div>
+
+      <div className="grid gap-4 sm:grid-cols-2">
+        <label className="text-sm text-text-secondary">Electrician quote per hour ($)
+          <input type="number" min="0" max="1000" value={inputs.laborRate ?? STATES.find(s => s.code === inputs.stateCode)?.rate ?? 135} onChange={e => setInputs({ ...inputs, laborRate: Math.max(0, Math.min(1000, Number(e.target.value))) })} className="mt-2 w-full rounded-lg border border-border bg-bg-tertiary p-3" />
+        </label>
+        <label className="text-sm text-text-secondary">Permit budget ($)
+          <input type="number" min="0" max="10000" value={inputs.permitCost ?? STATES.find(s => s.code === inputs.stateCode)?.permit ?? 200} onChange={e => setInputs({ ...inputs, permitCost: Math.max(0, Math.min(10000, Number(e.target.value))) })} className="mt-2 w-full rounded-lg border border-border bg-bg-tertiary p-3" />
+        </label>
+        <p className="text-xs text-text-tertiary sm:col-span-2">Replace the illustrative defaults with your local quote. The estimate excludes charger hardware, sales tax, trenching, wall repairs and utility service work.</p>
       </div>
 
       {/* Existing electrical */}
@@ -279,6 +134,7 @@ export default function InstallationCalcContent() {
           {GARAGE_OPTIONS.map((opt) => (
             <button
               key={opt.value}
+              aria-pressed={inputs.garageType === opt.value}
               type="button"
               onClick={() => setInputs({ ...inputs, garageType: opt.value })}
               className={`rounded-lg border px-3 py-2 text-sm transition-all ${
@@ -299,6 +155,7 @@ export default function InstallationCalcContent() {
           Charger Amperage
         </label>
         <select
+          aria-label="Charger Amperage"
           value={inputs.chargerAmperage}
           onChange={(e) => setInputs({ ...inputs, chargerAmperage: Number(e.target.value) as ChargerAmperage })}
           className="w-full rounded-lg border border-border bg-bg-tertiary px-3 py-2 text-sm text-text-primary focus:outline-none focus:ring-2 focus:ring-accent/50"
@@ -310,13 +167,14 @@ export default function InstallationCalcContent() {
       </div>
 
       {/* Panel distance */}
-      {inputs.existingElectrical !== 'has_240v_outlet' && (
+      {(inputs.existingElectrical !== 'has_240v_outlet' || inputs.chargerAmperage > 40) && (
         <div>
           <label className="mb-2 block text-sm font-semibold text-text-primary">
             Distance from Panel to Charger Location: <span className="text-accent">{inputs.panelDistance} ft</span>
           </label>
           <input
             type="range"
+            aria-label="Distance from panel to charger in feet"
             min={10}
             max={150}
             step={5}
@@ -390,7 +248,7 @@ export default function InstallationCalcContent() {
               ))}
             </div>
             <p className="mt-3 rounded-lg bg-bg-tertiary p-3 text-xs text-text-tertiary">
-              📋 <strong className="text-text-secondary">NEC Code:</strong> {guidance.nec}
+              📋 <strong className="text-text-secondary">Circuit planning:</strong> {guidance.nec}
             </p>
           </div>
 
@@ -412,7 +270,7 @@ export default function InstallationCalcContent() {
           <div className="rounded-xl border border-border bg-bg-secondary p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <div>
               <div className="text-sm font-semibold text-text-primary">Check Your Utility Rebate</div>
-              <div className="text-xs text-text-secondary mt-0.5">35+ utilities offer $100–$1,000 for Level 2 installation</div>
+              <div className="text-xs text-text-secondary mt-0.5">Check current eligibility and amounts with your utility</div>
             </div>
             <a href="/ev-rebates" className="whitespace-nowrap rounded-lg border border-border px-3 py-2 text-xs font-semibold text-text-secondary hover:text-accent hover:border-accent/30 transition-colors">
               Find My Utility →
