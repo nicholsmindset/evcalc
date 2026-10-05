@@ -5,8 +5,16 @@ const Module = require('node:module');
 const path = require('node:path');
 function loadTs(file) {
   const filename = path.resolve(file);
-  const output = ts.transpileModule(fs.readFileSync(filename, 'utf8'), { compilerOptions: { module: ts.ModuleKind.CommonJS, target: ts.ScriptTarget.ES2020 } }).outputText;
-  const mod = new Module(filename, module); mod.filename = filename; mod.paths = module.paths; mod._compile(output, filename); return mod.exports;
+  const output = ts.transpileModule(fs.readFileSync(filename, 'utf8'), { compilerOptions: { module: ts.ModuleKind.CommonJS, esModuleInterop: true, target: ts.ScriptTarget.ES2020 } }).outputText;
+  const mod = new Module(filename, module); mod.filename = filename; mod.paths = module.paths;
+  mod.require = specifier => {
+    if (specifier === '@/lib/blog') return { getAllSlugs: () => [] };
+    if (specifier.includes('/supabase/queries/')) return {};
+    if (specifier.startsWith('@/')) return loadTs('src/' + specifier.slice(2) + '.ts');
+    if (specifier.endsWith('.json')) return require(path.resolve(path.dirname(filename), specifier));
+    return require(specifier);
+  };
+  mod._compile(output, filename); return mod.exports;
 }
 const { compareLeaseQuote } = loadTs('src/lib/calculations/lease-quote.ts');
 const quote = { monthly: 400, months: 36, upfront: 3000, firstPaymentIncluded: true, endFees: 400, annualAllowance: 10000, annualMiles: 15000, excessRate: .25 };
@@ -41,4 +49,21 @@ assert.match(inputs['nissan-leaf-plus-2024'].connector_type, /CHAdeMO/);
 assert.equal(inputs['hyundai-ioniq-5-limited-awd-2025'].epa_range_mi, 269);
 assert.equal(inputs['hyundai-ioniq-6-se-long-range-rwd-2025'].epa_range_mi, 342);
 assert.equal(reviews['vinfast-vf9-plus-extended-2025'].variants[0].rangeMi, 291);
+const snapshot = require('../docs/data/epa-vehicle-reference-2026-10-05.json');
+const records = Object.fromEntries(snapshot.records.map(r => [r.id, r]));
+for (const review of Object.values(reviews)) for (const variant of review.variants) {
+  const match = variant.source?.match(/noframes\/(\d+)\.shtml/);
+  if (match) {
+    assert.equal(variant.rangeMi, Number(records[match[1]].range));
+    if (variant.consumption != null) assert.equal(variant.consumption, Number(records[match[1]].combE));
+  }
+}
 console.log('PASS: lease totals, first-payment handling, mileage, invalid inputs, 32 review records and EPA unit conversions');
+
+loadTs('src/lib/sitemap.ts').getSitemap('vehicles').then(entries => {
+  const urls = new Map(entries.map(e => [e.url, e.lastModified]));
+  assert.equal(urls.size, entries.length, 'No duplicate sitemap URLs');
+  for (const slug of Object.keys(reviews)) assert.equal(urls.get(`https://www.evrangetools.com/vehicles/${slug}`), '2026-10-05');
+  for (const slug of Object.keys(loadTs('src/lib/data/lease-page-reviews.ts').LEASE_PAGE_REVIEWS)) assert.equal(urls.get(`https://www.evrangetools.com/vehicles/${slug}/lease-deals`), '2026-10-05');
+  console.log(`PASS: ${entries.length} sitemap URLs, all reviewed guides and five lease pages have stable update dates`);
+}).catch(error => { console.error(error); process.exitCode = 1; });

@@ -63,4 +63,7 @@ The vehicle sitemap now includes all reviewed guide slugs, including ones missin
 ## Verification
 
 - `node scripts/check-vehicle-reviews.cjs`: passed. Covers first-payment double counting, mileage proration, unequal terms, invalid inputs, review coverage and unit conversion.
-- TypeScript check: passed before the final sitemap/link additions; production build and rendered-page verification recorded below when complete.
+- TypeScript and Vercel preview checks passed. Local production build passed with 468 generated pages and only existing unrelated warnings.
+- All 37 rendered pages (29 priority vehicles, three supporting vehicles and five leases) passed HTTP 200, self-canonical, single H1, indexability, updated-content and source/offer-schema checks.
+- Browser: verified Polestar quote A at $21,150 total / $587.50 effective monthly, first-payment toggle at $21,550 / $598.61, and unequal 24-month quote B at $10,800 / $450 with the term warning.
+- Sitemap source test passed: 90 URLs, no duplicates, all 32 reviewed guides and five leases dated 2026-10-05. The earlier local build snapshot preceded the sitemap edit; final production XML is checked after deployment.
