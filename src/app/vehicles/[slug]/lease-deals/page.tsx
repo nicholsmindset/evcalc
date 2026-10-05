@@ -1,3 +1,6 @@
+import { LEASE_PAGE_REVIEWS } from '@/lib/data/lease-page-reviews';
+import { ReviewedLeasePage } from '@/components/vehicles/ReviewedLeasePage';
+import { generateMetadata as genMeta } from '@/lib/utils/seo';
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -29,6 +32,7 @@ export async function generateMetadata({
   if (!vehicle) return {};
 
   const name = `${vehicle.year} ${vehicle.make} ${vehicle.model}${vehicle.trim ? ` ${vehicle.trim}` : ''}`;
+  if (LEASE_PAGE_REVIEWS[slug]) return genMeta({ title: `${name} Lease Guide & Quote Calculator`, description: `Compare written ${name} lease quotes including upfront costs, tax, mileage and return fees. No unverified current offer or assumed residual value.`, path: `/vehicles/${slug}/lease-deals` });
   return {
     title: `${name} Lease Deals & Calculator ${vehicle.year} | EV Range Tools`,
     description: `Compare estimated ${name} lease and purchase payments, residual values, and money factors without an expired federal vehicle credit.`,
@@ -50,6 +54,7 @@ export default async function VehicleLeasePage({
   const { slug } = await params;
   const vehicle = await getVehicleBySlug(slug);
   if (!vehicle) notFound();
+  if (LEASE_PAGE_REVIEWS[slug]) return <ReviewedLeasePage vehicle={vehicle} />;
 
   const allLeaseTerms = await getAllLeaseEstimates(vehicle.make, vehicle.model, vehicle.year);
 

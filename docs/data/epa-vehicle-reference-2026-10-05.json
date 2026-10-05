@@ -1,0 +1,377 @@
+{
+  "source": "https://www.fueleconomy.gov/feg/epadata/vehicles.csv.zip",
+  "reviewed": "2026-10-05",
+  "downloadSha256": "33d32caa0343cdb11c47be631e8a80b7ed7c351ee8503646a4e96485bd67b22f",
+  "records": [
+    {
+      "id": "46974",
+      "year": "2024",
+      "make": "Nissan",
+      "model": "LEAF SV",
+      "range": "212",
+      "combE": "30.7824",
+      "charge240": "11.0",
+      "drive": "Front-Wheel Drive"
+    },
+    {
+      "id": "48296",
+      "year": "2025",
+      "make": "Audi",
+      "model": "Q4 45 e-tron",
+      "range": "288",
+      "combE": "29.4031",
+      "charge240": "12.0",
+      "drive": "Rear-Wheel Drive"
+    },
+    {
+      "id": "48362",
+      "year": "2025",
+      "make": "Hyundai",
+      "model": "Ioniq 6 RWD (18 inch Wheels)",
+      "range": "342",
+      "combE": "26.0",
+      "charge240": "7.5",
+      "drive": "Rear-Wheel Drive"
+    },
+    {
+      "id": "48363",
+      "year": "2025",
+      "make": "Hyundai",
+      "model": "Ioniq 6 RWD (20 inch Wheels)",
+      "range": "291",
+      "combE": "29.7709",
+      "charge240": "7.5",
+      "drive": "Rear-Wheel Drive"
+    },
+    {
+      "id": "48368",
+      "year": "2025",
+      "make": "Kia",
+      "model": "EV9 Long Range AWD",
+      "range": "280",
+      "combE": "41.0",
+      "charge240": "14.5",
+      "drive": "All-Wheel Drive"
+    },
+    {
+      "id": "48369",
+      "year": "2025",
+      "make": "Kia",
+      "model": "EV9 Long Range AWD GT-Line",
+      "range": "270",
+      "combE": "42.0",
+      "charge240": "15.2",
+      "drive": "All-Wheel Drive"
+    },
+    {
+      "id": "48371",
+      "year": "2025",
+      "make": "Lucid",
+      "model": "Air G Touring XR AWD with 19 inch wheels",
+      "range": "512",
+      "combE": "26.4283",
+      "charge240": "13.0",
+      "drive": "All-Wheel Drive"
+    },
+    {
+      "id": "48372",
+      "year": "2025",
+      "make": "Lucid",
+      "model": "Air G Touring XR AWD with 20 inch wheels",
+      "range": "480",
+      "combE": "28.1608",
+      "charge240": "13.0",
+      "drive": "All-Wheel Drive"
+    },
+    {
+      "id": "48373",
+      "year": "2025",
+      "make": "Lucid",
+      "model": "Air G Touring XR AWD with 21 inch wheels",
+      "range": "446",
+      "combE": "30.1254",
+      "charge240": "13.0",
+      "drive": "All-Wheel Drive"
+    },
+    {
+      "id": "48383",
+      "year": "2025",
+      "make": "Mercedes-Benz",
+      "model": "EQE 350 4matic",
+      "range": "267",
+      "combE": "39.0",
+      "charge240": "10.75",
+      "drive": "All-Wheel Drive"
+    },
+    {
+      "id": "48384",
+      "year": "2025",
+      "make": "Mercedes-Benz",
+      "model": "EQE 350 Plus",
+      "range": "308",
+      "combE": "36.0",
+      "charge240": "11.5",
+      "drive": "Rear-Wheel Drive"
+    },
+    {
+      "id": "48407",
+      "year": "2025",
+      "make": "Polestar",
+      "model": "4 Long Range Single Motor",
+      "range": "300",
+      "combE": "37.0",
+      "charge240": "11.0",
+      "drive": "Rear-Wheel Drive"
+    },
+    {
+      "id": "48412",
+      "year": "2025",
+      "make": "Polestar",
+      "model": "4 Long Range Dual Motor",
+      "range": "272",
+      "combE": "41.0",
+      "charge240": "11.0",
+      "drive": "All-Wheel Drive"
+    },
+    {
+      "id": "48429",
+      "year": "2025",
+      "make": "Rivian",
+      "model": "R1S All-Terrain Dual Max (20in)",
+      "range": "370",
+      "combE": "43.2248",
+      "charge240": "15.0",
+      "drive": "Part-time 4-Wheel Drive"
+    },
+    {
+      "id": "48433",
+      "year": "2025",
+      "make": "Rivian",
+      "model": "R1S Dual Max (20in)",
+      "range": "380",
+      "combE": "41.9729",
+      "charge240": "15.0",
+      "drive": "Part-time 4-Wheel Drive"
+    },
+    {
+      "id": "48434",
+      "year": "2025",
+      "make": "Rivian",
+      "model": "R1S Dual Max (22in)",
+      "range": "410",
+      "combE": "39.9385",
+      "charge240": "15.0",
+      "drive": "Part-time 4-Wheel Drive"
+    },
+    {
+      "id": "48444",
+      "year": "2025",
+      "make": "Volkswagen",
+      "model": "ID. Buzz",
+      "range": "234",
+      "combE": "40.7703",
+      "charge240": "9.0",
+      "drive": "Rear-Wheel Drive"
+    },
+    {
+      "id": "48445",
+      "year": "2025",
+      "make": "Volkswagen",
+      "model": "ID. Buzz 4motion",
+      "range": "231",
+      "combE": "41.9661",
+      "charge240": "9.0",
+      "drive": "All-Wheel Drive"
+    },
+    {
+      "id": "48681",
+      "year": "2025",
+      "make": "Audi",
+      "model": "Q4 55 e-tron quattro",
+      "range": "258",
+      "combE": "33.7331",
+      "charge240": "12.0",
+      "drive": "All-Wheel Drive"
+    },
+    {
+      "id": "48698",
+      "year": "2025",
+      "make": "Chevrolet",
+      "model": "Silverado EV 8WT",
+      "range": "492",
+      "combE": "49.881",
+      "charge240": "13.3",
+      "drive": "4-Wheel Drive"
+    },
+    {
+      "id": "48699",
+      "year": "2025",
+      "make": "Chevrolet",
+      "model": "Silverado EV 5WT (11 kW Charger)",
+      "range": "422",
+      "combE": "48.3284",
+      "charge240": "18.6",
+      "drive": "4-Wheel Drive"
+    },
+    {
+      "id": "48703",
+      "year": "2025",
+      "make": "Fiat",
+      "model": "500e",
+      "range": "149",
+      "combE": "29.1808",
+      "charge240": "6.2",
+      "drive": "Front-Wheel Drive"
+    },
+    {
+      "id": "48704",
+      "year": "2025",
+      "make": "Fiat",
+      "model": "500e All Season",
+      "range": "141",
+      "combE": "30.5327",
+      "charge240": "6.2",
+      "drive": "Front-Wheel Drive"
+    },
+    {
+      "id": "48710",
+      "year": "2025",
+      "make": "Hyundai",
+      "model": "Ioniq 5 AWD (19 inch Wheels)",
+      "range": "290",
+      "combE": "31.6676",
+      "charge240": "8.2",
+      "drive": "All-Wheel Drive"
+    },
+    {
+      "id": "48711",
+      "year": "2025",
+      "make": "Hyundai",
+      "model": "Ioniq 5 AWD (20 inch Wheels)",
+      "range": "269",
+      "combE": "34.497",
+      "charge240": "8.2",
+      "drive": "All-Wheel Drive"
+    },
+    {
+      "id": "48713",
+      "year": "2025",
+      "make": "Hyundai",
+      "model": "Ioniq 5 RWD",
+      "range": "318",
+      "combE": "30.0",
+      "charge240": "9.1",
+      "drive": "Rear-Wheel Drive"
+    },
+    {
+      "id": "48722",
+      "year": "2025",
+      "make": "Nissan",
+      "model": "ARIYA PLATINUM+ e-4ORCE 87kWh 19in. Wheels",
+      "range": "267",
+      "combE": "37.3979",
+      "charge240": "14.0",
+      "drive": "All-Wheel Drive"
+    },
+    {
+      "id": "48723",
+      "year": "2025",
+      "make": "Nissan",
+      "model": "ARIYA PLATINUM+ e-4ORCE 87kWh 20in. Wheels",
+      "range": "257",
+      "combE": "38.8396",
+      "charge240": "14.0",
+      "drive": "All-Wheel Drive"
+    },
+    {
+      "id": "48727",
+      "year": "2025",
+      "make": "Porsche",
+      "model": "Macan 4 Electric",
+      "range": "308",
+      "combE": "34.4628",
+      "charge240": "11.5",
+      "drive": "All-Wheel Drive"
+    },
+    {
+      "id": "48763",
+      "year": "2025",
+      "make": "Subaru",
+      "model": "Solterra Limited/Touring AWD",
+      "range": "222",
+      "combE": "33.0",
+      "charge240": "11.0",
+      "drive": "All-Wheel Drive"
+    },
+    {
+      "id": "48772",
+      "year": "2025",
+      "make": "Tesla",
+      "model": "Model Y Performance AWD",
+      "range": "277",
+      "combE": "32.4121",
+      "charge240": "11.8",
+      "drive": "All-Wheel Drive"
+    },
+    {
+      "id": "49069",
+      "year": "2025",
+      "make": "Chevrolet",
+      "model": "Blazer EV FWD",
+      "range": "312",
+      "combE": "32.2898",
+      "charge240": "9.5",
+      "drive": "Front-Wheel Drive"
+    },
+    {
+      "id": "49070",
+      "year": "2025",
+      "make": "Chevrolet",
+      "model": "Blazer EV FWD 22 inch tire",
+      "range": "283",
+      "combE": "35.6443",
+      "charge240": "9.5",
+      "drive": "Front-Wheel Drive"
+    },
+    {
+      "id": "49071",
+      "year": "2025",
+      "make": "Chevrolet",
+      "model": "Silverado EV 2WT",
+      "range": "282",
+      "combE": "50.7794",
+      "charge240": "13.3",
+      "drive": "4-Wheel Drive"
+    },
+    {
+      "id": "49097",
+      "year": "2025",
+      "make": "Kia",
+      "model": "EV6 Long Range RWD",
+      "range": "319",
+      "combE": "29.5817",
+      "charge240": "9.0",
+      "drive": "Rear-Wheel Drive"
+    },
+    {
+      "id": "50449",
+      "year": "2026",
+      "make": "Jeep",
+      "model": "Recon MOAB 4WD",
+      "range": "222",
+      "combE": "47.562",
+      "charge240": "9.4",
+      "drive": "All-Wheel Drive"
+    },
+    {
+      "id": "49088",
+      "year": "2025",
+      "make": "Vinfast",
+      "model": "VF 9 Plus",
+      "range": "287",
+      "combE": "49.7751",
+      "charge240": "15.0",
+      "drive": "All-Wheel Drive"
+    }
+  ]
+}

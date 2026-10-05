@@ -1,0 +1,854 @@
+{
+  "nissan-leaf-plus-2024": {
+    "market": "United States",
+    "standard": "EPA",
+    "summary": "The US 2024 long-range Leaf is the SV PLUS. The EPA listing abbreviates it to LEAF SV; the 149-mile S is a different battery configuration.",
+    "decision": "For a used Leaf, ask for battery-health information and inspect charging access on your regular routes. Do not use the range of a newer-generation Leaf to plan trips in this model.",
+    "charging": "The 2024 SV PLUS uses a CHAdeMO DC quick-charge port, rated up to 100 kW in Nissan\u2019s brochure. The previous CCS label was incorrect. Check for a working CHAdeMO connector at every planned stop; a CCS listing alone does not establish compatibility.",
+    "variants": [
+      {
+        "name": "LEAF SV",
+        "rangeMi": 212.0,
+        "consumption": 30.7824,
+        "chargeHours": 11.0,
+        "source": "https://www.fueleconomy.gov/feg/noframes/46974.shtml"
+      }
+    ],
+    "sources": [
+      {
+        "title": "EPA: 2024 Nissan LEAF SV",
+        "url": "https://www.fueleconomy.gov/feg/noframes/46974.shtml"
+      },
+      {
+        "title": "Nissan 2024 Leaf specifications",
+        "url": "https://www.nissanusa.com/content/dam/Nissan/us/vehicle-brochures/2024/2024-nissan-nissan-leaf-brochure-en.pdf"
+      }
+    ]
+  },
+  "kia-ev6-wind-rwd-long-range-2025": {
+    "market": "United States",
+    "standard": "EPA",
+    "summary": "The 2025 long-range rear-wheel-drive EPA entry is the appropriate reference for this Wind RWD page. AWD and GT ratings belong to other configurations.",
+    "decision": "Verify model year and drivetrain on the window sticker before comparing an older EV6 listing. For commute planning, leave a charging reserve instead of assuming the full combined rating is available on every highway journey.",
+    "charging": "EPA 240V charging times below describe the tested configuration and equipment. Your home supply and onboard charger can change the time. For a road trip, check the vehicle manual and station compatibility; the peak charging rate is not the session average.",
+    "variants": [
+      {
+        "name": "EV6 Long Range RWD",
+        "rangeMi": 319.0,
+        "consumption": 29.5817,
+        "chargeHours": 9.0,
+        "source": "https://www.fueleconomy.gov/feg/noframes/49097.shtml"
+      }
+    ],
+    "sources": [
+      {
+        "title": "EPA: 2025 Kia EV6 Long Range RWD",
+        "url": "https://www.fueleconomy.gov/feg/noframes/49097.shtml"
+      }
+    ]
+  },
+  "chevrolet-silverado-ev-work-truck-2025": {
+    "market": "United States",
+    "standard": "EPA",
+    "summary": "Work Truck is not a single battery specification. The 2025 EPA database separates 2WT, 5WT and 8WT, with substantially different range ratings.",
+    "decision": "Ask for the WT code and onboard charging equipment before comparing trucks. Payload, trailer aerodynamics and route elevation require a separate towing plan; these unladen combined ratings are not towing ranges.",
+    "charging": "EPA 240V charging times below describe the tested configuration and equipment. Your home supply and onboard charger can change the time. For a road trip, check the vehicle manual and station compatibility; the peak charging rate is not the session average.",
+    "variants": [
+      {
+        "name": "Silverado EV 2WT",
+        "rangeMi": 282.0,
+        "consumption": 50.7794,
+        "chargeHours": 13.3,
+        "source": "https://www.fueleconomy.gov/feg/noframes/49071.shtml"
+      },
+      {
+        "name": "Silverado EV 5WT (11 kW Charger)",
+        "rangeMi": 422.0,
+        "consumption": 48.3284,
+        "chargeHours": 18.6,
+        "source": "https://www.fueleconomy.gov/feg/noframes/48699.shtml"
+      },
+      {
+        "name": "Silverado EV 8WT",
+        "rangeMi": 492.0,
+        "consumption": 49.881,
+        "chargeHours": 13.3,
+        "source": "https://www.fueleconomy.gov/feg/noframes/48698.shtml"
+      }
+    ],
+    "sources": [
+      {
+        "title": "EPA: 2025 Chevrolet Silverado EV 2WT",
+        "url": "https://www.fueleconomy.gov/feg/noframes/49071.shtml"
+      },
+      {
+        "title": "EPA: 2025 Chevrolet Silverado EV 5WT (11 kW Charger)",
+        "url": "https://www.fueleconomy.gov/feg/noframes/48699.shtml"
+      },
+      {
+        "title": "EPA: 2025 Chevrolet Silverado EV 8WT",
+        "url": "https://www.fueleconomy.gov/feg/noframes/48698.shtml"
+      }
+    ]
+  },
+  "subaru-solterra-touring-2025": {
+    "market": "United States",
+    "standard": "EPA",
+    "summary": "EPA groups the 2025 Limited and Touring AWD together at 222 miles. The separate 227-mile Solterra entry is not the rating used for this Touring page.",
+    "decision": "Touring equipment does not create a longer EPA range than Limited. Compare comfort equipment and condition separately, then check whether your daily route leaves sufficient reserve in winter.",
+    "charging": "EPA 240V charging times below describe the tested configuration and equipment. Your home supply and onboard charger can change the time. For a road trip, check the vehicle manual and station compatibility; the peak charging rate is not the session average.",
+    "variants": [
+      {
+        "name": "Solterra Limited/Touring AWD",
+        "rangeMi": 222.0,
+        "consumption": 33.0,
+        "chargeHours": 11.0,
+        "source": "https://www.fueleconomy.gov/feg/noframes/48763.shtml"
+      }
+    ],
+    "sources": [
+      {
+        "title": "EPA: 2025 Subaru Solterra Limited/Touring AWD",
+        "url": "https://www.fueleconomy.gov/feg/noframes/48763.shtml"
+      }
+    ]
+  },
+  "subaru-solterra-limited-2025": {
+    "market": "United States",
+    "standard": "EPA",
+    "summary": "The 2025 Limited shares an EPA certification entry with Touring. Its 222-mile combined rating replaces the unsupported 228-mile figure previously shown here.",
+    "decision": "When comparing a Limited with another Solterra trim, use the matching EPA entry. For a used purchase, evaluate battery condition and charging history as well as the original range label.",
+    "charging": "EPA 240V charging times below describe the tested configuration and equipment. Your home supply and onboard charger can change the time. For a road trip, check the vehicle manual and station compatibility; the peak charging rate is not the session average.",
+    "variants": [
+      {
+        "name": "Solterra Limited/Touring AWD",
+        "rangeMi": 222.0,
+        "consumption": 33.0,
+        "chargeHours": 11.0,
+        "source": "https://www.fueleconomy.gov/feg/noframes/48763.shtml"
+      }
+    ],
+    "sources": [
+      {
+        "title": "EPA: 2025 Subaru Solterra Limited/Touring AWD",
+        "url": "https://www.fueleconomy.gov/feg/noframes/48763.shtml"
+      }
+    ]
+  },
+  "rivian-r1s-dual-motor-max-pack-2025": {
+    "market": "United States",
+    "standard": "EPA",
+    "summary": "A Max battery does not give every R1S the same range. EPA lists separate 22-inch, 20-inch and All-Terrain configurations for the 2025 Dual Motor.",
+    "decision": "Match both wheel size and tire package before using a range figure. The 410-mile 22-inch reference should not be carried over to the 370-mile All-Terrain version. Reserve extra energy for roof cargo and towing.",
+    "charging": "EPA 240V charging times below describe the tested configuration and equipment. Your home supply and onboard charger can change the time. For a road trip, check the vehicle manual and station compatibility; the peak charging rate is not the session average.",
+    "variants": [
+      {
+        "name": "R1S Dual Max (22in)",
+        "rangeMi": 410.0,
+        "consumption": 39.9385,
+        "chargeHours": 15.0,
+        "source": "https://www.fueleconomy.gov/feg/noframes/48434.shtml"
+      },
+      {
+        "name": "R1S Dual Max (20in)",
+        "rangeMi": 380.0,
+        "consumption": 41.9729,
+        "chargeHours": 15.0,
+        "source": "https://www.fueleconomy.gov/feg/noframes/48433.shtml"
+      },
+      {
+        "name": "R1S All-Terrain Dual Max (20in)",
+        "rangeMi": 370.0,
+        "consumption": 43.2248,
+        "chargeHours": 15.0,
+        "source": "https://www.fueleconomy.gov/feg/noframes/48429.shtml"
+      }
+    ],
+    "sources": [
+      {
+        "title": "EPA: 2025 Rivian R1S Dual Max (22in)",
+        "url": "https://www.fueleconomy.gov/feg/noframes/48434.shtml"
+      },
+      {
+        "title": "EPA: 2025 Rivian R1S Dual Max (20in)",
+        "url": "https://www.fueleconomy.gov/feg/noframes/48433.shtml"
+      },
+      {
+        "title": "EPA: 2025 Rivian R1S All-Terrain Dual Max (20in)",
+        "url": "https://www.fueleconomy.gov/feg/noframes/48429.shtml"
+      }
+    ]
+  },
+  "kia-ev9-land-awd-2025": {
+    "market": "United States",
+    "standard": "EPA",
+    "summary": "This Land AWD page uses the EPA long-range AWD rating of 280 miles. The 270-mile GT-Line is shown as a comparison, not as an interchangeable Land rating.",
+    "decision": "Confirm the trim and drivetrain when shopping three-row EV9 listings. The longest-range RWD specification belongs to a different configuration; do not assume it applies to Land AWD.",
+    "charging": "EPA 240V charging times below describe the tested configuration and equipment. Your home supply and onboard charger can change the time. For a road trip, check the vehicle manual and station compatibility; the peak charging rate is not the session average.",
+    "variants": [
+      {
+        "name": "EV9 Long Range AWD",
+        "rangeMi": 280.0,
+        "consumption": 41.0,
+        "chargeHours": 14.5,
+        "source": "https://www.fueleconomy.gov/feg/noframes/48368.shtml"
+      },
+      {
+        "name": "EV9 Long Range AWD GT-Line",
+        "rangeMi": 270.0,
+        "consumption": 42.0,
+        "chargeHours": 15.2,
+        "source": "https://www.fueleconomy.gov/feg/noframes/48369.shtml"
+      }
+    ],
+    "sources": [
+      {
+        "title": "EPA: 2025 Kia EV9 Long Range AWD",
+        "url": "https://www.fueleconomy.gov/feg/noframes/48368.shtml"
+      },
+      {
+        "title": "EPA: 2025 Kia EV9 Long Range AWD GT-Line",
+        "url": "https://www.fueleconomy.gov/feg/noframes/48369.shtml"
+      }
+    ]
+  },
+  "audi-q4-e-tron-premium-2025": {
+    "market": "United States",
+    "standard": "EPA",
+    "summary": "Premium is an equipment grade, not a complete powertrain description. EPA distinguishes the Q4 55 quattro AWD from the Q4 45 rear-wheel-drive version.",
+    "decision": "Check whether the listing is a 45 or 55 quattro before deciding which rating applies. The catalog previously combined an AWD description with an unsupported single range; both certified alternatives are shown here.",
+    "charging": "EPA 240V charging times below describe the tested configuration and equipment. Your home supply and onboard charger can change the time. For a road trip, check the vehicle manual and station compatibility; the peak charging rate is not the session average.",
+    "variants": [
+      {
+        "name": "Q4 55 e-tron quattro",
+        "rangeMi": 258.0,
+        "consumption": 33.7331,
+        "chargeHours": 12.0,
+        "source": "https://www.fueleconomy.gov/feg/noframes/48681.shtml"
+      },
+      {
+        "name": "Q4 45 e-tron",
+        "rangeMi": 288.0,
+        "consumption": 29.4031,
+        "chargeHours": 12.0,
+        "source": "https://www.fueleconomy.gov/feg/noframes/48296.shtml"
+      }
+    ],
+    "sources": [
+      {
+        "title": "EPA: 2025 Audi Q4 55 e-tron quattro",
+        "url": "https://www.fueleconomy.gov/feg/noframes/48681.shtml"
+      },
+      {
+        "title": "EPA: 2025 Audi Q4 45 e-tron",
+        "url": "https://www.fueleconomy.gov/feg/noframes/48296.shtml"
+      }
+    ]
+  },
+  "polestar-4-long-range-dual-motor-2025": {
+    "market": "United States",
+    "standard": "EPA",
+    "summary": "The US EPA rating for the 2025 Long Range Dual Motor is 272 miles. The Single Motor reaches 300 miles in a separate certification entry.",
+    "decision": "Keep drivetrain consistent when comparing a lease or used-car quote. A listing that advertises the Single Motor range alongside Dual Motor equipment needs clarification from the seller.",
+    "charging": "EPA 240V charging times below describe the tested configuration and equipment. Your home supply and onboard charger can change the time. For a road trip, check the vehicle manual and station compatibility; the peak charging rate is not the session average.",
+    "variants": [
+      {
+        "name": "4 Long Range Dual Motor",
+        "rangeMi": 272.0,
+        "consumption": 41.0,
+        "chargeHours": 11.0,
+        "source": "https://www.fueleconomy.gov/feg/noframes/48412.shtml"
+      },
+      {
+        "name": "4 Long Range Single Motor",
+        "rangeMi": 300.0,
+        "consumption": 37.0,
+        "chargeHours": 11.0,
+        "source": "https://www.fueleconomy.gov/feg/noframes/48407.shtml"
+      }
+    ],
+    "sources": [
+      {
+        "title": "EPA: 2025 Polestar 4 Long Range Dual Motor",
+        "url": "https://www.fueleconomy.gov/feg/noframes/48412.shtml"
+      },
+      {
+        "title": "EPA: 2025 Polestar 4 Long Range Single Motor",
+        "url": "https://www.fueleconomy.gov/feg/noframes/48407.shtml"
+      }
+    ]
+  },
+  "chevrolet-blazer-ev-lt-fwd-2025": {
+    "market": "United States",
+    "standard": "EPA",
+    "summary": "The 2025 Blazer EV FWD has a 312-mile EPA entry and a separate 283-mile entry for 22-inch tires. Neither should be confused with AWD or RWD versions.",
+    "decision": "Confirm wheel fitment and front-wheel drive on the vehicle you are pricing. Comparing only the LT badge can hide differences in powertrain and certified range.",
+    "charging": "EPA 240V charging times below describe the tested configuration and equipment. Your home supply and onboard charger can change the time. For a road trip, check the vehicle manual and station compatibility; the peak charging rate is not the session average.",
+    "variants": [
+      {
+        "name": "Blazer EV FWD",
+        "rangeMi": 312.0,
+        "consumption": 32.2898,
+        "chargeHours": 9.5,
+        "source": "https://www.fueleconomy.gov/feg/noframes/49069.shtml"
+      },
+      {
+        "name": "Blazer EV FWD 22 inch tire",
+        "rangeMi": 283.0,
+        "consumption": 35.6443,
+        "chargeHours": 9.5,
+        "source": "https://www.fueleconomy.gov/feg/noframes/49070.shtml"
+      }
+    ],
+    "sources": [
+      {
+        "title": "EPA: 2025 Chevrolet Blazer EV FWD",
+        "url": "https://www.fueleconomy.gov/feg/noframes/49069.shtml"
+      },
+      {
+        "title": "EPA: 2025 Chevrolet Blazer EV FWD 22 inch tire",
+        "url": "https://www.fueleconomy.gov/feg/noframes/49070.shtml"
+      }
+    ]
+  },
+  "fiat-500e-2025": {
+    "market": "United States",
+    "standard": "EPA",
+    "summary": "EPA lists 149 miles for the 2025 Fiat 500e and 141 miles for its All Season configuration. The tire specification matters even though both carry the 500e name.",
+    "decision": "Compare the rating with your round-trip commute plus a reserve. For occasional longer drives, check charging stops first rather than judging the car solely by its compact size.",
+    "charging": "EPA 240V charging times below describe the tested configuration and equipment. Your home supply and onboard charger can change the time. For a road trip, check the vehicle manual and station compatibility; the peak charging rate is not the session average.",
+    "variants": [
+      {
+        "name": "500e",
+        "rangeMi": 149.0,
+        "consumption": 29.1808,
+        "chargeHours": 6.2,
+        "source": "https://www.fueleconomy.gov/feg/noframes/48703.shtml"
+      },
+      {
+        "name": "500e All Season",
+        "rangeMi": 141.0,
+        "consumption": 30.5327,
+        "chargeHours": 6.2,
+        "source": "https://www.fueleconomy.gov/feg/noframes/48704.shtml"
+      }
+    ],
+    "sources": [
+      {
+        "title": "EPA: 2025 Fiat 500e",
+        "url": "https://www.fueleconomy.gov/feg/noframes/48703.shtml"
+      },
+      {
+        "title": "EPA: 2025 Fiat 500e All Season",
+        "url": "https://www.fueleconomy.gov/feg/noframes/48704.shtml"
+      }
+    ]
+  },
+  "mercedes-benz-eqe-350-4matic-2025": {
+    "market": "United States",
+    "standard": "EPA",
+    "summary": "This entry covers the 2025 EQE 350 4MATIC sedan. Its 267-mile EPA rating is separate from the EQE SUV and the rear-wheel-drive 350+ sedan.",
+    "decision": "Check the body style as well as the 350 badge in dealer listings. Sedan and SUV ratings are not interchangeable, and the 4MATIC drivetrain should remain consistent in comparisons.",
+    "charging": "EPA 240V charging times below describe the tested configuration and equipment. Your home supply and onboard charger can change the time. For a road trip, check the vehicle manual and station compatibility; the peak charging rate is not the session average.",
+    "variants": [
+      {
+        "name": "EQE 350 4matic",
+        "rangeMi": 267.0,
+        "consumption": 39.0,
+        "chargeHours": 10.75,
+        "source": "https://www.fueleconomy.gov/feg/noframes/48383.shtml"
+      }
+    ],
+    "sources": [
+      {
+        "title": "EPA: 2025 Mercedes-Benz EQE 350 4matic",
+        "url": "https://www.fueleconomy.gov/feg/noframes/48383.shtml"
+      }
+    ]
+  },
+  "mercedes-benz-eqe-350-plus-2025": {
+    "market": "United States",
+    "standard": "EPA",
+    "summary": "The 2025 EQE 350+ sedan has a 308-mile EPA rating. This is the sedan certification, not the similarly named EQE 350+ SUV.",
+    "decision": "Use the full model and body style when comparing prices. A 350+ range claim on a 4MATIC listing should be checked against that car\u2019s own window sticker.",
+    "charging": "EPA 240V charging times below describe the tested configuration and equipment. Your home supply and onboard charger can change the time. For a road trip, check the vehicle manual and station compatibility; the peak charging rate is not the session average.",
+    "variants": [
+      {
+        "name": "EQE 350 Plus",
+        "rangeMi": 308.0,
+        "consumption": 36.0,
+        "chargeHours": 11.5,
+        "source": "https://www.fueleconomy.gov/feg/noframes/48384.shtml"
+      }
+    ],
+    "sources": [
+      {
+        "title": "EPA: 2025 Mercedes-Benz EQE 350 Plus",
+        "url": "https://www.fueleconomy.gov/feg/noframes/48384.shtml"
+      }
+    ]
+  },
+  "nissan-ariya-platinum-e-4orce-2025": {
+    "market": "United States",
+    "standard": "EPA",
+    "summary": "The Platinum+ e-4ORCE 87 kWh version has separate EPA ratings for 19-inch and 20-inch wheels: 267 and 257 miles respectively.",
+    "decision": "Ask which wheel package is fitted before planning a long trip. Other Ariya trims may have different batteries or drivetrains, so their range figures should not be substituted for Platinum+.",
+    "charging": "EPA 240V charging times below describe the tested configuration and equipment. Your home supply and onboard charger can change the time. For a road trip, check the vehicle manual and station compatibility; the peak charging rate is not the session average.",
+    "variants": [
+      {
+        "name": "ARIYA PLATINUM+ e-4ORCE 87kWh 19in. Wheels",
+        "rangeMi": 267.0,
+        "consumption": 37.3979,
+        "chargeHours": 14.0,
+        "source": "https://www.fueleconomy.gov/feg/noframes/48722.shtml"
+      },
+      {
+        "name": "ARIYA PLATINUM+ e-4ORCE 87kWh 20in. Wheels",
+        "rangeMi": 257.0,
+        "consumption": 38.8396,
+        "chargeHours": 14.0,
+        "source": "https://www.fueleconomy.gov/feg/noframes/48723.shtml"
+      }
+    ],
+    "sources": [
+      {
+        "title": "EPA: 2025 Nissan ARIYA PLATINUM+ e-4ORCE 87kWh 19in. Wheels",
+        "url": "https://www.fueleconomy.gov/feg/noframes/48722.shtml"
+      },
+      {
+        "title": "EPA: 2025 Nissan ARIYA PLATINUM+ e-4ORCE 87kWh 20in. Wheels",
+        "url": "https://www.fueleconomy.gov/feg/noframes/48723.shtml"
+      }
+    ]
+  },
+  "hyundai-ioniq-5-limited-awd-2025": {
+    "market": "United States",
+    "standard": "EPA",
+    "summary": "The 2025 Limited AWD uses the EPA 20-inch-wheel configuration rated at 269 miles. The higher 19-inch AWD and RWD ratings describe different specifications.",
+    "decision": "Check the model year and wheel size when comparing used or remaining new stock. A Long Range label alone is not enough to identify this Limited AWD rating.",
+    "charging": "EPA 240V charging times below describe the tested configuration and equipment. Your home supply and onboard charger can change the time. For a road trip, check the vehicle manual and station compatibility; the peak charging rate is not the session average.",
+    "variants": [
+      {
+        "name": "Ioniq 5 AWD (20 inch Wheels)",
+        "rangeMi": 269.0,
+        "consumption": 34.497,
+        "chargeHours": 8.2,
+        "source": "https://www.fueleconomy.gov/feg/noframes/48711.shtml"
+      }
+    ],
+    "sources": [
+      {
+        "title": "EPA: 2025 Hyundai Ioniq 5 AWD (20 inch Wheels)",
+        "url": "https://www.fueleconomy.gov/feg/noframes/48711.shtml"
+      }
+    ]
+  },
+  "hyundai-ioniq-6-se-long-range-rwd-2025": {
+    "market": "United States",
+    "standard": "EPA",
+    "summary": "The SE Long Range RWD reference is the 18-inch-wheel EPA entry at 342 miles. The 20-inch RWD entry is 291 miles, illustrating why wheel size must remain part of the comparison.",
+    "decision": "For maximum range, verify that the actual car matches the 18-inch configuration. Do not mix the Standard Range, AWD or 20-inch specifications with the SE Long Range RWD label.",
+    "charging": "EPA 240V charging times below describe the tested configuration and equipment. Your home supply and onboard charger can change the time. For a road trip, check the vehicle manual and station compatibility; the peak charging rate is not the session average.",
+    "variants": [
+      {
+        "name": "Ioniq 6 RWD (18 inch Wheels)",
+        "rangeMi": 342.0,
+        "consumption": 26.0,
+        "chargeHours": 7.5,
+        "source": "https://www.fueleconomy.gov/feg/noframes/48362.shtml"
+      },
+      {
+        "name": "Ioniq 6 RWD (20 inch Wheels)",
+        "rangeMi": 291.0,
+        "consumption": 29.7709,
+        "chargeHours": 7.5,
+        "source": "https://www.fueleconomy.gov/feg/noframes/48363.shtml"
+      }
+    ],
+    "sources": [
+      {
+        "title": "EPA: 2025 Hyundai Ioniq 6 RWD (18 inch Wheels)",
+        "url": "https://www.fueleconomy.gov/feg/noframes/48362.shtml"
+      },
+      {
+        "title": "EPA: 2025 Hyundai Ioniq 6 RWD (20 inch Wheels)",
+        "url": "https://www.fueleconomy.gov/feg/noframes/48363.shtml"
+      }
+    ]
+  },
+  "lucid-air-grand-touring-2025": {
+    "market": "United States",
+    "standard": "EPA",
+    "summary": "EPA range for the 2025 Air Grand Touring varies from 512 miles on 19-inch wheels to 480 on 20-inch and 446 on 21-inch wheels.",
+    "decision": "Choose the wheel-specific figure from the table when budgeting charging stops. The highest advertised range is not a promise for every Grand Touring; compare the wheel package on the actual car.",
+    "charging": "EPA 240V charging times below describe the tested configuration and equipment. Your home supply and onboard charger can change the time. For a road trip, check the vehicle manual and station compatibility; the peak charging rate is not the session average.",
+    "variants": [
+      {
+        "name": "Air G Touring XR AWD with 19 inch wheels",
+        "rangeMi": 512.0,
+        "consumption": 26.4283,
+        "chargeHours": 13.0,
+        "source": "https://www.fueleconomy.gov/feg/noframes/48371.shtml"
+      },
+      {
+        "name": "Air G Touring XR AWD with 20 inch wheels",
+        "rangeMi": 480.0,
+        "consumption": 28.1608,
+        "chargeHours": 13.0,
+        "source": "https://www.fueleconomy.gov/feg/noframes/48372.shtml"
+      },
+      {
+        "name": "Air G Touring XR AWD with 21 inch wheels",
+        "rangeMi": 446.0,
+        "consumption": 30.1254,
+        "chargeHours": 13.0,
+        "source": "https://www.fueleconomy.gov/feg/noframes/48373.shtml"
+      }
+    ],
+    "sources": [
+      {
+        "title": "EPA: 2025 Lucid Air G Touring XR AWD with 19 inch wheels",
+        "url": "https://www.fueleconomy.gov/feg/noframes/48371.shtml"
+      },
+      {
+        "title": "EPA: 2025 Lucid Air G Touring XR AWD with 20 inch wheels",
+        "url": "https://www.fueleconomy.gov/feg/noframes/48372.shtml"
+      },
+      {
+        "title": "EPA: 2025 Lucid Air G Touring XR AWD with 21 inch wheels",
+        "url": "https://www.fueleconomy.gov/feg/noframes/48373.shtml"
+      }
+    ]
+  },
+  "porsche-macan-electric-4-2025": {
+    "market": "United States",
+    "standard": "EPA",
+    "summary": "The Macan 4 Electric has a 308-mile 2025 EPA rating. The base Macan Electric, 4S and Turbo are separate versions with their own certifications.",
+    "decision": "Check that a listing says Macan 4 Electric, rather than simply Macan or Macan 4. Petrol Macans and other electric powertrains need different specifications and ownership-cost assumptions.",
+    "charging": "EPA 240V charging times below describe the tested configuration and equipment. Your home supply and onboard charger can change the time. For a road trip, check the vehicle manual and station compatibility; the peak charging rate is not the session average.",
+    "variants": [
+      {
+        "name": "Macan 4 Electric",
+        "rangeMi": 308.0,
+        "consumption": 34.4628,
+        "chargeHours": 11.5,
+        "source": "https://www.fueleconomy.gov/feg/noframes/48727.shtml"
+      }
+    ],
+    "sources": [
+      {
+        "title": "EPA: 2025 Porsche Macan 4 Electric",
+        "url": "https://www.fueleconomy.gov/feg/noframes/48727.shtml"
+      }
+    ]
+  },
+  "tesla-model-y-performance-2025": {
+    "market": "United States",
+    "standard": "EPA",
+    "summary": "The 2025 EPA Performance AWD entry is rated at 277 miles. Model Y production versions and Long Range drivetrains should not be treated as identical.",
+    "decision": "Confirm the production version, wheel package and drivetrain on the actual vehicle before comparing a quote.",
+    "charging": "EPA 240V charging times below describe the tested configuration and equipment. Your home supply and onboard charger can change the time. For a road trip, check the vehicle manual and station compatibility; the peak charging rate is not the session average.",
+    "variants": [
+      {
+        "name": "Model Y Performance AWD",
+        "rangeMi": 277.0,
+        "consumption": 32.4121,
+        "chargeHours": 11.8,
+        "source": "https://www.fueleconomy.gov/feg/noframes/48772.shtml"
+      }
+    ],
+    "sources": [
+      {
+        "title": "EPA: 2025 Tesla Model Y Performance AWD",
+        "url": "https://www.fueleconomy.gov/feg/noframes/48772.shtml"
+      }
+    ]
+  },
+  "volkswagen-id-buzz-pro-s-2025": {
+    "market": "United States",
+    "standard": "EPA",
+    "summary": "The US 2025 rear-wheel-drive ID. Buzz EPA entry is 234 miles. The 4MOTION entry is 231 miles and represents a different drivetrain.",
+    "decision": "Check whether your Pro S quote is rear-wheel drive and match the seating and equipment to your needs. Do not substitute European ID. Buzz figures for a US vehicle.",
+    "charging": "EPA 240V charging times below describe the tested configuration and equipment. Your home supply and onboard charger can change the time. For a road trip, check the vehicle manual and station compatibility; the peak charging rate is not the session average.",
+    "variants": [
+      {
+        "name": "ID. Buzz",
+        "rangeMi": 234.0,
+        "consumption": 40.7703,
+        "chargeHours": 9.0,
+        "source": "https://www.fueleconomy.gov/feg/noframes/48444.shtml"
+      },
+      {
+        "name": "ID. Buzz 4motion",
+        "rangeMi": 231.0,
+        "consumption": 41.9661,
+        "chargeHours": 9.0,
+        "source": "https://www.fueleconomy.gov/feg/noframes/48445.shtml"
+      }
+    ],
+    "sources": [
+      {
+        "title": "EPA: 2025 Volkswagen ID. Buzz",
+        "url": "https://www.fueleconomy.gov/feg/noframes/48444.shtml"
+      },
+      {
+        "title": "EPA: 2025 Volkswagen ID. Buzz 4motion",
+        "url": "https://www.fueleconomy.gov/feg/noframes/48445.shtml"
+      }
+    ]
+  },
+  "hyundai-ioniq-5-sel-long-range-2025": {
+    "market": "United States",
+    "standard": "EPA",
+    "summary": "This SEL Long Range reference uses the 2025 rear-wheel-drive rating of 318 miles. The 19-inch AWD entry is 290 miles.",
+    "decision": "A quote that only says SEL needs a drivetrain check. Confirm RWD or AWD before comparing range or monthly payments.",
+    "charging": "EPA 240V charging times below describe the tested configuration and equipment. Your home supply and onboard charger can change the time. For a road trip, check the vehicle manual and station compatibility; the peak charging rate is not the session average.",
+    "variants": [
+      {
+        "name": "Ioniq 5 RWD",
+        "rangeMi": 318.0,
+        "consumption": 30.0,
+        "chargeHours": 9.1,
+        "source": "https://www.fueleconomy.gov/feg/noframes/48713.shtml"
+      },
+      {
+        "name": "Ioniq 5 AWD (19 inch Wheels)",
+        "rangeMi": 290.0,
+        "consumption": 31.6676,
+        "chargeHours": 8.2,
+        "source": "https://www.fueleconomy.gov/feg/noframes/48710.shtml"
+      }
+    ],
+    "sources": [
+      {
+        "title": "EPA: 2025 Hyundai Ioniq 5 RWD",
+        "url": "https://www.fueleconomy.gov/feg/noframes/48713.shtml"
+      },
+      {
+        "title": "EPA: 2025 Hyundai Ioniq 5 AWD (19 inch Wheels)",
+        "url": "https://www.fueleconomy.gov/feg/noframes/48710.shtml"
+      }
+    ]
+  },
+  "land-rover-defender-110-phev-2025": {
+    "market": "Europe / UK",
+    "standard": "WLTP electric-only",
+    "summary": "The Defender 110 PHEV combines a petrol engine and rechargeable battery. Electric-only range must be kept separate from total driving range; it is not a battery-electric Defender.",
+    "decision": "The 2025 technical specification separates P400e and P300e. Confirm the engine code: P400e is listed at 44\u201351 km and P300e at 44\u201350 km under WLTP. Options and conditions affect the result.",
+    "charging": "Land Rover lists 19.2 kWh total and 15.4 kWh usable battery capacity. Its stated home-charge time is 2 hours 30 minutes at 7 kW; the DC entry specifies 40 kW equipment. Confirm charging equipment for the exact car.",
+    "variants": [
+      {
+        "name": "P400e: electric-only WLTP",
+        "rangeText": "44\u201351 km (27\u201332 mi)"
+      },
+      {
+        "name": "P300e: electric-only WLTP",
+        "rangeText": "44\u201350 km (27\u201331 mi)"
+      }
+    ],
+    "sources": [
+      {
+        "title": "Land Rover 2025 technical specification, pages 12\u201313",
+        "url": "https://www.landrover.com/defender-wltp/"
+      }
+    ]
+  },
+  "jeep-recon-standard-range-2026": {
+    "market": "United States",
+    "standard": "Configuration unverified",
+    "summary": "The existing URL says Standard Range, but we have not verified that trim against an official certification. The previous 280-mile claim has been withdrawn from this page.",
+    "decision": "The EPA database identifies a 2026 Recon MOAB 4WD at 222 miles. That is a different named configuration and is shown only as a reference. Request the actual window sticker before using a range, battery or price figure for a Standard Range listing.",
+    "charging": "Do not plan a trip using the former catalog charging numbers. Confirm the delivered trim, connector and charging instructions in the vehicle documentation.",
+    "variants": [
+      {
+        "name": "MOAB 4WD \u2014 comparison only, not verified Standard Range",
+        "rangeMi": 222,
+        "source": "https://www.fueleconomy.gov/feg/noframes/50449.shtml"
+      }
+    ],
+    "sources": [
+      {
+        "title": "EPA: 2026 Jeep Recon MOAB 4WD",
+        "url": "https://www.fueleconomy.gov/feg/noframes/50449.shtml"
+      }
+    ]
+  },
+  "mercedes-benz-eqa-250-plus-2025": {
+    "market": "United Kingdom / Europe",
+    "standard": "WLTP",
+    "summary": "The EQA 250+ is a European-market reference on this site. The former 255-mile EPA label was unsupported and has been removed.",
+    "decision": "Mercedes\u2019 UK technical reference lists 311\u2013346 miles between least and most efficient specifications for the AMG Line Premium derivative. Confirm the derivative and model-year documentation; this does not establish one universal EQA 250+ range.",
+    "charging": "Ask for the exact car\u2019s charging specification and connector details. US EPA ratings and US dollar prices should not be inferred from a UK EQA listing.",
+    "variants": [
+      {
+        "name": "UK EQA 250+ AMG Line Premium reference",
+        "rangeText": "311\u2013346 miles WLTP"
+      }
+    ],
+    "sources": [
+      {
+        "title": "Mercedes-Benz UK derivative technical details",
+        "url": "https://tax.mercedes-benz.co.uk/details/?derivative=EQA+250PLUSSIGN+AMG+Line+Premium+190hp+140kW+Auto&derivative_extra=&make=Mercedes-Benz&model=EQA"
+      }
+    ]
+  },
+  "honda-eny1-2025": {
+    "market": "United Kingdom / Europe",
+    "standard": "WLTP",
+    "summary": "Honda\u2019s August 2025 UK product guide gives the e:Ny1 up to 256 miles under WLTP. The earlier 193-mile EPA label did not represent a verified EPA test.",
+    "decision": "Use the WLTP rating for comparisons with other European specifications. It is not an EPA-equivalent result and is not a measured winter or motorway range.",
+    "charging": "Honda specifies approximately 45 minutes from 10% to 80% using a 100 kW charger. This is a charging window under stated test conditions, not a claim that the car accepts 100 kW throughout.",
+    "variants": [
+      {
+        "name": "e:Ny1, UK 2025 product guide",
+        "rangeMi": 256
+      }
+    ],
+    "sources": [
+      {
+        "title": "Honda e:Ny1 August 2025 product guide",
+        "url": "https://www.honda.co.uk/content/dam/local/uk/cars/business-cars/HONDA%20eNY1%20Product%20Guide%20August%202025_B.pdf"
+      }
+    ]
+  },
+  "audi-q6-etron-performance-2025": {
+    "market": "Europe",
+    "standard": "WLTP",
+    "summary": "The performance designation is used for Audi\u2019s rear-wheel-drive European Q6 e-tron. Audi\u2019s launch reference gives up to 641 km WLTP; the former 321-mile EPA label mixed market specifications.",
+    "decision": "Check that the car is the SUV performance version, not quattro, Sportback or a US-market Q6. Keep the market and test cycle consistent when comparing range.",
+    "charging": "Audi describes a 100 kWh battery for this launch configuration. Treat that as the stated pack capacity, not an independently verified usable-energy measurement. Confirm AC and DC limits for the actual vehicle.",
+    "variants": [
+      {
+        "name": "Q6 e-tron performance RWD, European launch reference",
+        "rangeText": "Up to 641 km (398 mi) WLTP"
+      }
+    ],
+    "sources": [
+      {
+        "title": "Audi Netherlands: Q6 e-tron performance specifications",
+        "url": "https://nieuws.audi.nl/audi-q6-e-tron-performance-tot-641-km-range-dankzij-de-kracht-van-een-100-kwh-accupakket-en-achterwielaandrijving/"
+      }
+    ]
+  },
+  "audi-a6-etron-performance-2025": {
+    "market": "Europe",
+    "standard": "WLTP",
+    "summary": "This reference covers the A6 Sportback e-tron performance in Audi\u2019s February 2025 European specification. Its quoted WLTP range is 673\u2013756 km, depending on configuration.",
+    "decision": "Sportback and Avant are different body styles. Confirm the body style, wheels and market before comparing a listing; the former single EPA-labelled figure did not identify those choices.",
+    "charging": "Use the vehicle-specific charging documentation for session planning. A range rating alone does not establish battery capacity or a 10\u201380% charging time.",
+    "variants": [
+      {
+        "name": "A6 Sportback e-tron performance, February 2025",
+        "rangeText": "673\u2013756 km (418\u2013470 mi) WLTP"
+      }
+    ],
+    "sources": [
+      {
+        "title": "Audi 2025 A6 Sportback technical data",
+        "url": "https://media.audi.com/is/content/audi/country/lv/assets/Pricelists/2025/March/Audi_A6_e-tron_LT_2025.02.19.pdf"
+      }
+    ]
+  },
+  "nio-et5-100kwh-2025": {
+    "market": "Europe",
+    "standard": "WLTP",
+    "summary": "NIO\u2019s June 2025 European information gives the ET5 up to 590 km WLTP with the 100 kWh battery. This is not a US EPA rating.",
+    "decision": "Verify the 100 kWh pack and whether the sale includes the battery or a separate subscription. Compare the sedan with the sedan; ET5 Touring is a different body style.",
+    "charging": "For public charging or battery swapping, check local service availability and the battery agreement for the car. A nominal 100 kWh pack label alone does not establish usable energy or session time.",
+    "variants": [
+      {
+        "name": "ET5 sedan, 100 kWh European reference",
+        "rangeText": "Up to 590 km (367 mi) WLTP"
+      }
+    ],
+    "sources": [
+      {
+        "title": "NIO June 2025 ET5 information",
+        "url": "https://www.eu.nio.com/blog/202506270000"
+      }
+    ]
+  },
+  "byd-tang-awd-2025": {
+    "market": "Europe",
+    "standard": "WLTP",
+    "summary": "BYD\u2019s newer European Tang specification pairs a 108.8 kWh battery with up to 530 km WLTP range. The catalog had retained an older 86.4 kWh specification.",
+    "decision": "Identify the battery generation when comparing a 2025 registration. The newer specification should not be applied automatically to an older-stock Tang or another market\u2019s version.",
+    "charging": "BYD specifies 170 kW DC charging and a 30\u201380% time of 30 minutes for this configuration. The starting charge matters: this is not a 10\u201380% result.",
+    "variants": [
+      {
+        "name": "European Tang AWD, 108.8 kWh reference",
+        "rangeText": "Up to 530 km (329 mi) WLTP"
+      }
+    ],
+    "sources": [
+      {
+        "title": "BYD Tang European media specifications",
+        "url": "https://media.byd.com/section/models/pure-electric/tang/?lang=eng"
+      }
+    ]
+  },
+  "mg-mg4-ev-long-range-2025": {
+    "market": "United Kingdom",
+    "standard": "WLTP",
+    "summary": "MG\u2019s original UK 64 kWh Long Range specification distinguishes SE at 281 miles from Trophy at 270 miles under WLTP. The page\u2019s broad Long Range name does not identify the equipment grade.",
+    "decision": "Confirm SE versus Trophy and the 64 kWh battery when evaluating a 2025 car. Newer MG4 revisions and the Extended Range version should be compared using their own documentation.",
+    "charging": "Check the handbook for the exact model year\u2019s AC and DC charging limits. A higher advertised charger output does not mean the battery accepts that power through the full session.",
+    "variants": [
+      {
+        "name": "64 kWh SE Long Range",
+        "rangeMi": 281
+      },
+      {
+        "name": "64 kWh Trophy Long Range",
+        "rangeMi": 270
+      }
+    ],
+    "sources": [
+      {
+        "title": "MG UK original Long Range specifications",
+        "url": "https://www.mg.co.uk/media-centre/mg-motor-uk-announces-pricing-and-specifications-striking-new-mg4-ev"
+      }
+    ]
+  },
+  "mg-mg4-ev-xpower-2025": {
+    "market": "Europe",
+    "standard": "WLTP",
+    "summary": "MG\u2019s original European XPOWER specification uses a 64 kWh battery and a 385 km WLTP range. The former 249-mile figure was not a verified EPA rating.",
+    "decision": "XPOWER uses a dual-motor AWD configuration. Do not use the higher range of a rear-wheel-drive Long Range MG4 for this version; verify that the seller\u2019s model-year specification matches the reference.",
+    "charging": "Check charging specifications separately from motor power. The high output of the drive motors is not a DC charging rating.",
+    "variants": [
+      {
+        "name": "Original European MG4 XPOWER, 64 kWh AWD",
+        "rangeText": "385 km (239 mi) WLTP"
+      }
+    ],
+    "sources": [
+      {
+        "title": "MG Europe XPOWER launch specifications",
+        "url": "https://news.mgmotor.eu/nl/press/mg4-electric-xpower-betaalbare-performance-maximale-fun/"
+      }
+    ]
+  },
+  "vinfast-vf9-plus-extended-2025": {
+    "market": "United States",
+    "standard": "EPA",
+    "summary": "The 2025 US EPA VF 9 Plus entry is rated at 287 miles. Match the model year as well as the Plus trim; an older specification sheet or an Eco range figure does not describe this certification.",
+    "decision": "The catalog name includes Extended Range, while EPA names this configuration VF 9 Plus. Verify the 2025 model-year label on the actual vehicle. Check seating, battery documentation and warranty terms separately from the certified range.",
+    "charging": "The EPA 240V charging time is shown in the table for this configuration. Charging time depends on the onboard charger and available supply; this rating does not establish a DC fast-charging curve or usable battery capacity.",
+    "variants": [
+      {
+        "name": "VF 9 Plus",
+        "rangeMi": 287,
+        "consumption": 49.7751,
+        "chargeHours": 15.0,
+        "source": "https://www.fueleconomy.gov/feg/noframes/49088.shtml"
+      }
+    ],
+    "sources": [
+      {
+        "title": "EPA: 2025 Vinfast VF 9 Plus",
+        "url": "https://www.fueleconomy.gov/feg/noframes/49088.shtml"
+      }
+    ]
+  }
+}

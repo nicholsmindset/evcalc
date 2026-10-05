@@ -1,3 +1,5 @@
+import { VEHICLE_REVIEWS } from '@/lib/data/vehicle-reviews';
+import { ReviewedVehicleDetail } from '@/components/vehicles/ReviewedVehicleDetail';
 import { REVIEWED_VEHICLES } from '@/lib/data/reviewed-vehicles';
 import { Metadata } from 'next';
 import Link from 'next/link';
@@ -72,6 +74,8 @@ export async function generateMetadata({
 
   const name = `${vehicle.year} ${vehicle.make} ${vehicle.model}${vehicle.trim ? ` ${vehicle.trim}` : ''}`;
   const reference = REVIEWED_VEHICLES[slug];
+  const review = VEHICLE_REVIEWS[slug];
+  if (review) return genMeta({ title: `${name}: Range & Charging Guide`, description: review.summary, path: `/vehicles/${slug}` });
   const hasRange = name.toLowerCase().includes('range');
   return genMeta({
     title: reference ? `${name} AWD: ${reference.range}-Mile EPA Range & Charging` : `${name}${hasRange ? '' : ' Range'} — Specs & Charging`,
@@ -151,13 +155,14 @@ export default async function VehicleDetailPage({
   try {
     [vehicle, allVehicles] = await Promise.all([
       getVehicleBySlug(slug),
-      getVehicles(),
+      VEHICLE_REVIEWS[slug] ? Promise.resolve([]) : getVehicles(),
     ]);
   } catch {
     notFound();
   }
 
   if (!vehicle) notFound();
+  if (VEHICLE_REVIEWS[slug]) return <ReviewedVehicleDetail vehicle={vehicle} review={VEHICLE_REVIEWS[slug]} />;
 
   const name = `${vehicle.year} ${vehicle.make} ${vehicle.model}${vehicle.trim ? ` ${vehicle.trim}` : ''}`;
   const reference = REVIEWED_VEHICLES[slug];
@@ -310,6 +315,8 @@ export default async function VehicleDetailPage({
         <Link href="/calculator" className="font-semibold text-accent hover:underline">Estimate your range by temperature and speed →</Link>
         <span className="mx-3">·</span><Link href="/calculator#methodology" className="text-accent hover:underline">Read the calculation method</Link>
       </section>
+
+      {slug === 'tesla-model-y-long-range-2025' && <p className="mb-8"><Link href={`/vehicles/${slug}/lease-deals`} className="text-accent hover:underline">Compare written Model Y Long Range lease quotes →</Link></p>}
 
       {/* Full Specs Table */}
       <section className="mb-12">

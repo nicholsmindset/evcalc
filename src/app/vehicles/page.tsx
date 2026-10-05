@@ -1,3 +1,4 @@
+import { VEHICLE_REVIEWS } from '@/lib/data/vehicle-reviews';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import type { Vehicle } from '@/lib/supabase/types';
@@ -10,7 +11,7 @@ import { generateBreadcrumbSchema } from '@/lib/utils/seo';
 export const metadata: Metadata = genMeta({
   title: 'All Electric Vehicles — EV Range, Specs & Charging Data',
   description:
-    'Browse every electric vehicle with EPA range, battery specs, charging times, and real-world range data. Compare EVs side by side.',
+    'Browse electric vehicles and plug-in hybrids. Read configuration-specific range and charging guides with EPA and WLTP sources.',
   path: '/vehicles',
 });
 
@@ -73,7 +74,15 @@ export default async function VehiclesPage() {
               {make}
             </h2>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {makeVehicles.map((vehicle) => (
+              {makeVehicles.map((vehicle) => VEHICLE_REVIEWS[vehicle.slug] ? (
+                <Link key={vehicle.id} href={`/vehicles/${vehicle.slug}`} className="group rounded-xl border border-border bg-bg-secondary p-5 hover:border-accent/30">
+                  <h3 className="font-display font-semibold text-text-primary group-hover:text-accent">{vehicle.model} {vehicle.trim || ''}</h3>
+                  <p className="mt-1 text-xs text-text-tertiary">{vehicle.year} · {VEHICLE_REVIEWS[vehicle.slug].market}</p>
+                  <p className="mt-4 text-sm font-semibold text-accent">{VEHICLE_REVIEWS[vehicle.slug].standard} · {VEHICLE_REVIEWS[vehicle.slug].variants.length} configuration reference{VEHICLE_REVIEWS[vehicle.slug].variants.length > 1 ? 's' : ''}</p>
+                  <p className="mt-2 text-sm text-text-secondary">{VEHICLE_REVIEWS[vehicle.slug].summary}</p>
+                  <p className="mt-4 text-sm text-accent">Read range and charging guide →</p>
+                </Link>
+              ) : (
                 <Link
                   key={vehicle.id}
                   href={`/vehicles/${vehicle.slug}`}
