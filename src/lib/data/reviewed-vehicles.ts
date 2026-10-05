@@ -1,3 +1,4 @@
+import { applyVehicleReview } from './vehicle-review-inputs';
 import type { Vehicle } from '@/lib/supabase/types';
 
 // Source snapshots reviewed 2026-10-05. These are specific US EPA configurations,
@@ -9,7 +10,7 @@ export const REVIEWED_VEHICLES: Record<string, { epaId: string; range: number; c
 
 export function reviewedVehicle(vehicle: Vehicle): Vehicle {
   const reference = REVIEWED_VEHICLES[vehicle.slug];
-  if (!reference || vehicle.make !== 'Tesla' || vehicle.year !== 2025) return vehicle;
+  if (!reference || vehicle.make !== 'Tesla' || vehicle.year !== 2025) return applyVehicleReview(vehicle);
   return {
     ...vehicle,
     epa_range_mi: reference.range,

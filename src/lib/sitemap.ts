@@ -1,3 +1,5 @@
+import { VEHICLE_REVIEWS, VEHICLE_REVIEW_DATE } from '@/lib/data/vehicle-reviews';
+import { LEASE_PAGE_REVIEWS } from '@/lib/data/lease-page-reviews';
 import type { MetadataRoute } from 'next';
 import { getAllSlugs } from '@/lib/blog';
 import { getAllStateIncentiveSlugs } from '@/lib/supabase/queries/incentives';
@@ -181,8 +183,10 @@ export async function getSitemap(id: string): Promise<MetadataRoute.Sitemap> {
 
     case 'vehicles': {
       // Vehicle pages + Comparison pages
-      const vehiclePages: MetadataRoute.Sitemap = VEHICLE_SLUGS.map((slug) => ({
+      const reviewedSlugs = Array.from(new Set([...VEHICLE_SLUGS, ...Object.keys(VEHICLE_REVIEWS)]));
+      const vehiclePages: MetadataRoute.Sitemap = reviewedSlugs.map((slug) => ({
         url: `${SITE_URL}/vehicles/${slug}`,
+        ...(VEHICLE_REVIEWS[slug] ? { lastModified: VEHICLE_REVIEW_DATE } : {}),
         changeFrequency: 'monthly' as const,
         priority: 0.8,
       }));
@@ -198,6 +202,7 @@ export async function getSitemap(id: string): Promise<MetadataRoute.Sitemap> {
 
       const leaseDealsPages: MetadataRoute.Sitemap = VEHICLE_SLUGS.map((slug) => ({
         url: `${SITE_URL}/vehicles/${slug}/lease-deals`,
+        ...(LEASE_PAGE_REVIEWS[slug] ? { lastModified: VEHICLE_REVIEW_DATE } : {}),
         changeFrequency: 'weekly' as const,
         priority: 0.65,
       }));

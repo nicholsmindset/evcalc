@@ -1,6 +1,8 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import Link from 'next/link';
+import { hasReviewedRangeInput } from '@/lib/data/vehicle-review-inputs';
 import { reviewedVehicle } from '@/lib/data/reviewed-vehicles';
 import { Select } from '@/components/ui/Select';
 import { createClient } from '@/lib/supabase/client';
@@ -116,7 +118,7 @@ export function VehicleSelector({ onVehicleSelect, selectedVehicle }: VehicleSel
       .order('trim');
 
     if (data) {
-      const vehicles = (data as Vehicle[]).map(reviewedVehicle);
+      const vehicles = (data as Vehicle[]).map(reviewedVehicle).filter(hasReviewedRangeInput);
       setTrims(vehicles);
 
       // Auto-select if only one trim
@@ -188,6 +190,8 @@ export function VehicleSelector({ onVehicleSelect, selectedVehicle }: VehicleSel
         />
       </div>
 
+      {selectedYear && !loading && trims.length === 0 && <p className="mt-4 text-sm text-text-secondary">A verified EPA calculator input is not available for this selection. <Link href="/vehicles" className="text-accent hover:underline">Read the vehicle guide</Link> for market-specific ratings and configuration checks.</p>}
+
       {selectedVehicle && (
         <div className="mt-4 flex items-center gap-4 rounded-lg bg-accent/5 border border-accent/20 px-4 py-3">
           <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-accent/10">
@@ -200,7 +204,7 @@ export function VehicleSelector({ onVehicleSelect, selectedVehicle }: VehicleSel
               {selectedVehicle.make} {selectedVehicle.model} {selectedVehicle.trim || ''} {selectedVehicle.year}
             </p>
             <p className="text-xs text-text-secondary">
-              EPA Range: {selectedVehicle.epa_range_mi} mi &middot; {selectedVehicle.battery_kwh} kWh &middot; {selectedVehicle.drivetrain}
+              EPA reference: {selectedVehicle.epa_range_mi} mi &middot; Catalog battery estimate: {selectedVehicle.battery_kwh} kWh &middot; {selectedVehicle.drivetrain}
             </p>
           </div>
         </div>

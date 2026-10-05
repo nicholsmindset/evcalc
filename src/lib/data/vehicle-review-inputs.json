@@ -1,0 +1,149 @@
+{
+  "nissan-leaf-plus-2024": {
+    "epa_range_mi": 212,
+    "epa_range_km": 341,
+    "efficiency_kwh_per_100mi": 30.8,
+    "efficiency_wh_per_km": 191,
+    "charge_time_240v_hrs": 11.0,
+    "connector_type": "CHAdeMO (DC) / J1772 (AC)"
+  },
+  "kia-ev6-wind-rwd-long-range-2025": {
+    "epa_range_mi": 319,
+    "epa_range_km": 513,
+    "efficiency_kwh_per_100mi": 29.6,
+    "efficiency_wh_per_km": 184,
+    "charge_time_240v_hrs": 9.0
+  },
+  "chevrolet-silverado-ev-work-truck-2025": null,
+  "subaru-solterra-touring-2025": {
+    "epa_range_mi": 222,
+    "epa_range_km": 357,
+    "efficiency_kwh_per_100mi": 33.0,
+    "efficiency_wh_per_km": 205,
+    "charge_time_240v_hrs": 11.0
+  },
+  "subaru-solterra-limited-2025": {
+    "epa_range_mi": 222,
+    "epa_range_km": 357,
+    "efficiency_kwh_per_100mi": 33.0,
+    "efficiency_wh_per_km": 205,
+    "charge_time_240v_hrs": 11.0
+  },
+  "rivian-r1s-dual-motor-max-pack-2025": {
+    "epa_range_mi": 410,
+    "epa_range_km": 660,
+    "efficiency_kwh_per_100mi": 39.9,
+    "efficiency_wh_per_km": 248,
+    "charge_time_240v_hrs": 15.0
+  },
+  "kia-ev9-land-awd-2025": {
+    "epa_range_mi": 280,
+    "epa_range_km": 451,
+    "efficiency_kwh_per_100mi": 41.0,
+    "efficiency_wh_per_km": 255,
+    "charge_time_240v_hrs": 14.5
+  },
+  "audi-q4-e-tron-premium-2025": null,
+  "polestar-4-long-range-dual-motor-2025": {
+    "epa_range_mi": 272,
+    "epa_range_km": 438,
+    "efficiency_kwh_per_100mi": 41.0,
+    "efficiency_wh_per_km": 255,
+    "charge_time_240v_hrs": 11.0
+  },
+  "chevrolet-blazer-ev-lt-fwd-2025": {
+    "epa_range_mi": 312,
+    "epa_range_km": 502,
+    "efficiency_kwh_per_100mi": 32.3,
+    "efficiency_wh_per_km": 201,
+    "charge_time_240v_hrs": 9.5
+  },
+  "fiat-500e-2025": {
+    "epa_range_mi": 149,
+    "epa_range_km": 240,
+    "efficiency_kwh_per_100mi": 29.2,
+    "efficiency_wh_per_km": 181,
+    "charge_time_240v_hrs": 6.2
+  },
+  "mercedes-benz-eqe-350-4matic-2025": {
+    "epa_range_mi": 267,
+    "epa_range_km": 430,
+    "efficiency_kwh_per_100mi": 39.0,
+    "efficiency_wh_per_km": 242,
+    "charge_time_240v_hrs": 10.75
+  },
+  "mercedes-benz-eqe-350-plus-2025": {
+    "epa_range_mi": 308,
+    "epa_range_km": 496,
+    "efficiency_kwh_per_100mi": 36.0,
+    "efficiency_wh_per_km": 224,
+    "charge_time_240v_hrs": 11.5
+  },
+  "nissan-ariya-platinum-e-4orce-2025": {
+    "epa_range_mi": 267,
+    "epa_range_km": 430,
+    "efficiency_kwh_per_100mi": 37.4,
+    "efficiency_wh_per_km": 232,
+    "charge_time_240v_hrs": 14.0
+  },
+  "hyundai-ioniq-5-limited-awd-2025": {
+    "epa_range_mi": 269,
+    "epa_range_km": 433,
+    "efficiency_kwh_per_100mi": 34.5,
+    "efficiency_wh_per_km": 214,
+    "charge_time_240v_hrs": 8.2
+  },
+  "hyundai-ioniq-6-se-long-range-rwd-2025": {
+    "epa_range_mi": 342,
+    "epa_range_km": 550,
+    "efficiency_kwh_per_100mi": 26.0,
+    "efficiency_wh_per_km": 162,
+    "charge_time_240v_hrs": 7.5
+  },
+  "lucid-air-grand-touring-2025": {
+    "epa_range_mi": 512,
+    "epa_range_km": 824,
+    "efficiency_kwh_per_100mi": 26.4,
+    "efficiency_wh_per_km": 164,
+    "charge_time_240v_hrs": 13.0
+  },
+  "porsche-macan-electric-4-2025": {
+    "epa_range_mi": 308,
+    "epa_range_km": 496,
+    "efficiency_kwh_per_100mi": 34.5,
+    "efficiency_wh_per_km": 214,
+    "charge_time_240v_hrs": 11.5
+  },
+  "tesla-model-y-performance-2025": {
+    "epa_range_mi": 277,
+    "epa_range_km": 446,
+    "efficiency_kwh_per_100mi": 32.4,
+    "efficiency_wh_per_km": 201,
+    "charge_time_240v_hrs": 11.8
+  },
+  "volkswagen-id-buzz-pro-s-2025": {
+    "epa_range_mi": 234,
+    "epa_range_km": 377,
+    "efficiency_kwh_per_100mi": 40.8,
+    "efficiency_wh_per_km": 253,
+    "charge_time_240v_hrs": 9.0
+  },
+  "hyundai-ioniq-5-sel-long-range-2025": {
+    "epa_range_mi": 318,
+    "epa_range_km": 512,
+    "efficiency_kwh_per_100mi": 30.0,
+    "efficiency_wh_per_km": 186,
+    "charge_time_240v_hrs": 9.1
+  },
+  "land-rover-defender-110-phev-2025": null,
+  "jeep-recon-standard-range-2026": null,
+  "mercedes-benz-eqa-250-plus-2025": null,
+  "honda-eny1-2025": null,
+  "audi-q6-etron-performance-2025": null,
+  "audi-a6-etron-performance-2025": null,
+  "nio-et5-100kwh-2025": null,
+  "byd-tang-awd-2025": null,
+  "mg-mg4-ev-long-range-2025": null,
+  "mg-mg4-ev-xpower-2025": null,
+  "vinfast-vf9-plus-extended-2025": null
+}
