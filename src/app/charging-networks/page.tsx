@@ -1,348 +1,59 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import ChargingNetworksTool from './components/ChargingNetworksTool';
+import { FAQSection } from '@/components/seo/FAQSection';
+import { SchemaMarkup } from '@/components/seo/SchemaMarkup';
+import { generateBreadcrumbSchema } from '@/lib/utils/seo';
 
-// ─── Metadata ────────────────────────────────────────────────────────────────
 export const metadata: Metadata = {
-  title: 'EV Charging Network Comparison 2026 — Pricing, Coverage & Reliability',
-  description:
-    'Compare Tesla Supercharger, Electrify America, ChargePoint, EVgo, and more. Side-by-side pricing, reliability, app ratings, and EV connector compatibility.',
+  title: 'EV Charging Network Comparison — Prices, Plans & Compatibility',
+  description: 'Compare Tesla Supercharger, Electrify America, ChargePoint and EVgo. Check official station prices, compare membership costs, and verify vehicle compatibility.',
   alternates: { canonical: '/charging-networks' },
   openGraph: {
-    title: 'EV Charging Network Comparison 2026 — Pricing, Coverage & Reliability',
-    description:
-      'Compare Tesla Supercharger, Electrify America, ChargePoint, EVgo, and more. Side-by-side pricing, reliability, app ratings, and EV connector compatibility.',
-    url: '/charging-networks',
-    type: 'article',
+    title: 'EV Charging Network Comparison — Prices, Plans & Compatibility',
+    description: 'Compare your local charging prices and membership costs, with official network sources and compatibility checks.',
+    url: '/charging-networks', type: 'article',
   },
 };
 
-// ─── Static network data ─────────────────────────────────────────────────────
-interface Network {
-  name: string;
-  slug: string;
-  pricingL2: number | null;
-  pricingDcfc: number | null;
-  pricingPerMin: number | null;
-  pricingNotes: string;
-  membershipName: string | null;
-  membershipMonthly: number | null;
-  connectors: string[];
-  usStations: number;
-  usPorts: number;
-  reliability: number;
-  maxSpeedKw: number;
-  appIos: number | null;
-  appAndroid: number | null;
-  plugAndCharge: boolean;
-  url: string;
-}
-
-const NETWORKS: Network[] = [
-  {
-    name: 'Tesla Supercharger',
-    slug: 'tesla-supercharger',
-    pricingL2: null, pricingDcfc: 0.28, pricingPerMin: null,
-    pricingNotes: 'Tesla owners: $0.25–0.35/kWh. Non-Tesla: $0.35–0.50/kWh. Magic Dock (CCS) at select locations.',
-    membershipName: null, membershipMonthly: null,
-    connectors: ['NACS', 'CCS1 (Magic Dock)'],
-    usStations: 2200, usPorts: 26000,
-    reliability: 9.2, maxSpeedKw: 250,
-    appIos: 4.8, appAndroid: 4.6,
-    plugAndCharge: true,
-    url: 'https://www.tesla.com/supercharger',
-  },
-  {
-    name: 'Electrify America',
-    slug: 'electrify-america',
-    pricingL2: 0.48, pricingDcfc: 0.43, pricingPerMin: null,
-    pricingNotes: 'Pass+ members: $0.36/kWh. Free sessions included with some VW/Audi/Porsche EVs.',
-    membershipName: 'Pass+', membershipMonthly: 4.00,
-    connectors: ['CCS1', 'CHAdeMO', 'J1772'],
-    usStations: 900, usPorts: 4000,
-    reliability: 7.4, maxSpeedKw: 350,
-    appIos: 3.9, appAndroid: 3.7,
-    plugAndCharge: false,
-    url: 'https://www.electrifyamerica.com',
-  },
-  {
-    name: 'ChargePoint',
-    slug: 'chargepoint',
-    pricingL2: 0.30, pricingDcfc: 0.35, pricingPerMin: 0.10,
-    pricingNotes: 'Pricing set by station owner. Widest L2 network in North America.',
-    membershipName: 'ChargePoint+', membershipMonthly: 4.99,
-    connectors: ['J1772', 'CCS1', 'CHAdeMO'],
-    usStations: 38000, usPorts: 68000,
-    reliability: 7.8, maxSpeedKw: 62,
-    appIos: 4.4, appAndroid: 4.2,
-    plugAndCharge: false,
-    url: 'https://www.chargepoint.com',
-  },
-  {
-    name: 'EVgo',
-    slug: 'evgo',
-    pricingL2: 0.35, pricingDcfc: 0.36, pricingPerMin: null,
-    pricingNotes: 'EVgo Plus: $0.26/kWh. Largest public DCFC-only network in US. NACS adapters at select sites.',
-    membershipName: 'EVgo Plus', membershipMonthly: 7.99,
-    connectors: ['CCS1', 'CHAdeMO', 'NACS'],
-    usStations: 1000, usPorts: 3200,
-    reliability: 7.6, maxSpeedKw: 350,
-    appIos: 4.2, appAndroid: 4.0,
-    plugAndCharge: true,
-    url: 'https://www.evgo.com',
-  },
-  {
-    name: 'Blink',
-    slug: 'blink',
-    pricingL2: 0.39, pricingDcfc: 0.48, pricingPerMin: null,
-    pricingNotes: 'IQ 200 members: $0.20/kWh L2, $0.30/kWh DCFC. Non-member rates are high.',
-    membershipName: 'Blink Plus', membershipMonthly: 4.99,
-    connectors: ['J1772', 'CCS1', 'CHAdeMO'],
-    usStations: 6500, usPorts: 15000,
-    reliability: 6.2, maxSpeedKw: 80,
-    appIos: 3.5, appAndroid: 3.3,
-    plugAndCharge: false,
-    url: 'https://www.blinkcharging.com',
-  },
-  {
-    name: 'Volta',
-    slug: 'volta',
-    pricingL2: 0.00, pricingDcfc: null, pricingPerMin: null,
-    pricingNotes: 'Free L2 charging at retail/grocery locations (ad-supported). Limited locations.',
-    membershipName: null, membershipMonthly: null,
-    connectors: ['J1772'],
-    usStations: 3000, usPorts: 5000,
-    reliability: 6.8, maxSpeedKw: 25,
-    appIos: 3.8, appAndroid: 3.6,
-    plugAndCharge: false,
-    url: 'https://www.voltacharging.com',
-  },
-  {
-    name: 'FLO',
-    slug: 'flo',
-    pricingL2: 0.29, pricingDcfc: 0.39, pricingPerMin: null,
-    pricingNotes: 'FLO+ members: $0.18/kWh L2. Primarily northeastern US and Canada.',
-    membershipName: 'FLO+', membershipMonthly: 4.99,
-    connectors: ['J1772', 'CCS1'],
-    usStations: 100, usPorts: 400,
-    reliability: 7.5, maxSpeedKw: 62,
-    appIos: 4.1, appAndroid: 3.9,
-    plugAndCharge: false,
-    url: 'https://www.flo.com',
-  },
-  {
-    name: 'Rivian Adventure Network',
-    slug: 'rivian-adventure',
-    pricingL2: null, pricingDcfc: 0.32, pricingPerMin: null,
-    pricingNotes: 'Rivian R1T/R1S owners only. Key destination charging at national parks, trailheads.',
-    membershipName: 'Rivian Membership', membershipMonthly: null,
-    connectors: ['NACS'],
-    usStations: 100, usPorts: 600,
-    reliability: 8.8, maxSpeedKw: 200,
-    appIos: 4.5, appAndroid: 4.3,
-    plugAndCharge: true,
-    url: 'https://stories.rivian.com/adventure-network',
-  },
-  {
-    name: 'Shell Recharge',
-    slug: 'shell-recharge',
-    pricingL2: 0.30, pricingDcfc: 0.40, pricingPerMin: null,
-    pricingNotes: 'Shell Recharge membership available. Located at Shell gas stations.',
-    membershipName: 'Shell Recharge', membershipMonthly: 4.00,
-    connectors: ['J1772', 'CCS1', 'CHAdeMO'],
-    usStations: 400, usPorts: 1200,
-    reliability: 6.5, maxSpeedKw: 62,
-    appIos: 3.8, appAndroid: 3.7,
-    plugAndCharge: false,
-    url: 'https://shellrecharge.com/en-us',
-  },
+const NETWORKS = [
+  { name: 'Tesla Supercharger', href: 'https://www.tesla.com/support/charging/supercharging-other-evs', pricing: 'Enter your vehicle in the Tesla app and inspect the eligible station’s session price and membership terms.', compatibility: 'Tesla distinguishes Tesla-only, Magic Dock and NACS-access sites. Access depends on the vehicle and location; use manufacturer-provided adapters where required.' },
+  { name: 'Electrify America', href: 'https://www.electrifyamerica.com/pricing/', pricing: 'Prices depend on location, plan and energy delivered. Some stations use time-of-use rates. Check the app or charger screen for the session price and Pass+ terms.', compatibility: 'Check the selected station’s connector and equipment details before departure.' },
+  { name: 'ChargePoint', href: 'https://www.chargepoint.com/drivers/support/faqs/what-are-pricing-policies-and-fees-i-should-be-aware', pricing: 'Station owners set charging policies. Check the full fee schedule: prices may change with time spent charging or parking.', compatibility: 'Use the individual station listing to check connector, power and site access.' },
+  { name: 'EVgo', href: 'https://www.evgo.com/pricing/', pricing: 'Compare the plan options in the EVgo app. Include the monthly subscription and any session fees when evaluating a discount.', compatibility: 'Confirm the station connector and your vehicle’s supported activation method in the operator and vehicle apps.' },
+];
+const FAQS = [
+  { question: 'Which EV charging network is cheapest?', answer: 'Compare the stations you can actually use, at the time you expect to charge. Include energy charges, session fees, monthly membership, parking, taxes and idle fees. A network-wide price cannot determine the cheapest stop for every driver.' },
+  { question: 'Is a charging membership worth it?', answer: 'It depends on the energy and sessions you will use on that plan. Compare your monthly total with and without membership. In a hypothetical example, a $6 monthly fee with a $0.10/kWh discount breaks even at 60 kWh, assuming all other charges are equal.' },
+  { question: 'Can a non-Tesla EV use every Supercharger?', answer: 'No. Check Tesla’s current vehicle eligibility and station map. Connector shape alone does not confirm access. Some vehicles need an approved adapter, and some sites remain restricted.' },
+  { question: 'Does the comparison show live station prices?', answer: 'No. The calculator uses the values you enter. Its defaults are examples. Open the linked network source and check the selected station before charging.' },
 ];
 
-// ─── EV compatibility data ───────────────────────────────────────────────────
-type ConnectorType = 'NACS' | 'CCS1' | 'CHAdeMO' | 'J1772';
-interface EVCompat {
-  name: string;
-  native: ConnectorType;
-  canUseNacs: boolean;
-  canUseCcs: boolean;
-  canUseChademo: boolean;
-}
-
-const EV_COMPAT: EVCompat[] = [
-  { name: 'Tesla (all models)',     native: 'NACS',    canUseNacs: true,  canUseCcs: true,  canUseChademo: false },
-  { name: 'Ford (2023+)',           native: 'NACS',    canUseNacs: true,  canUseCcs: true,  canUseChademo: false },
-  { name: 'Rivian (2025+)',         native: 'NACS',    canUseNacs: true,  canUseCcs: true,  canUseChademo: false },
-  { name: 'GM / Chevy / GMC 2025+',native: 'NACS',    canUseNacs: true,  canUseCcs: true,  canUseChademo: false },
-  { name: 'Hyundai IONIQ 5/6 (2024+)', native: 'NACS', canUseNacs: true, canUseCcs: true,  canUseChademo: false },
-  { name: 'Kia EV6/EV9 (2024+)',   native: 'NACS',    canUseNacs: true,  canUseCcs: true,  canUseChademo: false },
-  { name: 'VW ID.4',               native: 'CCS1',    canUseNacs: false, canUseCcs: true,  canUseChademo: false },
-  { name: 'BMW i4 / iX',           native: 'CCS1',    canUseNacs: false, canUseCcs: true,  canUseChademo: false },
-  { name: 'Audi e-tron / Q8',      native: 'CCS1',    canUseNacs: false, canUseCcs: true,  canUseChademo: false },
-  { name: 'Nissan LEAF (40/62 kWh)',native: 'CHAdeMO', canUseNacs: false, canUseCcs: false, canUseChademo: true },
-  { name: 'Lucid Air',             native: 'CCS1',    canUseNacs: false, canUseCcs: true,  canUseChademo: false },
-  { name: 'Polestar 2',            native: 'CCS1',    canUseNacs: false, canUseCcs: true,  canUseChademo: false },
-];
-
-// ─── Helpers ─────────────────────────────────────────────────────────────────
-function reliabilityColor(r: number): string {
-  if (r >= 8.5) return 'text-green-400';
-  if (r >= 7.0) return 'text-yellow-400';
-  return 'text-red-400';
-}
-
-// ─── JSON-LD ─────────────────────────────────────────────────────────────────
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@graph': [
-    {
-      '@type': 'Article',
-      headline: 'EV Charging Network Comparison 2026 — Pricing, Coverage & Reliability',
-      url: 'https://www.evrangetools.com/charging-networks',
-      author: { '@type': 'Organization', name: 'EV Range Tools' },
-    },
-    {
-      '@type': 'BreadcrumbList',
-      itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.evrangetools.com' },
-        { '@type': 'ListItem', position: 2, name: 'Charging Networks', item: 'https://www.evrangetools.com/charging-networks' },
-      ],
-    },
-  ],
-};
-
-// ─── Page (Server Component) ─────────────────────────────────────────────────
 export default function ChargingNetworksPage() {
-  return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
-        <nav className="mb-4 flex gap-2 text-xs text-text-tertiary">
-          <Link href="/" className="hover:text-text-secondary">Home</Link>
-          <span>/</span>
-          <span className="text-text-primary">Charging Networks</span>
-        </nav>
-
-        <div className="mb-8">
-          <h1 className="font-display text-3xl font-bold tracking-tight text-text-primary sm:text-4xl">
-            EV Charging Network Comparison
-          </h1>
-          <p className="mt-3 text-text-secondary">
-            Side-by-side pricing, coverage, reliability, and app ratings for every major US public charging network —
-            plus a cost-to-charge calculator and connector compatibility guide.
-          </p>
-        </div>
-
-        {/* ─── Interactive cost-to-charge calculator (client component) ──── */}
-        <ChargingNetworksTool />
-
-        {/* ─── Full comparison table (static, server-rendered) ─────────── */}
-        <h2 className="mb-4 font-display text-lg font-bold text-text-primary">Full Network Comparison</h2>
-        <div className="overflow-x-auto rounded-lg border border-border">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b border-border bg-bg-tertiary text-xs text-text-secondary">
-                <th className="px-4 py-3 text-left">Network</th>
-                <th className="px-4 py-3 text-right">L2 $/kWh</th>
-                <th className="px-4 py-3 text-right">DCFC $/kWh</th>
-                <th className="px-4 py-3 text-right">US Stations</th>
-                <th className="px-4 py-3 text-right">US Ports</th>
-                <th className="px-4 py-3 text-center">Reliability</th>
-                <th className="px-4 py-3 text-right">Max kW</th>
-                <th className="px-4 py-3 text-center">App (iOS)</th>
-                <th className="px-4 py-3 text-center">Connectors</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-border">
-              {NETWORKS.map(n => (
-                <tr key={n.slug} className="hover:bg-bg-secondary/50">
-                  <td className="px-4 py-3">
-                    <a href={n.url} target="_blank" rel="noopener noreferrer"
-                      className="font-semibold text-text-primary hover:text-accent">{n.name}</a>
-                    {n.membershipName && (
-                      <div className="text-xs text-text-tertiary">
-                        {n.membershipName}{n.membershipMonthly !== null ? ` $${n.membershipMonthly}/mo` : ' (free)'}
-                      </div>
-                    )}
-                  </td>
-                  <td className="px-4 py-3 text-right font-mono text-text-secondary">
-                    {n.pricingL2 !== null ? (n.pricingL2 === 0 ? <span className="text-green-400">FREE</span> : `$${n.pricingL2.toFixed(2)}`) : '\u2014'}
-                  </td>
-                  <td className="px-4 py-3 text-right font-mono text-text-secondary">
-                    {n.pricingDcfc !== null ? `$${n.pricingDcfc.toFixed(2)}` : '\u2014'}
-                  </td>
-                  <td className="px-4 py-3 text-right font-mono">{n.usStations.toLocaleString()}</td>
-                  <td className="px-4 py-3 text-right font-mono text-text-secondary">{n.usPorts.toLocaleString()}</td>
-                  <td className="px-4 py-3 text-center">
-                    <span className={`font-mono font-bold ${reliabilityColor(n.reliability)}`}>{n.reliability}/10</span>
-                  </td>
-                  <td className="px-4 py-3 text-right font-mono text-text-secondary">{n.maxSpeedKw}</td>
-                  <td className="px-4 py-3 text-center font-mono text-text-secondary">
-                    {n.appIos !== null ? `${n.appIos}\u2605` : '\u2014'}
-                  </td>
-                  <td className="px-4 py-3">
-                    <div className="flex flex-wrap gap-1">
-                      {n.connectors.map(c => (
-                        <span key={c} className="rounded bg-bg-tertiary px-1.5 py-0.5 text-xs text-text-secondary">{c}</span>
-                      ))}
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <p className="mt-2 text-xs text-text-tertiary">
-          Pricing as of 2026. Reliability scores based on PlugShare user reports and network uptime data. App ratings from App Store/Google Play.
-        </p>
-
-        {/* ─── Compatibility matrix (static, server-rendered) ──────────── */}
-        <div className="mt-10">
-          <h2 className="mb-4 font-display text-lg font-bold text-text-primary">
-            EV Connector Compatibility Guide
-          </h2>
-          <div className="overflow-x-auto rounded-lg border border-border">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-border bg-bg-tertiary text-xs text-text-secondary">
-                  <th className="px-4 py-3 text-left">Vehicle</th>
-                  <th className="px-4 py-3 text-center">Native Port</th>
-                  <th className="px-4 py-3 text-center">Tesla / NACS</th>
-                  <th className="px-4 py-3 text-center">CCS1 (EA, EVgo, Blink)</th>
-                  <th className="px-4 py-3 text-center">CHAdeMO</th>
-                  <th className="px-4 py-3 text-center">J1772 (L2)</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-border">
-                {EV_COMPAT.map(ev => (
-                  <tr key={ev.name} className="hover:bg-bg-secondary/50">
-                    <td className="px-4 py-3 font-medium text-text-primary">{ev.name}</td>
-                    <td className="px-4 py-3 text-center">
-                      <span className="rounded bg-accent/10 px-2 py-0.5 text-xs font-medium text-accent">{ev.native}</span>
-                    </td>
-                    <td className="px-4 py-3 text-center">{ev.canUseNacs ? '\u2705' : '\u274C'}</td>
-                    <td className="px-4 py-3 text-center">{ev.canUseCcs ? '\u2705' : '\u274C'}</td>
-                    <td className="px-4 py-3 text-center">{ev.canUseChademo ? '\u2705' : '\u274C'}</td>
-                    <td className="px-4 py-3 text-center">{'\u2705'}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <p className="mt-2 text-xs text-text-tertiary">
-            All EVs can use J1772 L2 stations natively or via included adapter. NACS-native vehicles use a CCS1 adapter (often included or available from manufacturer) at CCS-only DCFC stations.
-          </p>
-        </div>
-
-        <section className="mt-12 border-t border-border pt-8">
-          <h2 className="mb-3 font-display text-lg font-bold text-text-primary">Related Tools</h2>
-          <div className="flex flex-wrap gap-3">
-            <Link href="/charging-cost-calculator" className="text-sm text-accent hover:underline">Charging Cost Calculator</Link>
-            <Link href="/charging-schedule" className="text-sm text-accent hover:underline">Optimal Charging Schedule</Link>
-            <Link href="/apartment-ev-charging" className="text-sm text-accent hover:underline">Apartment EV Charging Guide</Link>
-            <Link href="/find-my-ev" className="text-sm text-accent hover:underline">Find My EV</Link>
-          </div>
-        </section>
-      </div>
-    </>
-  );
+  return <div className="mx-auto max-w-5xl px-4 py-8 sm:px-6 lg:px-8">
+    <SchemaMarkup schema={generateBreadcrumbSchema([{ name: 'Home', href: '/' }, { name: 'Charging Networks', href: '/charging-networks' }])} />
+    <nav className="mb-4 text-sm text-text-secondary"><Link href="/" className="text-accent hover:underline">Home</Link> / Charging Networks</nav>
+    <h1 className="text-3xl font-display font-bold text-text-primary sm:text-4xl">EV Charging Network Comparison</h1>
+    <p className="mt-3 max-w-3xl text-text-secondary">Compare the total cost and compatibility of public charging options for your route. Start with the station price in the operator’s app, then use the calculator to compare a second network or membership plan.</p>
+    <p className="mt-3 text-sm text-text-tertiary">US guide · Official source guidance reviewed October 5, 2026.</p>
+    <ChargingNetworksTool />
+    <section className="my-10">
+      <h2 className="mb-4 text-2xl font-display font-bold text-text-primary">Where to check prices and access</h2>
+      <div className="overflow-x-auto rounded-xl border border-border"><table className="w-full text-sm text-text-secondary"><thead className="bg-bg-secondary"><tr><th className="p-4 text-left">Network and official source</th><th className="p-4 text-left">Price and plan checks</th><th className="p-4 text-left">Vehicle and station checks</th></tr></thead><tbody>
+        {NETWORKS.map(network => <tr key={network.name} className="border-t border-border"><th className="p-4 text-left align-top"><a href={network.href} className="text-accent hover:underline">{network.name}</a></th><td className="p-4 align-top">{network.pricing}</td><td className="p-4 align-top">{network.compatibility}</td></tr>)}
+      </tbody></table></div>
+    </section>
+    <section className="my-10 space-y-4 text-text-secondary">
+      <h2 className="text-2xl font-display font-bold text-text-primary">Worked example: when a membership pays off</h2>
+      <p>Suppose the same station offers $0.50/kWh without a subscription or $0.40/kWh with a $6 monthly fee. Four 50-kWh sessions cost $100 without membership and $86 with it. One session costs $25 versus $26 including that month’s fee. These are illustrative prices.</p>
+      <p>With equal session fees, divide the extra monthly fee by the energy-price saving to find the break-even volume: $6 ÷ $0.10/kWh = 60 kWh per month. If the discounted rate is equal to or higher than the alternative, an added membership fee does not produce energy-cost savings.</p>
+      <h2 className="pt-4 text-2xl font-display font-bold text-text-primary">Check compatibility before comparing cost</h2>
+      <ol className="list-decimal space-y-2 pl-6"><li>Identify your exact model year, charge port and AC/DC charging capability from the vehicle manual.</li><li>Confirm that the chosen site supports your vehicle. Check adapter approval and network access separately.</li><li>Check cable reach, opening hours, parking rules and the payment or activation method.</li><li>Review current station status and recent driver reports, then choose a backup stop on your route.</li></ol>
+      <p>A charger’s advertised peak kW does not predict your whole session. Vehicle limits, battery temperature, state of charge and power sharing affect charging speed.</p>
+      <h2 className="pt-4 text-2xl font-display font-bold text-text-primary">How to compare reliability</h2>
+      <p>Review the specific station and recent sessions. A useful network-wide reliability comparison needs a stated sample, measurement period and definition, such as successful charging attempts. This guide does not assign numerical reliability ratings or treat station counts as a measure of successful charging.</p>
+      <p>For coverage, use the <Link href="/charging-stations" className="text-accent hover:underline">charging station finder</Link> and confirm your stops in the operator’s app. For home-versus-public costs, use the <Link href="/charging-cost-calculator" className="text-accent hover:underline">charging cost calculator</Link>.</p>
+    </section>
+    <FAQSection faqs={FAQS} />
+  </div>;
 }
