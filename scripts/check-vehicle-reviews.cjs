@@ -48,7 +48,7 @@ assert.equal(inputs['audi-q4-e-tron-premium-2025'], null);
 assert.match(inputs['nissan-leaf-plus-2024'].connector_type, /CHAdeMO/);
 assert.equal(inputs['hyundai-ioniq-5-limited-awd-2025'].epa_range_mi, 269);
 assert.equal(inputs['hyundai-ioniq-6-se-long-range-rwd-2025'].epa_range_mi, 342);
-assert.equal(reviews['vinfast-vf9-plus-extended-2025'].variants[0].rangeMi, 291);
+assert.equal(reviews['vinfast-vf9-plus-extended-2025'].variants[0].rangeMi, 287);
 const snapshot = require('../docs/data/epa-vehicle-reference-2026-10-05.json');
 const records = Object.fromEntries(snapshot.records.map(r => [r.id, r]));
 for (const review of Object.values(reviews)) for (const variant of review.variants) {

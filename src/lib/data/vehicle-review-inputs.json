@@ -145,5 +145,11 @@
   "byd-tang-awd-2025": null,
   "mg-mg4-ev-long-range-2025": null,
   "mg-mg4-ev-xpower-2025": null,
-  "vinfast-vf9-plus-extended-2025": null
+  "vinfast-vf9-plus-extended-2025": {
+    "epa_range_mi": 287,
+    "epa_range_km": 462,
+    "efficiency_kwh_per_100mi": 49.8,
+    "efficiency_wh_per_km": 309,
+    "charge_time_240v_hrs": 15.0
+  }
 }

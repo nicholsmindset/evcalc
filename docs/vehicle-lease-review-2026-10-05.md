@@ -7,8 +7,8 @@ All 29 vehicle guides and five lease pages in the GSC action queue are covered. 
 ## Data policy
 
 - EPA values were read from the official FuelEconomy.gov CSV download. The included source snapshot identifies the exact configuration, certification ID, energy use and 240V charging time.
-- 19 exact configuration references update shared application inputs; this includes 16 priority vehicle pages and three supporting vehicle pages. The underlying Supabase rows are unchanged.
-- 13 reviewed configurations are ambiguous, international or not fully model-year matched. Their detail pages show sourced alternatives and limitations, without publishing unsupported catalog figures. They are excluded from the EPA calculator selector; the vehicle catalog links to their guides.
+- 20 exact configuration references update shared application inputs; this includes 17 priority vehicle pages and three supporting vehicle pages. The underlying Supabase rows are unchanged.
+- 12 reviewed configurations are ambiguous, international or not fully model-year matched. Their detail pages show sourced alternatives and limitations, without publishing unsupported catalog figures. They are excluded from the EPA calculator selector; the vehicle catalog links to their guides.
 - Remaining direct database consumers and unreviewed catalog pages are outside this pass. This is not a claim that every specification sitewide has been verified.
 - US EPA and European WLTP references are explicitly separated. No fixed conversion between test cycles is used.
 - The Leaf DC connector is corrected from CCS to CHAdeMO. Unverified pack sizes and historical prices are omitted from the new guide templates.
@@ -48,7 +48,7 @@ All 29 vehicle guides and five lease pages in the GSC action queue are covered. 
 | byd-tang-awd-2025 | WLTP / Europe | No exact EPA input; see configuration guidance |
 | mg-mg4-ev-long-range-2025 | WLTP / United Kingdom | No exact EPA input; see configuration guidance |
 | mg-mg4-ev-xpower-2025 | WLTP / Europe | No exact EPA input; see configuration guidance |
-| vinfast-vf9-plus-extended-2025 | Manufacturer-published EPA / United States | No exact EPA input; see configuration guidance |
+| vinfast-vf9-plus-extended-2025 | EPA / United States | 330 → 287 miles |
 
 ## Lease pages
 
@@ -67,3 +67,5 @@ The vehicle sitemap now includes all reviewed guide slugs, including ones missin
 - All 37 rendered pages (29 priority vehicles, three supporting vehicles and five leases) passed HTTP 200, self-canonical, single H1, indexability, updated-content and source/offer-schema checks.
 - Browser: verified Polestar quote A at $21,150 total / $587.50 effective monthly, first-payment toggle at $21,550 / $598.61, and unequal 24-month quote B at $10,800 / $450 with the term warning.
 - Sitemap source test passed: 90 URLs, no duplicates, all 32 reviewed guides and five leases dated 2026-10-05. The earlier local build snapshot preceded the sitemap edit; final production XML is checked after deployment.
+
+Final source cross-check: Vinfast uses different capitalization in the EPA dataset. The exact 2025 VF 9 Plus record (49088, 287 miles) supersedes the older 2024 manufacturer sheet. Shared inputs and the guide use this 2025 certification.

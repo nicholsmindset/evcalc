@@ -831,24 +831,23 @@
   },
   "vinfast-vf9-plus-extended-2025": {
     "market": "United States",
-    "standard": "Manufacturer-published EPA",
-    "summary": "VinFast\u2019s US specification separates VF9 Eco at 330 miles from Plus at 291 miles. The Plus page previously borrowed the Eco figure.",
-    "decision": "The cited specification sheet is dated 2024 and supports the trim distinction, not a separately verified 2025 certification. Confirm the model-year label and seating configuration on the car before relying on the figure.",
-    "charging": "Ask for the correct owner documentation and battery specification for the delivered car. Do not infer charging performance from the Eco trim\u2019s range.",
+    "standard": "EPA",
+    "summary": "The 2025 US EPA VF 9 Plus entry is rated at 287 miles. Match the model year as well as the Plus trim; an older specification sheet or an Eco range figure does not describe this certification.",
+    "decision": "The catalog name includes Extended Range, while EPA names this configuration VF 9 Plus. Verify the 2025 model-year label on the actual vehicle. Check seating, battery documentation and warranty terms separately from the certified range.",
+    "charging": "EPA lists a 240V charge time of 12 hours for this configuration. Charging time depends on the onboard charger and available supply; this rating does not establish a DC fast-charging curve or usable battery capacity.",
     "variants": [
       {
-        "name": "VF9 Plus \u2014 manufacturer reference, model year to confirm",
-        "rangeMi": 291
-      },
-      {
-        "name": "VF9 Eco \u2014 comparison only",
-        "rangeMi": 330
+        "name": "VF 9 Plus",
+        "rangeMi": 287,
+        "consumption": 49.7751,
+        "chargeHours": 15.0,
+        "source": "https://www.fueleconomy.gov/feg/noframes/49088.shtml"
       }
     ],
     "sources": [
       {
-        "title": "VinFast US VF9 specification sheet, July 2024",
-        "url": "https://static-cms-prod.vinfastauto.us/cms-vinfast-us/Specs/20240701-VF9-Spec.pdf"
+        "title": "EPA: 2025 Vinfast VF 9 Plus",
+        "url": "https://www.fueleconomy.gov/feg/noframes/49088.shtml"
       }
     ]
   }

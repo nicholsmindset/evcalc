@@ -362,6 +362,16 @@
       "combE": "47.562",
       "charge240": "9.4",
       "drive": "All-Wheel Drive"
+    },
+    {
+      "id": "49088",
+      "year": "2025",
+      "make": "Vinfast",
+      "model": "VF 9 Plus",
+      "range": "287",
+      "combE": "49.7751",
+      "charge240": "15.0",
+      "drive": "All-Wheel Drive"
     }
   ]
 }
