@@ -1,3 +1,4 @@
+import { normalizeIncentives } from '@/lib/data/incentive-status';
 import { createClient } from '@/lib/supabase/server';
 import { createStaticClient } from '@/lib/supabase/static';
 
@@ -36,7 +37,7 @@ export async function getStateIncentivesBySlug(slug: string): Promise<StateIncen
     console.error('[incentives] getStateIncentivesBySlug error:', error.message);
     return [];
   }
-  return (data ?? []) as StateIncentive[];
+  return normalizeIncentives((data ?? []) as StateIncentive[]);
 }
 
 /** Get all unique state slugs for generateStaticParams */
@@ -88,17 +89,15 @@ export async function getAllStateIncentiveSummaries(): Promise<
 
   const { data, error } = await supabase
     .from('state_incentives')
-    .select('state_name, state_code, slug, amount_usd')
-    .eq('funding_status', 'active')
+    .select('*')
     .order('state_name');
 
   if (error || !data) return [];
 
-  type SummaryRow = { state_name: string; state_code: string; slug: string; amount_usd: number | null };
-  const rows = data as unknown as SummaryRow[];
+  const rows = normalizeIncentives(data as StateIncentive[]);
 
   // Group by state
-  const byState = new Map<string, { state_name: string; state_code: string; slug: string; amounts: number[] }>();
+  const byState = new Map<string, { state_name: string; state_code: string; slug: string; amounts: number[]; count: number }>();
   for (const row of rows) {
     if (!byState.has(row.state_code)) {
       byState.set(row.state_code, {
@@ -106,8 +105,11 @@ export async function getAllStateIncentiveSummaries(): Promise<
         state_code: row.state_code,
         slug: row.slug,
         amounts: [],
+        count: 0,
       });
     }
+    if (row.funding_status !== 'active') continue;
+    byState.get(row.state_code)!.count++;
     if (row.amount_usd) {
       byState.get(row.state_code)!.amounts.push(row.amount_usd);
     }
@@ -118,6 +120,6 @@ export async function getAllStateIncentiveSummaries(): Promise<
     state_code: s.state_code,
     slug: s.slug,
     max_amount: s.amounts.length > 0 ? Math.max(...s.amounts) : null,
-    incentive_count: s.amounts.length,
+    incentive_count: s.count,
   }));
 }
