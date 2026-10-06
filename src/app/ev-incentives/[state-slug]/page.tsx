@@ -88,6 +88,7 @@ function IncentiveCard({ incentive }: { incentive: StateIncentive }) {
 
       <h3 className="mb-2 font-display font-semibold text-text-primary">{incentive.incentive_name}</h3>
       <p className="text-sm leading-relaxed text-text-secondary">{incentive.description}</p>
+      <p className="mt-2 text-xs text-text-tertiary">Record verification date: {incentive.last_verified}. Confirm current eligibility and funding with the administrator.</p>
 
       <div className="mt-3 space-y-1.5 text-xs">
         {incentive.eligibility_requirements && (

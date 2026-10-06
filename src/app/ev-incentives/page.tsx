@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { getAllStateIncentiveSummaries } from '@/lib/supabase/queries/incentives';
 import { RelatedTools } from '@/components/ui/RelatedTools';
 
-export const revalidate = 2592000; // 30 days
+export const revalidate = 86400; // Refresh program listings daily
 
 export const metadata: Metadata = {
   title: 'State EV Incentives & Rebates 2026 | All 50 States',
@@ -77,10 +77,6 @@ export default async function EVIncentivesIndexPage() {
   let states = await getAllStateIncentiveSummaries();
   if (states.length === 0) states = FALLBACK_STATES;
 
-  const TOP_STATES = states
-    .filter((s) => s.max_amount && s.max_amount >= 2000)
-    .sort((a, b) => (b.max_amount ?? 0) - (a.max_amount ?? 0))
-    .slice(0, 6);
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
@@ -128,36 +124,11 @@ export default async function EVIncentivesIndexPage() {
         </div>
       </div>
 
-      {/* Top states */}
-      {TOP_STATES.length > 0 && (
-        <section className="mb-10">
-          <h2 className="mb-4 font-display text-xl font-bold text-text-primary">Explore State EV Programs</h2>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {TOP_STATES.map((state) => (
-              <Link
-                key={state.slug}
-                href={`/ev-incentives/${state.slug}`}
-                className="group rounded-xl border border-border bg-bg-secondary p-5 transition-all hover:border-accent/30 hover:shadow-lg hover:shadow-accent/5"
-              >
-                <div className="flex items-start justify-between">
-                  <div>
-                    <div className="font-display font-semibold text-text-primary group-hover:text-accent transition-colors">
-                      {state.state_name}
-                    </div>
-                    <div className="mt-0.5 text-xs text-text-tertiary">{state.incentive_count} program{state.incentive_count !== 1 ? 's' : ''}</div>
-                  </div>
-                  <div className="text-right">
-                    <div className="font-display text-xl font-bold text-green-400">
-                      {state.max_amount ? `$${state.max_amount.toLocaleString()}` : 'Varies'}
-                    </div>
-                    <div className="text-xs text-text-tertiary">listed amount; verify terms</div>
-                  </div>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </section>
-      )}
+      <section className="mb-10">
+        <h2 className="mb-4 text-xl font-semibold text-text-primary">Recently reviewed state guides</h2>
+        <p className="mb-4 text-sm text-text-secondary">These guides were checked against official sources on October 6, 2026. Other listings still need a fresh program review; use their administrator links before budgeting a rebate.</p>
+        <div className="grid gap-4 sm:grid-cols-3">{['Alabama', 'Delaware', 'Mississippi'].map(name => <Link key={name} href={`/ev-incentives/${name.toLowerCase()}`} className="rounded-xl border border-border bg-bg-secondary p-5 text-accent hover:border-accent">{name}: read eligibility and sources →</Link>)}</div>
+      </section>
 
       {/* All states A-Z */}
       <section>
@@ -173,7 +144,7 @@ export default async function EVIncentivesIndexPage() {
                 {state.state_name}
               </span>
               <span className="text-xs font-semibold text-accent">
-                {state.max_amount ? `$${state.max_amount.toLocaleString()}` : '→'}
+                →
               </span>
             </Link>
           ))}
